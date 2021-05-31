@@ -7,7 +7,7 @@ Welcome to [QW's Blog](https://qw-null.github.io/)!  &nbsp; This is my  first bl
 > 需要前期配置好git、npm（请自行百度 or B站）
 
 ### 1.Hexo 使用
-![hexo_website](How-to-build-Blog/1.hexo_website.png)
+<img src="https://i.loli.net/2021/05/31/OokDG1q3fPCRmQM.png" style="zoom:80%;" />
 
 #### 1.1下载
 
@@ -21,7 +21,7 @@ npm install hexo-cli -g
 hexo init [自己的博客文件夹名称]
 ```
 
-![initBlog](How-to-build-Blog/2.initBlog.png)
+<img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/2.initBlog.png" alt="initBlog" style="zoom:80%;" />
 
 > Tips: 【示例】 hexo init myBlog
 
@@ -31,7 +31,7 @@ npm install
 hexo server
 ```
 博客可在本地查看【地址：http://localhost:4000】
-<img src="How-to-build-Blog/3.starthexo.png" alt="hexo本地运行图片" style="zoom:70%;" />
+<img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/3.starthexo.png" style="zoom:80%;" />
 
 ### Generate static files
 
