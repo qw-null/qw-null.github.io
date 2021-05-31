@@ -7,7 +7,7 @@ Welcome to [QW's Blog](https://qw-null.github.io/)!  &nbsp; This is my  first bl
 > 需要前期配置好git、npm（请自行百度 or B站）
 
 ### 1.Hexo 使用
-<img src="How-to-build-Blog\1.hexo_website.png" alt="1.hexo_website" style="zoom:80%;" />
+<img src="How-to-build-Blog/1.hexo_website.png" alt="1.hexo_website" style="zoom:80%;" />
 
 #### 1.1下载
 
