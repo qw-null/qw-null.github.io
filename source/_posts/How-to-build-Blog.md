@@ -31,7 +31,7 @@ npm install
 hexo server
 ```
 博客可在本地查看【地址：http://localhost:4000】
-<img src="photo/20210531/3.starthexo.png" alt="hexo本地运行图片" style="zoom:70%;" />
+<img src="How-to-build-Blog/3.starthexo.png" alt="hexo本地运行图片" style="zoom:70%;" />
 
 ### Generate static files
 
