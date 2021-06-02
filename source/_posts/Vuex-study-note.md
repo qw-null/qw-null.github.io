@@ -1,6 +1,11 @@
 ---
 title: Vuex 学习笔记
 date: 2021-06-01
+categories:
+- Vue学习
+tags: 
+- vue
+- vuex
 ---
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/clipboard.png)
