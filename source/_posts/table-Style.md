@@ -1,5 +1,5 @@
 ---
-title: <table>样式
+title: <table>样式模板
 date: 2021-06-06 20:09:38
 categories:
 - CSS样式
@@ -10,7 +10,6 @@ tags:
 
 你必须非常努力 ，才能显得毫不费劲
 
-## <table>样式模板
 ### 一、样式 1
 <img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210606203427.png" style="zoom:175%;" />
 ##### 1.1源代码：

@@ -8,7 +8,6 @@ tags:
 - CSS
 ---
 
-## table中图片展示
 <img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210606213709.png" style="zoom:175%;" />
 
 ```html
