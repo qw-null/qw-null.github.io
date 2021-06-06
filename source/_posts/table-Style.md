@@ -1,5 +1,5 @@
 ---
-title: table-Style
+title: <table>样式
 date: 2021-06-06 20:09:38
 categories:
 - CSS样式
@@ -11,9 +11,10 @@ tags:
 你必须非常努力 ，才能显得毫不费劲
 
 ## <table>样式模板
-### 一、样式1
+### 一、样式 1
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210606203427.png)
 ##### 1.1源代码：
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -119,6 +120,9 @@ tags:
 
 </html>
 ```
+
+
+
 ##### 1.2知识点：
 （1）CSS3 :nth-child() 选择器
 :nth-child(n) 选择器匹配属于其父元素的第 N 个子元素，不论元素的类型。n 可以是数字、关键词或公式。
@@ -213,3 +217,4 @@ background: yellow;
 </html>
 ```
 
+。。。。。。未完待续
