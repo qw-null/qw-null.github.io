@@ -8,6 +8,8 @@ tags:
 - CSS
 ---
 
+在人海里相遇的人终究要还给人海。
+
 <img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210606213709.png" style="zoom:175%;" />
 
 ```html
@@ -77,6 +79,7 @@ tags:
 </body>
 <script type="text/javascript">
   function handler() {
+    // console.log('mousewheel信息', event);
     var detail = event.wheelDelta || event.detail;
     var item = event.currentTarget;
     var moveForwardStep = 1;
