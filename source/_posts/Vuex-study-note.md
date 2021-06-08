@@ -1,6 +1,4 @@
 ---
-
-
 title: Vuex 学习笔记
 date: 2021-06-01
 categories:
@@ -18,7 +16,8 @@ tags:
   
   > $emit  发送数据的那个组件
   > $on  接收数据的那个组件
-  > 以上方式适用于小范围数据共享
+
+== 以上方式适用于小范围数据共享 == 
 
 *详情请见：【后续补充】*
 
@@ -59,6 +58,7 @@ Vuex中的核心概念
 + Mutation
 + Action
 + Getter
+
 ##### 1.4.1 State
 提供唯一的公共数据源，所有共享的数据都要统一放在Store的State中进行存储
 ```javascript
@@ -70,7 +70,10 @@ const store = new Vuex.Store({
 
 ```
 + 组件访问state中数据的第一种方式：  
-> this.$store.state.全局数据名称
+```javascript
+this.$store.state.全局数据名称
+```
+
 + 组件访问state中数据的第二种方式：
  ```javascript
 // 1.从Vuex中按需导入mapState函数
@@ -200,7 +203,7 @@ methods:{
 Getter用于对Store中的数据进行加工处理形成新的数据.（*Getter不会修改State中的数据，只起到包装的作用*）
 
 特点：
-> 1.Getter可以对Store中已有的数据加工处理之后形成新的数据，类似Vue的计>算属性
+> 1.Getter可以对Store中已有的数据加工处理之后形成新的数据，类似Vue的计算属性
 >
 >2.Store中的数据发生改变，Getter的数据也会跟着变化
 
@@ -222,6 +225,7 @@ const store = new Vuex.Store({
 
 ```javascript
 this.$store.getters.名称
+//例如：this.$store.getters.showNum (this.可以省略)
 ```
 
 + 使用getters的第二种方法
@@ -232,5 +236,7 @@ computed: {
 	...mapGetter(['showNum'])
 }
 ```
+
+## 2.Vuex小Demo
 
 未完待续。。。。。。
