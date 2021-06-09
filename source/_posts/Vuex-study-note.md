@@ -137,7 +137,6 @@ methods:{
 >  }
 >})
 >```
->
 >```javascript
 >methods:{
 >      handle(){
