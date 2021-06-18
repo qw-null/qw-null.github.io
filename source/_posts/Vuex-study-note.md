@@ -236,5 +236,11 @@ computed: {
 ```
 
 ## 2.Vuex小Demo
+Demo效果图：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210618145323.png)
 
-未完待续。。。。。。
+Demo业务流程图：
+<img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/todolist.png"  />
+
+Demo地址：
+[VuexToDoListDemo](https://github.com/qw-null/VuexToDoListDemo)
