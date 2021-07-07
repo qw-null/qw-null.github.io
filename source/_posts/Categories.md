@@ -14,6 +14,7 @@ categories:
 > CSS样式
 > GitHub使用
 > 逻辑面试题
+> axios
 
 
 ### 2.Tags
@@ -25,3 +26,5 @@ categories:
 > HTML
 > GitHub
 > 逻辑思维
+> axios
+> Promise
