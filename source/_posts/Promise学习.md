@@ -48,7 +48,7 @@ tags:
 3.解决方案？
 promise链式调用
 
-###### Case 1:Promise初体验
+##### Case 1:Promise初体验
 ```html
   <!DOCTYPE html>
 <html lang="en">
@@ -131,7 +131,7 @@ promise链式调用
 </html>
 ```
 
-###### Case 2:Promise实践练习-fs模块
+##### Case 2:Promise实践练习-fs模块
 ```js
   //
 const fs = require('fs')
@@ -165,7 +165,7 @@ p.then(value => {
 });
 
 ```
-###### Case 3:Promise实践练习-AJAX请求
+##### Case 3:Promise实践练习-AJAX请求
 ```html
   <!DOCTYPE html>
 <html lang="en">
