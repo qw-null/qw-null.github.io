@@ -28,3 +28,5 @@ categories:
 > 逻辑思维
 > axios
 > Promise
+> Vue Router
+> 页面布局
