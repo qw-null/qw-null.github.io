@@ -15,6 +15,8 @@ categories:
 > GitHub使用
 > 逻辑面试题
 > axios
+> HTML+CSS+Javascript
+> 阿里iconfont
 
 
 ### 2.Tags
@@ -30,3 +32,4 @@ categories:
 > Promise
 > Vue Router
 > 页面布局
+> 阿里iconfont
