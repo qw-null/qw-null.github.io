@@ -17,6 +17,7 @@ categories:
 > axios
 > HTML+CSS+Javascript
 > 阿里iconfont
+> 面试
 
 
 ### 2.Tags
@@ -33,3 +34,4 @@ categories:
 > Vue Router
 > 页面布局
 > 阿里iconfont
+> 面试

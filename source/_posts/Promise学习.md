@@ -50,7 +50,7 @@ promise链式调用
 
 ##### Case 1:Promise初体验
 ```html
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -167,7 +167,7 @@ p.then(value => {
 ```
 ##### Case 3:Promise实践练习-AJAX请求
 ```html
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -266,7 +266,7 @@ const fs = require('fs');
 //返回一个新的函数
 let mineReadFile = util.promisify(fs.readFile);
 
-mineReadFile('xontent.txt').then(value => {
+mineReadFile('content.txt').then(value => {
   console.log(value.toString());
 }, reason => {
   console.log(reason);
@@ -277,6 +277,7 @@ mineReadFile('xontent.txt').then(value => {
    *pending 未决定的
    *resolved / fullfiled 成功
    *rejected 失败
+   
   1.3.1 Promise的状态的改变
   1.pending 变为 resolved
   2.pending 变为 rejected
