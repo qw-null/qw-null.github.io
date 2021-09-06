@@ -100,4 +100,25 @@ c. 二分查找法过程
 + 2、若大于 V，在大于 V 部分分组继续查询
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210825150526.png)
-(代码待补充。。。。。)
+代码:
+```javascript
+var search = function(nums, target) {
+    let [start,end] = [0,nums.length-1];
+    let middle,midItem;// 中间元素索引以及内容
+    while(start<=end){
+        middle = Math.floor((start+end)/2);
+        midItem = nums[middle];
+        if(midItem === target){
+            return middle;
+        }            
+        else if(midItem > target){
+            end = middle-1;
+        }
+        else{
+            start = middle+1;
+        }
+    }
+    return -1;
+
+};
+```
