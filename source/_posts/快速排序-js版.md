@@ -25,7 +25,6 @@ tags:
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210906102722.jpg)
 
 ```javascript
-
 function quickSort(list) {
     //递归终止条件：数组长度为0或1
     if (list.length === 1 || list.length === 0) return list;
@@ -55,4 +54,3 @@ console.log(quickSort(list));
 结果：
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210906110756.png)
 
-## JS中的sort排序源码解读
