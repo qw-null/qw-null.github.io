@@ -2,18 +2,18 @@
 # Theme color for customize
 # Notice: color value must in double quotes like "#000" or may cause error!
 # ---------------
-# theme_color:
-#   enable: true
-#   main: "#49B1F5"
-#   paginator: "#00C4B6"
-#   button_hover: "#FF7242"
-#   text_selection: "#00C4B6"
-#   link_color: "#858585"
-#   hr_color: "#A4D8FA"
-#   tag_start_color: "#A4D8FA"
-#   tag_end_color: "#1B9EF3"
-#   header_text_color: "#EEEEEE"
-#   footer_text_color: "#EEEEEE"
+theme_color:
+  enable: true
+  main: "#49B1F5"
+  paginator: "#00C4B6"
+  button_hover: "#FF7242"
+  text_selection: "#00C4B6"
+  link_color: "#858585"
+  hr_color: "#A4D8FA"
+  tag_start_color: "#A4D8FA"
+  tag_end_color: "#1B9EF3"
+  header_text_color: "#132c33"
+  footer_text_color: "#2f2f35"
 
 # Main menu navigation
 menu:
@@ -21,6 +21,7 @@ menu:
   分类: /categories
   标签: /tags
   创作时间线: /archives
+  Github: "https://github.com/qw-null
   
   #XXX: /xxx
 
@@ -44,7 +45,7 @@ pwa:
 
 # Highlight theme
 # ---------------
-highlight_theme: default
+highlight_theme: ocean
 
 # code_word_wrap: true or false
 
@@ -56,8 +57,9 @@ highlight_theme: default
 #icon_name fa: url
 #icon_name fab: url
 social:
-  github fa: https://github.com/Molunerfinn
-  weibo fa: http://weibo.com/mybluedreams
+  github fa: https://github.com/qw-null
+  envelope fa: qinweirz@qq.com
+  qq fa: 522344647
 
 # Algolia search
 # ---------------
@@ -140,7 +142,7 @@ avatar: https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013182113.JPG
 
 top_img: https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013172437.jpg # false or url of img
 
-top_img_height: 45 # best range: 60 - 100
+top_img_height: 40 # best range: 60 - 100
 
 post_meta:
   date_type: created # created or updated
@@ -162,8 +164,8 @@ post_copyright:
 
 # Please see doc for more details: https://molunerfinn.com/hexo-theme-melody-doc/theme-config.html#auto-excerpt
 auto_excerpt:
-  enable: false
-  length: 90
+  enable: true
+  length: 200
 
 # slide
 # For reveal.js config, see https://github.com/hakimel/reveal.js#configuration

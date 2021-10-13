@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://username.github.io
+url: https://qw-null.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -105,19 +105,6 @@ deploy:
   type: git
   repo: https://github.com/qw-null/qw-null.github.io
   branch: master
-
-lightgallery:
-  # if you don't specify the css or js source, the default cdn will be used.
-  # css: # css source url
-  # js: #js source url
-  # sorry that I can not find any cdn hosting following plugins,
-  # please self-host the plugin js and add url here
-  # plugins:
-  # lg-thumbnail:
-  # lg-zoom:
-  # lg-autoplay:
-  # lg-fullscreen:
-  # lg-pager:
 
 # 搜索功能
 search:
