@@ -13,7 +13,7 @@ theme_color:
   tag_start_color: "#A4D8FA"
   tag_end_color: "#1B9EF3"
   header_text_color: "#132c33"
-  footer_text_color: "#2f2f35"
+  footer_text_color: "red"
 
 # Main menu navigation
 menu:
