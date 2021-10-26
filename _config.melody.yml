@@ -56,10 +56,10 @@ highlight_theme: ocean
 #social:
 #icon_name fa: url
 #icon_name fab: url
-social:
-  github fa: https://github.com/qw-null
-  envelope fa: qinweirz@qq.com
-  qq fa: 522344647
+# social:
+#   github fa: https://github.com/qw-null
+#   envelope fa: qinweirz@qq.com
+#   qq fa: 522344647
 
 # Algolia search
 # ---------------
@@ -313,7 +313,7 @@ follow:
   text: 'Follow Me'
 
 # controls the sidebar showing or hidden in different pages
-sidebar_display: hidden # all/index/post/index-none/post-none/hidden
+sidebar_display: post # all/index/post/index-none/post-none/hidden
 # all: 所有的页面都会自动展示侧边栏
 # index: 只有首页会自动展示侧边栏
 # post: 只有文章页会自动展示侧边栏
