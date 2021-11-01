@@ -628,10 +628,186 @@ clearfix这个样式可以同时解决高度塌陷和外边距重叠的问题，
   clear:both;
 }
 ```
+## 23.position定位
+定位(position)，是一种更加高级的布局手段，通过定位可以将元素摆放在页面的任意位置，使用position属性来设置定位
+可选值：
++ static 默认值，元素是静止的没有开启定位
++ relative 开启元素相对定位
++ absolute 开启元素绝对定位
++ fixed 开启元素的固定定位
++ sticky 开启元素的粘滞定位
 
+#### 23.1 相对定位relative（P69）
+position：relative;开启元素的相对定位。
+特点：
++ 1.元素开启相对定位，如果不设置偏移量，元素不会发生任何的变化
++ + 偏移量（offset）：当元素开启了定位之后，可以通过偏移量来设置元素的位置。
++ + 包含的值：
++ + top———定位元素和定位位置上边的距离、bottom———定位元素和定位位置下边的距离【定位元素垂直方向的位置由top、bottom两个属性控制，通常情况下只会使用其一】
++ + left———定位元素和定位位置左边的距离、right———定位元素和定位位置右边的距离【定位元素水平方向的位置由left、right两个属性控制，通常情况下只会使用其一】
++ 2.相对定位是参照于元素在文档流中的位置进行定位
++ 3.相对定位会提升元素的层级
++ 4.相对定位不会使元素脱离文档流
++ 5.相对定位不会改变的的元素的性质，块元素还是块元素，行内元素还是行内元素
 
+#### 23.2 绝对定位absolute（P70）
+position：absolute;开启元素的绝对定位。
+特点：
++ 1.元素开启绝对定位，如果不设置偏移量，<b><u>元素的位置</u></b>不会发生任何的变化
++ 2.开启绝对定位后，元素会从文档流中脱离
++ 3.绝对定位会改变元素的性质，行内变成块，块的高度被内容撑开
++ 4.绝对定位会使得元素提升一个层级
++ 5.绝对定位是相对于其包含块进行定位的
++ + 包含块（containing block）
++ + 正常情况下包含块就是离当前元素最近的<b>祖先<u>块元素</u></b>
++ + 绝对定位的包含块：包含块就是离它最近的开启了定位的祖先元素，如果所有祖先元素都没有开启定位，则根元素就是它的包含块
++ - html（根元素、初始包含快）
 
+#### 23.3 固定定位fixed（P71）
+position:fixed;开启元素的固定定位。固定定位也是一种绝对定位，因此固定定位的大部分特点和绝对定位一样，唯一不同的是固定定位永远参照于浏览器的视口进行定位。
+固定定位的元素不会随网页的滚动条滚动。
 
+#### 23.4 粘滞定位sticky（P72）
+position:sticky;开启元素的粘滞定位。粘滞定位和相对定位的特点基本一致，不同的是粘滞定位可以在元素到达某个位置时将其固定
+**兼容性很差,了解即可**
 
+#### 补充知识：绝对定位（P73）
+当开启绝对定位后：水平方向的布局等式就需要添加left和right两个值。 
+left + margin-left + border-left + padding-left + width + padding-right + border-right + margin-right + right = 包含块内容区的宽度
 
+开启绝对定位后，水平方向的布局等式就需要添加left和right两个值，此时的规则和之前一样只是多添加了两个值。
+当发生过度约束，如果9个值中没有auto，则自动调整right的值以使等式成立。
+可以设置为auto的值：margin、width、left、right
+
+垂直方向布局的等式也必须要满足：top + margin-top/bottom + padding-top/bottom + border-top/bottom + height = 包含块的高度
+
+##### 使得元素水平垂直居中：
+```html
+  <div class="box1">
+    <div class="box2"></div>
+  </div>
+```
+```css
+  .box1 {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      background-color: aqua;
+    }
+
+    .box2 {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: orange;
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+```
+效果：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101104011.png)
+关键代码：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101104122.png)
+
+## 24.元素的层级（P74）
+对于开启了定位的元素，可以通过z-index属性来指定元素的层级，z-index需要一个整数作为参数，值越大元素的层级越高，元素的层级越高越优先显示。
+如果元素层级一样，则优先显示靠下的元素。
+**祖先元素的层级再高也不会盖住后代元素**
+
+## 京东轮播图布局练习
+[京东轮播图布局](https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P75%E4%BA%AC%E4%B8%9C%E8%BD%AE%E6%92%AD%E5%9B%BE%E5%B8%83%E5%B1%80)
+
+## 25.字体相关的样式（P76）
+color：用来设置字体颜色
+font-size:字体大小
++ 和font-size相关的单位：
++ em 相当于当前元素的一个font-size
++ rem相当于根元素的一个font-size
+
+font-family:字体族（字体的格式），可选值：（字体分类）
++ serif 衬线字体
++ sans-serif 非衬线字体
++ monospave 等宽字体
+
+指定字体类别，浏览器会自动使用该类别下的字体，font-family可以同时指定多个字体，多个字体间使用,隔开，字体生效时优先使用第一个，第一个无法使用则使用第二个，以此类推
+
+@font-face可以将服务器中的字体直接提供给用户去使用。
+存在问题：
++ 1.加载速度
++ 2.版权
++ 3.字体格式
+  
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101144230.png)
+```css
+@font-face{
+  font-family: 'myfont'; /* 指定字体名字 */
+  src: url(''); /* 服务器端中的地址 */
+}
+
+p{
+  font-family: 'myfont';
+}
+```
+
+#### 25.1 图标字体iconfont（P77-P78）
+在网页中经常需要使用一些图标，可以通过图片来引入图标，但是图片大小本身比较大，并且非常不灵活。所以在使用图标时，我们还可以将图标直接设置为字体，然后通过font-face的形式来对字体进行引入，这样我们就可以通过使用字体的形式来使用图标。
+
+font awesome使用步骤：
++ 1.[下载](https://fontawesome.com/)
++ 2.解压
++ 3.将css和webfonts移动到项目中
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101150302.png)
++ 4.将all.css引入到网页中
+```html
+<link rel="stylesheet" href="(项目中的地址)**/css/all.css">
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101150532.png)
++ 5.使用图标字体
++ + 直接通过类名来使用图标字体
+```html
+<head>
+  <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet"> <!--load all styles -->
+</head>
+<body>
+  <i class="fas fa-user"></i> <!-- uses solid style -->
+  <i class="far fa-user"></i> <!-- uses regular style -->
+  <i class="fal fa-user"></i> <!-- uses light style -->
+  <!--brand icon-->
+  <i class="fab fa-github-square"></i> <!-- uses brands style -->
+</body>
+```
+通过伪元素来设置图标字体
++ 1.找到要设置图标的 元素通过before或after选中
++ 2.在content中设置字体编码
++ 3.设置字体的样式
+```css
+/* 在文件all.css中查找 */
+/* fab */
+font-family:'Font Awesome 5 Brands';
+
+/* fas */
+font-family:'Font Awesome 5 Free';
+font-weight: 900; 
+```
+
+#### 25.2 Iconfont阿里图标库（P79）
+使用：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101155211.png)
+使用到的下载文件：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101155317.png)
+通过伪类的方法使用：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101155445.png)
+
+## 26.行高（P80）
+行高（line height）: 
++ 指的是文字占有的实际高度
++ 可以通过line-height来设置行高，可以直接指定一个大小（px,em）,也可以直接为行高设置一个整数【行高为整数的话，将会是字体指定的倍数】
++ 行高还经常用来设置文字的行间距【行间距 = 行高 - 字体大小】
+
+字体框：就是字体存在的盒子，设置font-size实际上就是在设置字体框的高度
+
+行高会在字体框的上下平均分配，可以将line-height和height的值设为一致，使得单行文字在一个元素中垂直居中。
 
