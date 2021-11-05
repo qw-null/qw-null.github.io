@@ -175,6 +175,7 @@ video标签 引入视频文件
 使用方式和audio标签一致
 
 # 二、CSS（P27-P28）
+
 CSS 层叠样式表
 网页实际上是一个多层结构，通过CSS可以分别为网页的每一层来设计样式，而最终我们能看到的只是网页的最上边一层
 使用方式：
@@ -801,6 +802,23 @@ font-weight: 900;
 通过伪类的方法使用：
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101155445.png)
 
+#### 25.3 字体的简写属性（P81）
+font可以设置字体相关的所有属性，语法：
+```css
+font: 字体大小/行高  字体族
+行高可以省略不写，如果不写会使用默认值
+```
+font-weight 字重，字体加粗
+可选值：
++ normal 默认值，不加粗
++ blod 加粗
++ 100-900 九个级别（没什么用）
+
+font-style 字体风格
+可选值：
++ normal 正常的
++ italic 斜体
+
 ## 26.行高（P80）
 行高（line height）: 
 + 指的是文字占有的实际高度
@@ -810,4 +828,82 @@ font-weight: 900;
 字体框：就是字体存在的盒子，设置font-size实际上就是在设置字体框的高度
 
 行高会在字体框的上下平均分配，可以将line-height和height的值设为一致，使得单行文字在一个元素中垂直居中。
+
+## 27.文本的水平和垂直对齐（P82）
+text-align 文本的水平对齐
+可选值：
++ left 左对齐 
++ center 居中对齐 
++ right 右对齐 
++ justify 两端对齐
+
+vertical-align 设置元素垂直对齐的方式
+可选值：
++ baseline 默认值，基线对齐
++ top 顶部对齐
++ bottom 底部对齐
++ middle 居中对齐
+
+补充知识点：
+```html
+<p>
+  <img src="./img/1.jpg" alt="example">
+</p>
+<style>
+  p {
+    border:1px red solid;
+  }
+</style>
+```
+效果：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211104093836.png)
+解决方法：
+```css
+img{
+  vertical-align:bottom;
+  /* vertical-align:top;vertical-align:middle;也可以实现同样的效果 */
+}
+```
+## 28.其他文本样式（P83）
+text-decoration 设置文本修饰
+可选值：
++ none 默认值，什么都没有
++ underline 下划线
++ line-through 删除线
++ overline 上划线
+
+white-space 设置网页如何处理空白
+可选值：
++ normal 默认值，正常
++ nowrap 不换行
++ pre 保留空白（源代码中文本格式不做处理，保留）
+
+超出文本框的文字设置省略号
+```html
+<div class="box2">
+  Lorem ipsum dolor sit amet consectetuir adipisicim
+</div>
+<style>
+  .box2{
+    width:200px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+</style>
+```
+效果：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211104100706.png)
+
+## 练习题（P84-P86）
+[京东顶部导航条](https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P84%E4%BA%AC%E4%B8%9C%E9%A1%B6%E9%83%A8%E5%AF%BC%E8%88%AA%E6%9D%A1)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211105154415.png)
+
+
+
+
+
+
+
 
