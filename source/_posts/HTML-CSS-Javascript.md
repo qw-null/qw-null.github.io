@@ -900,10 +900,46 @@ white-space 设置网页如何处理空白
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211105154415.png)
 
+## 29.背景（P88）
+&hearts; background-color 设置背景颜色
+&hearts; background-image 设置背景图片
++ 可以同时设置背景颜色和背景图片，这样背景颜色将会成为图片的背景色
++ 如果背景的图片小于元素，则背景图片会自动在元素中平铺，将元素铺满
++ 如果背景的图片大于元素，背景图片将无法完全显示，只显示元素大小
++ 如果背景的图片和元素一样大，则会直接正常显示
 
+&hearts; background-repeat 用来设置背景的重复方式
+可选值：
+repeat 默认值，背景会沿着x轴 y轴双方向重复
+repeat-x 沿着x轴方向重复
+repeat-y 沿着y轴方向重复
+no-repeat 背景图片不重复 
 
+&hearts; background-position 用来设置背景图片的位置
+设置方式：通过top,left,right,bottom,center几个表示方位的词来设置背景图片的位置
+使用方位词时必须同时指定两个值，如果只写一个值，则第二个值默认是center
+通过偏移量来指定背景图片的位置，顺序是水平偏移量+垂直偏移量
+```css
+background-position:top center;
+background-position:-10px 10px;
+```
 
+&hearts; background-clip设置背景的范围，可选值：
+border-box 默认值，背景会出现在边框的下边
+padding-box 背景不会出现在边框，只出现在内容区和内边距
+content-box 背景只会出现在内容区
 
+&hearts;background-origin 背景图片的偏移量计算的原点 
+可选值：
+padding-box 默认值，background-position从内边距处开始计算
+content-box 背景图片的偏移量从内容区处计算
+border-box 背景图片的偏移量从边框处开始计算
 
+&hearts;background-size 设置背景图片的大小
+可选值：
++ 第一个值表示宽度，第二个值表示高度，如果只写一个值，则第二个值默认是auto【background:100% 100%;】
++ cover 图片的比例不变，将元素铺满
++ contain 图片比例不变，将图片在元素中完整显示
 
-
+&hearts;background 背景相关的简写属性，所有背景相关的样式都可以通过该样式来设置，并且该样式没有顺序要求，也没有哪个属性必须写的
+&star; 注意：baxkground-size 必须写在background-position的后边，并且使用/隔开；background-origin，background-clip两个样式，background-origin要在background-clip的前边
