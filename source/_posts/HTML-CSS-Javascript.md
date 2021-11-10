@@ -12,6 +12,8 @@ top: Top
 
 [【尚硅谷】Web前端零基础入门HTML5+CSS3基础教程丨初学者从入门到精通](https://www.bilibili.com/video/BV1XJ411X7Ud?p=1)
 
+[+ 课程配套资料 +](https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/%E8%AF%BE%E7%A8%8B%E8%B5%84%E6%96%99)
+
 网页分成三部分：
 - 结构HTML
 - 表现CSS
@@ -943,3 +945,75 @@ border-box 背景图片的偏移量从边框处开始计算
 
 &hearts;background 背景相关的简写属性，所有背景相关的样式都可以通过该样式来设置，并且该样式没有顺序要求，也没有哪个属性必须写的
 &star; 注意：baxkground-size 必须写在background-position的后边，并且使用/隔开；background-origin，background-clip两个样式，background-origin要在background-clip的前边
+
+
+## 背景练习题（P92）
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211110102651.png)
+&spades;  存在问题：
+图片属于网页中的外部资源，外部资源都需要浏览器单独发送请求加载，浏览器加载外部资源时是按需加载，用则加载，不用则不加载。
+上边的练习，link会首先加载，而hover和active会在指定状态时才会加载
+
+## 30.雪碧图（P92）
+解决图片显示问题：
+可以将多个小图片同意保存到一个大图片中，然后通过调整background-position来显示图片，这样图片会同时加载到网页中，就可以有效避免出现闪烁问题，这个技术在网页中应用十分广泛，被称为CSS-Sprite，这种图称为雪碧图。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211110113539.png)
+
+&hearts; 雪碧图的使用步骤：
+1. 先确定要使用的图标
+2. 测量图标的大小
+3. 根据测量的结果创建一个元素
+4. 将雪碧图设置为元素的背景图片
+5. 设置一个偏移量以显示正确图片
+
+雪碧图的特点：
+一次性将多个图片加载进页面，降低请求的次数，加快访问速度，提升用户体验
+
+## 31.线性渐变（P93）
+#### 31.1 linear-gradient()
+通过渐变可以设置一些复杂的背景颜色，可以实现从一个颜色向其他颜色过渡的效果
+！！渐变是图片，需要通过 <b>background-image</b> 来设置
+线性渐变：颜色沿着一条直线发生变化 
++ linear-gradient(red,yellow) 红色在开头，黄色在结尾，中间是过渡区域
++ 线性渐变的开头，我们可以指定一个渐变的方向
++ linear-gradient(to top , red , yellow)
++ + to left / to right / to bottom / to top
++ linear-gradient(45deg , red , yellow)
++ + deg表示度数
++ + turn 表示圈
+
+渐变可以同时指定多个颜色，多个颜色默认情况下平均分布，
+也可以手动指定渐变的分布情况，例如：<b>linear-gradient(red 100px , yellow 50px)</b>
+
+#### 31.2 repeating-linear-gradient()
+repeating-linear-gradient() 可以平铺的线性渐变
+
+background-image:repeating-linear-gradient(red 50px , yellow 100px)
+效果：（元素高度200px）
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211110142040.png)
+
+#### 31.2 径向渐变（P94）
+radial-gradient() 径向渐变(放射性的效果)
++ 默认情况下，径向渐变的形状是根据元素的形状来计算的
++ + 正方形 ---> 圆形
++ + 长方形 ---> 椭圆形
++ 也可以手动指定径向渐变的大小
++ + circle - 圆形 / ellipse - 椭圆形
++ 也可以指定渐变的位置
+
+radial-gradient(大小 at 位置 , 颜色 位置 , 颜色 位置 , ……)
+- 大小：
+- - circle 圆形
+- - ellipse 椭圆形
+- - closest-side 近边
+- - closest-corner 近角
+- - farthest-side 远边
+- - farthest-corner 远角
+- 位置：top / right / left / center / bottom
+
+```css
+background-image: radial-gradient(circle , red , yellow)
+
+background-image: radial-gradient(100px 50px at top left , red , yellow)  
+//100px 50px指定大小；at top left指定位置
+
+```
