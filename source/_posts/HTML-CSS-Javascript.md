@@ -176,6 +176,91 @@ loop 音频文件是否循环播放
 video标签 引入视频文件
 使用方式和audio标签一致
 
+## 14.表格（P96-P97）
+网页中通过table标签来创建表格
+在table中使用tr表示表格中的一行，有几个tr就有几行，在tr中使用td表示一个单元格，有几个td就有几个单元格
+colspan 横向的合并单元格； rowsoan 纵向合并单元格
+
+可以将一个表格分为三部分：
+1. 头部 thead
+2. 主体 tbogy
+3. 底部 tfoot
+
+th 表示头部单元格
+
+#### 14.1 表格的样式（P98）
+```css
+table{
+  width: 50%;
+  border: 1px solid black;
+  margin: 0 auto;
+
+  /* 1.border-spacing 指定边框之间的距离 */
+  /* 此时边框的宽度为2px */
+  border-spacing：0px; 
+
+  /* 2.border-collapse: collapse; 设置边框的合并 */
+   /* 此时边框的宽度为1px */
+  border-collapse: collapse;
+}
+
+table tr:nth-child(2n){
+  /* 调整表格偶数行的背景颜色 */
+  background-color: green;
+}
+```
+如果表格中没有使用tbody而直接使用tr，那么浏览器会自动创建一个tbody，并且将所有的tr都放到tbody中，因此tr不再是tbody的子元素
+```css
+table > tr {
+  /* 此时效果无法生效 */
+  background-color: red;
+}
+```
+
+默认情况下元素在td中是垂直居中的，可以通过 vertical-align 来修改
+
+## 15.表单（P99）
+网页中的表单用于将本地的数据提交给远程的服务器，使用form标签来创建一个表单
+form的属性：
++ action 表单要提交的服务器的地址
+表单项：
+```html
+<!-- 文本框 -->
+<input type="text" name="数据提交给服务器必须指定唯一的名称">
+
+<!-- 提交按钮 -->
+<input type="submit" value="指定显示文字">
+
+<!-- 密码框 -->
+<input type="password" name="**">
+
+<!-- 单选按钮 -->
+<!-- 像这种选择框，必须要指定一个value属性，value属性最终会作为用户的填写的值传递给服务器 -->
+<!-- checked可以将单选按钮设置为默认选中 -->
+<input type="radio" name="**" value="**" checked>
+
+<!-- 多选框 -->
+<input type="checkbox" name="**" value="**" checked>
+
+<!-- 下拉列表 -->
+<!-- selected 属性设置默认选中 -->
+<select>
+  <option value="1" selected>选项1</option>
+  <option value="2">选项2</option>
+  <option value="3">选项3</option>
+</select>
+
+<!-- 重置按钮 -->
+<input type="reset">
+
+<!-- 普通按钮 -->
+<input type="button" value="按钮">
+```
+autocomplete="off" 关闭自动补全
+readonly 将表单项设置为只读，数据会提交到服务器端
+disabled 将表单项设置为禁用，数据不会提交到服务器端
+autofocus 设置表单项自动获取焦点
+
 # 二、CSS（P27-P28）
 
 CSS 层叠样式表
