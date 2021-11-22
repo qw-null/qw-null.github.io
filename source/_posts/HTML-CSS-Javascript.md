@@ -7,7 +7,6 @@ tags:
 - HTML
 - CSS
 - Javascript
-top: Top
 ---
 
 [【尚硅谷】Web前端零基础入门HTML5+CSS3基础教程丨初学者从入门到精通](https://www.bilibili.com/video/BV1XJ411X7Ud?p=1)
@@ -183,7 +182,7 @@ colspan 横向的合并单元格； rowsoan 纵向合并单元格
 
 可以将一个表格分为三部分：
 1. 头部 thead
-2. 主体 tbogy
+2. 主体 tbody
 3. 底部 tfoot
 
 th 表示头部单元格
