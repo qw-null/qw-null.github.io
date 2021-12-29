@@ -1104,3 +1104,365 @@ background-image: radial-gradient(100px 50px at top left , red , yellow)
 //100px 50px指定大小；at top left指定位置
 
 ```
+
+---
+## 练习项目：小米商城
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211224104600.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211224104907.png)
+[项目地址](https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P101%E5%B0%8F%E7%B1%B3%E5%95%86%E5%9F%8E-%E9%A1%B9%E7%9B%AE%E7%BB%83%E4%B9%A0)
+
+---
+
+## 32.动画效果
+#### 32.1 过渡效果（P115）
+过渡（transition）：
++ 通过过渡可以指定一个属性发生变化时的切换方式
++ 通过过渡可以创建一些非常好的效果，提升用户体验
+
++ transition-property
+  指定要执行过渡的属性,多个属性之间使用,隔开；
+  如果所有属性都需要过渡，则使用all关键字；
+  大部分属性都支持过渡效果，注意过渡时必须是从一个有效值向另一个有效值进行过渡；
+
++ transition-duration
+  指定过渡效果持续的时间
+  时间单位：s和ms，1s = 1000ms
+
++ transition-timing-function
+  过渡的时序函数
+  可选值：
+   ease 默认值，慢速开始，先加速，再减速
+   linear 匀速运动
+   ease-in 加速运动
+   ease-out 减速运动
+   ease-in-out 先加速，后减速
+   cubic-bezier() 来指定时序函数 [cubic-bezier网址](https://cubic-bezier.com/)
+   steps() 分步执行过渡效果，可以设置第二个数值【end-在时间结束时执行过渡（默认值）；start-在时间开始时执行过渡,示例：steps(2,end)】
+
++ transition-delay
+  过渡效果的延迟，等待一段时间后再执行过渡
+   
+使用transition可以同时设置过渡相关的所有属性的，只有一个要求，如果要写延迟，则两个时间中第一个是持续时间，第二个是延迟时间
+#### 32.2 过渡练习：米兔（P116）
+动画：动画和过渡类似，都是可以实现一些动态的效果，不同的是过渡需要在某个属性发生变化时才会触发，动画可以自动触发动态效果
+
++ 设置动画效果，必须设置一个关键帧，关键帧设置了动画执行每一个步骤
+```css
+/* 关键帧 */
+@keyframes test {
+  /* from表示动画的开始位置,也可以使用0% */
+  from{
+    margin-left: 0;
+  }
+
+/* to表示动画的结束位置,也可以使用100% */
+  to{
+    margin-left: 700px;
+  }
+}
+```
+
++ animation-name:指定当前元素生效的关键帧的名字
++ animation-duration:指定动画的执行时间
++ animation-delay:指定动画的延迟时间
++ animation-iteration-count:指定动画执行的次数
+  可选值：数字（次数）、infinite 无限次
++ animation-direction:指定动画的运行方向
+  可选值：
+  normal - 默认值，从from向to运行
+  reverse - 从to向from运行
+  alternate - 从from到to，再从to到from，再从from到to …… 运行
+  alternate-reverse - 从to到from，再从from到to，再从to到from…… 运行
++ animation-play-state:设置动画的执行状态
+  可选值：
+  running 默认值，动画执行
+  paused 动画暂停
++ animation-fill-mode:设置动画的填充模式
+  可选值：
+  none 默认值，动画执行完毕元素回到原来位置
+  forwards 动画执行完毕，元素会停止在动画结束位置
+  backwards 动画延时等待时，元素就会处于开始位置
+  both 结合了forwards和backwards
+
+## 33.变形（P120-P121）
+变形就是通过css来改变元素的形状或者位置，变形不会影响到页面的布局。
+transform： 用来设置元素的变形效果
+平移：
+translateX() - 沿着X轴方向平移
+translateY() - 沿着Y轴方向平移
+translateZ() - 沿着Z轴方向平移
+平移元素时，百分比是相对于自身计算的
+#### ★元素居中显示★
+```css
+/* 1.已知元素大小情况： */
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+/* 2.不知元素大小情况 */
+.box {
+  background-color: red;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+```
+[实现水平垂直居中[不知自身宽高情况]](https://qw-null.github.io/2021/09/13/%E5%AE%9E%E7%8E%B0%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD/)
+
+变形不会影响到页面的布局,不会导致元素脱离文档流，因此可以用于实现选中元素的浮动效果。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211224172635.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211224172708.png)
+
+translateZ():Z轴平移，调整元素在z轴的位置，正常情况就是调整元素和人眼之间的距离，距离越大，元素离人越近
+z轴平移属于立体效果（近大远小），默认情况下网页是不支持透视，如果需要看见效果，必须要设置网页的视距
+```css
+html{
+  /* 设置当前网页的视距为800px,人眼距离网页的距离 */
+  perspective: 800px;
+}
+
+.box1:hover {
+  /* 此时translateZ效果才会生效 */
+  transform: translateZ(800px);
+}
+```
+
+## 34.旋转（P122）
+通过旋转可以使元素沿着x、y或z旋转指定的角度
+rotateX()
+rotateY()
+rotateZ()
+```css
+.box{
+  transform: rotateX(45deg);
+  /* 45deg->45° ；1turn->旋转一圈 */
+}
+```
+backface-visibility：是否显示元素的背面
+可选值：visible - 默认值，可以看到背面；hidden - 无法看到背面
+
+[旋转练习 - 钟表](https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P123%E9%92%9F%E8%A1%A8)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211225172211.png)
+
+[旋转练习 - 立方体](https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P124%E5%A4%8D%E4%BB%87%E8%80%85%E8%81%94%E7%9B%9F)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211225171609.png)
+
+## 35.缩放（P125）
+对元素进行缩放,当数值>1表示对元素进行放大，当数值<1表示对元素进行缩小。
+scaleX() - 对元素的水平方向进行放大或者缩小
+scaleY() - 对元素的垂直方向进行放大或者缩小
+scale() - 对元素进行放大或缩小 
+
+transform-origin 设置元素变形的远点
+可选值： 
+center - 默认值，元素中间
+0，0 - 元素最左上角
+
+## 36.less (P126)
+less是一门css的预处理语言，通过less可以编写更少的代码实现更强大的样式
+在less中添加了许多新特性，像对变量的支持、对mixin的支持……，less的语法大体上和css语法一致，但是less中增添了许多对css的拓展，所以浏览器无法直接执行less代码，要执行就必须将less转换为css
+
+```less
+1.注释
+// less中的单行注释，注释中的内容不会被解析到css中
+/*
+  css中的注释，内容会被解析到css文件中
+*/
+
+2.变量
+变量中可以存储一个任意值，并且在需要时可任意的修改变量的值
+变量的语法： @变量名
+使用变量时，如果是直接使用则以 @变量名 的形式使用即可
+作为类名，或者一部分值使用时必须以 @{变量名} 的形式使用
+@length:100px
+@c:box3;
+.@{c}{
+  width: @length;
+  background-image: url("@{c}/1.jpg")
+}
+
+变量重名时，会优先使用比较近的变量
+可在声明变量前就使用变量
+---
+& 表示外层的父元素
+
+.entend() 对当前选择器扩展指定选择器的样式（选择器分组）
+示例：.p2.extend(.p1){
+        color:red;
+      }
+
+mixin 混合
+.p3{
+  // 直接对指定的样式进行引用，这里就相当于将p1的样式在这里进行了复制
+  .p1()
+}
+
+使用类选择器时可以在选择器后边添加一个括号，这时实际上就创建了一个mixins
+.p4(){
+  width: 100px;
+  height: 100px;
+}
+
+混合函数 在混合函数中可以直接设置变量,使用时按照顺序传递参数
+.test(@w){
+  width: @w;
+  height: 200px;
+  border-color: red;
+}
+div{
+  .test(100px);
+}
+
+在less中所有数值都可以直接进行运算
+width: 100px + 200px;
+
+import用于将其他less文件引入当前less文件中
+@import "color.less"
+```
+★less中的除法计算要放在括号中，不然会失效
+```less
+box{
+  width: (100 / 4 rem);
+}
+```
+
+## 37.弹性盒（P131）
+flex(弹性盒、伸缩盒)：是css中的又一种布局手段，它主要用来代替浮动来完成页面。
+flex可以使元素具有弹性，让元素可以跟随页面得到大小的改变而改变
+
+- 弹性容器
+  要使用弹性盒，必须先将一个元素设置为弹性容器，通过display来设置弹性容器
+  ```css
+  display:flex; //设置为块级弹性容器
+  display:inline-flex; //设置为行内的弹性容器
+  ```
+- 弹性元素
+  弹性容器的子元素是弹元素（弹性项），一个元素可以同时是弹性容器和弹性元素
+
+
+主轴：弹性元素的排列方向称为主轴
+侧轴：与主轴垂直方向的称为侧轴
+
+
+<i style="color:green;font-size:18px;">☻</i> 弹性容器的样式：
+
+1. flex-direction 指定容器中弹性元素的排列方式（主轴方向）
+   可选值：
+    row 默认值，弹性元素在容器中水平排列（自左向右）
+    row-reverse 弹性元素在容器中反向水平排列（自右向左）
+    column 弹性元素纵向排列（自上向下）
+    column-reverse 弹性元素反向纵向排列（自下向上）
+
+2. flex-grow 指定弹性元素的伸展系数
+   当父元素有多余空间时，子元素如何伸展
+
+3. flex-shrink 指定弹性元素的收缩系数
+   当父元素中的空间不足以容纳所有子元素时，如何对子元素进行收缩
+
+4. flex-wrap 设置弹性元素是否在弹性容器中自动换行
+   可选值：
+   nowrap 默认值，元素不会自动换行
+   wrap 元素沿着辅轴方向自动换行
+   wrap-reverse 元素沿着辅轴反方向换行
+
+★flex-flow 是 flex-wrap和flex-direction的简写属性,例如：flex-flow: row wrap;
+
+5. justify-content 如何分配主轴上的空白空间（主轴上的元素如何排列）
+   可选值：
+   flex-start 元素沿着主轴的起边排列
+   flex-end 元素沿着主轴的终边排列
+   center 元素居中排列
+   space-around 空白分布到元素的两个
+   space-between 空白均匀分布到元素间
+   space-evenly 空白分布到元素的单侧
+
+6. align-items 社会资源苏在辅轴上如何对齐（元素间关系）
+   可选值：
+   stretch 默认值，将元素的长度设置为相同的值
+   flex-start 元素不会拉伸，沿着辅轴起边对齐
+   flex-end 元素不会拉伸，沿着辅轴终边对齐
+   center 居中对齐
+   baseline 基线对齐
+  ** align-self 用来覆盖当前弹性元素上的align-items
+
+<i style="color:green;font-size:18px;">☻</i> 弹性元素的样式：
+
+1. 弹性元素的缩减系数：
+   缩减系数的计算方式比较复杂，缩减多少是根据缩减系数和元素大小来计算（flex-grow和flex-shrink）。
+2. 元素基础长度
+   flex-basis 指定的是元素在主轴上的基础长度。如果主轴是横向的，则该值指定的就是元素的宽度，如果主轴是纵向的，则该值指定的就是元素的高度。
+   默认值是auto，表示参考元素自身的高度或宽度。如果传递了一个具体的数值，则以该值为准。
+
+★flex可以设置弹性元素所有的三个样式。
+格式：flex: 增长 缩减 基础；（例如：flex: 1 1 auto;）
+
+3. order 决定弹性元素的排列顺序（依据order指定的数值）。
+
+
+## 38.像素（P136 - P138）
+像素：屏幕是由一个一个发光的小点构成，这一个个的小点就是像素。前端开发中像素要分为两种情况讨论：css像素 和 物理像素。
+- 物理像素：上述所说的小点就是物理像素。
+- css像素：编写网页时所用的像素是css像素。浏览器在显示网页时，需要将css像素转换为物理像素，然后再呈现。
+
+一个css像素最终由几个物理像素显示，由浏览器决定。默认情况下，在PC端 一个css像素 = 一个物理像素
+
+视口（viewport）:屏幕中用来显示网页的区域。
+可以通过查看视口的大小来观察css像素和物理像素的比值
+
+在不同的屏幕，单位像素的大小是不同的，像素越小屏幕会越清晰
+
+可以通过meta标签来设置视口大小
+```html
+<!-- 设置视口大小 device-width表示设备的宽度（完美视口） -->
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!-- 将网页的视口设置为完美视口
+结论：书写移动端的页面，就把上边这段代码加上 -->
+```
+
+完美视口：
+每一款移动设备设计时，都会有一个最佳的像素比，一般只需要将像素比设置为该值即可得到一个最佳效果。将像素比设置为最佳像素比的视口大小成为完美视口。
+
+vw表示的是视口的宽度（viewport width）
+100vw = 一个视口的宽度
+1vw = 1%视口宽度
+
+☻ 网页中字体大小最小是12px，不能设置一个比12px还小的字体，如果设置一个小于12px的字体，则字体自动设置为12px。
+
+## 39.媒体查询（P143）
+响应式布局：网页可以根据不同设备或窗口大小呈现出不同的效果，使用响应式布局可以使一个网页适用于所有设备
+响应式布局的关键是媒体查询。
+媒体查询：通过媒体查询可以为不同的设备或设备不同的状态来分别设置样式。
+语法：@media 查询规则{}
+
+媒体类型：
+all - 所有设备
+print - 打印设备
+screen - 带屏幕的设备
+speech - 屏幕阅读器
+可以使用逗号连接多个媒体类型，这样它们之间就是一个或的关系；
+可以在媒体类型前添加一个only，表示只有。only的使用主要是为了兼容一些老版本的浏览器。
+
+媒体特性：
+width - 视口的宽度
+height - 视口的高度
+min-width - 视口的最小宽度（视口大于指定宽度时生效）
+max-width - 视口的最大宽度（视口小于指定宽度时生效）
+
+样式切换的分界点，我们称其为断点，也就是网页的样式在这个点会发生变化。 
+
+小于768px - 超小屏幕 [max-width = 768px]
+大于768px - 小屏幕 [min-width = 768px]
+大于992px - 中型屏幕 [min-width = 992px]
+大于1200px - 大屏幕 [min-width = 1200px]
+
+响应式设计原则：
+  1.移动端优先
+  2.渐进增强（由移动端逐渐向网页过渡）
+
