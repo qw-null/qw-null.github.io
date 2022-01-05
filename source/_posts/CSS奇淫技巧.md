@@ -50,3 +50,38 @@ CSS奇淫技巧
 
 ```
 在按钮上触发悬浮状态:hover时，通过attr()获取节点的data-msg并赋值到::after的content上
+
+### 2.绘制三角形
+```html
+<div id="triangle"></div>
+```
+```css
+#triangle{
+  width:0;
+  height:0;
+  border-left:50px solid red;
+  border-top:50px solid transparent;
+}
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220105102020.png)
+
+```css
+#triangle{
+  width:0;
+  height:0;
+  border-left:50px solid red;
+  border-top:50px solid green;
+}
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220105102125.png)
+```css
+#triangle{
+  width:0;
+  height:0;
+  border-left:50px solid red;
+  border-top:50px solid green;
+  border-right:50px solid blue;
+  border-bottom:50px solid yellow;
+}
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220105102312.png)
