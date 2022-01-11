@@ -324,7 +324,7 @@ reset 做的第一件事是移动 HEAD 的指向。
 <span style="color:red;">必须注意，--hard 标记是 reset 命令唯一的危险用法，它也是 Git 会 真正地销毁数据的仅有的几个操作之一。 </span>
 
 
-```git checkout commithash``` 与 ```git reset --hard commithash```区别：
+git checkout commithash 与 git reset --hard commithash区别：
 1. checkout 只动HEAD、--hard动HEAD而且带着分支一起走
 2. checkout对工作目录是安全的、--hard是强制覆盖工作目录
 
@@ -357,6 +357,7 @@ git reflog 并不能显示足够多的信息。为了使显示的信息更加有
 ## 7.打tag
 Git 可以给历史中的某一个提交打上标签，以示重要。 比较有代表性的是人们会使用这个功能来标记发布结点（v1.0 等等）。
 ```bash
+
 git tag // 列出标签
 git show tagname // 查看特定标签
 git tag v1.0 // 创建标签1
@@ -364,6 +365,7 @@ git tag v1.0 commithash // 创建标签2
 git tag -d tagname // 删除标签
 git checkout tagname // 检出标签（会造成头部分离，需要再创建一个分支避免）
    + git checkout -b branchname
+   
 ```
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220111151839.png)
