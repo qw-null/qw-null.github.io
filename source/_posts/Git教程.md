@@ -288,6 +288,7 @@ git stash list    // 查看存储
 git stash apply stash@{2}   // 如果不指定一个储藏，Git 认为指定的是最近的储藏
 git stash pop     // 来应用储藏然后立即从栈上扔掉它,常使用
 git stash drop    // 加上将要移除的储藏的名字来移除它
+
 ```
 
 ## 5.Git后悔药
@@ -356,6 +357,7 @@ git reflog 并不能显示足够多的信息。为了使显示的信息更加有
 ## 7.打tag
 Git 可以给历史中的某一个提交打上标签，以示重要。 比较有代表性的是人们会使用这个功能来标记发布结点（v1.0 等等）。
 ```
+
 git tag // 列出标签
 git show tagname // 查看特定标签
 git tag v1.0 // 创建标签1
@@ -363,6 +365,7 @@ git tag v1.0 commithash // 创建标签2
 git tag -d tagname // 删除标签
 git checkout tagname // 检出标签（会造成头部分离，需要再创建一个分支避免）
    + git checkout -b branchname
+   
 ```
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220111151839.png)
