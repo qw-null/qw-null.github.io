@@ -222,7 +222,7 @@ git log --oneline
 命令：```git branch```
 作用：为你创建了一个可以移动的新的指针。 比如，创建一个 testing 分支：```git branch testing```。这会在当前所在的提交对象上创建一个指针
 
-Git 的分支，其实本质上仅仅是指向提交对象的可变指针，HEAD是一个指针，默认指向master分支，切换分支时就是让HEAD指向不同的分支
+Git 的分支本质上是一个提交对象，HEAD是一个指针，默认指向master分支，切换分支时就是让HEAD指向不同的分支
 
 分支切换会改变你工作目录中的文件。在切换分支时，一定要注意你工作目录里的文件会被改变。 如果是切换到一个较旧的分支，你的工作目录会恢复到该分支最后一次提交时的样子。如果 Git 不能干净利落地完成这个任务，它将禁止切换分支
 
@@ -329,12 +329,41 @@ reset 做的第一件事是移动 HEAD 的指向。
 
 路径reset
 
-前面讲述了 reset 基本形式的行为，不过你还可以给它提供一个作用路径。 若
-指定了一个路径，reset 将会跳过第 1 步，并且将它的作用范围限定为指定的文
-件或文件集合。
+前面讲述了 reset 基本形式的行为，不过你还可以给它提供一个作用路径。 若指定了一个路径，reset 将会跳过第 1 步，并且将它的作用范围限定为指定的文件或文件集合。
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220110233703.png)
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220110233729.png)
 
 
+## 6.数据恢复
+在你使用 Git 的时候，你可能会意外丢失一次提交。 通常这是因为你强制删除了正在工作的分支，但是最后却发现你还需要这个分支；亦或者硬重置了一个分支，放弃了你想要的提交。 如果这些事情已经发生，该如何找回你的提交呢？
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220111103150.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220111103238.png)
+最方便，也是最常用的方法，是使用一个名叫 ```git reflog``` 的工具。
+当你正在工作时，Git 会默默地记录每一次你改变 HEAD 时它的值。 每一
+次你提交或改变分支，引用日志都会被更新
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220111103454.png)
+git reflog 并不能显示足够多的信息。为了使显示的信息更加有用，
+我们可以执行 git log -g，这个命令会以标准日志的格式输出引用日志
 
+&star; 恢复
 
+看起来下面的那个就是你丢失的提交，你可以通过创建一个新的分支指向这个提交来恢复它。 例如，你可以创建一个名为 recover-branch 的分支指向这个提交（ab1afef）
+
+```git branch recover-branch ab1afef```
+
+现在有一个名为 recover-branch 的分支是你的 master 分支曾经指向的地方，再一次使得前两次提交可到达了。
+
+## 7.打tag
+Git 可以给历史中的某一个提交打上标签，以示重要。 比较有代表性的是人们会使用这个功能来标记发布结点（v1.0 等等）。
+```
+git tag // 列出标签
+git show tagname // 查看特定标签
+git tag v1.0 // 创建标签1
+git tag v1.0 commithash // 创建标签2
+git tag -d tagname // 删除标签
+git checkout tagname // 检出标签（会造成头部分离，需要再创建一个分支避免）
+   + git checkout -b branchname
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220111151839.png)
+[文件地址](https://github.com/qw-null/BlogImages/blob/master/git%E5%A4%8D%E4%B9%A0.pdf)
