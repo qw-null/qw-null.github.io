@@ -1,8 +1,6 @@
 ---
-title: 青训营2-理解css
+title: 字节青训营2-理解css
 date: 2022-01-16 15:52:19
-title: 字节青训营1-前端与HTML
-date: 2022-01-16 11:09:31
 categories:
 - 字节青训营
 tags: 
