@@ -6,20 +6,20 @@ categories:
 tags:
 - Promise
 ---
-[尚硅谷Web前端Promise教程从入门到精通（2021抢先版）](https://www.bilibili.com/video/BV1GA411x7z1?p=2&share_source=copy_web)
+[尚硅谷Web前端Promise教程从入门到精通（2021抢先版）](https://www.bilibili.com/video/BV1GA411x7z1?share_source=copy_web)
 
 ## 1.Promise介绍与基本使用
 ### 1.1 理解
 1.抽象表达
 + Promise是一门新的技术（ES6规范）
-+ Promise是JS中进行异步编程的新解决方案
-> 备注：旧方案是单纯使用回调函数
++ <span style="background-color:yellow;">Promise是JS中进行异步编程的新解决方案</span>
+备注：旧方案是单纯使用回调函数
 
 2.具体表达
 + 从语法上来说：Promise是一个构造函数
 + 从功能上来说：Promise对象用来封装一个异步操作并且可以获取其成功/失败的结果值
 
-异步编程：
+异步编程：(使用回调函数方式)
 * fs文件操作
 ```
   require('fs').readFile('./index.html',(err,data)=>{})
@@ -36,19 +36,22 @@ tags:
 
 ### 1.2 为什么要用Promise？
 #### 1.2.1指定回调函数方式更加灵活
-1.旧的：必须在启动异步任务前指定
-2.promise:启动异步任务=>返回promise对象=>给promise对象绑定回调函数（甚至可以在异步任务结束后指定/多个）
+1. 旧的：必须在启动异步任务前指定
+2. promise:启动异步任务=>返回promise对象=>给promise对象绑定回调函数（甚至可以在异步任务结束后指定/多个）
 #### 1.2.2支持链式调用，可以解决回调地狱问题
-1.什么是回调地狱?
+<b>1.什么是回调地狱?</b>
 回调函数嵌套调用，外部回调函数异步执行的结果是嵌套的回调执行的条件
+
 ![回调地狱常见情形](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210703102534.png)
-2.回调地狱的缺点？
+
+<b>2.回调地狱的缺点？</b>
 不便于阅读
 不便于异常处理
-3.解决方案？
+<b>3.解决方案？</b>
 promise链式调用
 
 ##### Case 1:Promise初体验
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -73,6 +76,7 @@ promise链式调用
   function rand(m, n) {
     return Math.ceil(Math.random() * (n - m + 1)) + m - 1;
   }
+
   // 点击按钮，2s后显示是否中奖（30%概率中奖）
   // 若中奖弹出  恭喜恭喜，奖品为10RMB劳斯莱斯优惠券
   // 若未中奖弹出 再接再厉
@@ -132,8 +136,9 @@ promise链式调用
 ```
 
 ##### Case 2:Promise实践练习-fs模块
+
 ```js
-  //
+  //引入模块
 const fs = require('fs')
 
 //1.回调函数形式
@@ -165,7 +170,9 @@ p.then(value => {
 });
 
 ```
+
 ##### Case 3:Promise实践练习-AJAX请求
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -230,6 +237,7 @@ p.then(value => {
 ```
 
 ##### Case 4:Promise封装练习-fs模块
+
 ```javascript
 // 封装一个函数 mineReadFile 读取文件内容
 // 参数：path 文件路径
@@ -256,6 +264,7 @@ mineReadFile('content.txt').then(value => {
 ```
 
 ##### Case 5:util.promisify方法
+
 ```javascript
 // util.promisify 方法
 
@@ -273,14 +282,15 @@ mineReadFile('content.txt').then(value => {
 });
 ```
 ### 1.3 Promise的状态
+
    实例对象中的一个属性 [PromiseState]
    *pending 未决定的
    *resolved / fullfiled 成功
    *rejected 失败
    
-  1.3.1 Promise的状态的改变
-  1.pending 变为 resolved
-  2.pending 变为 rejected
+#####  1.3.1 Promise的状态的改变
+  1. pending 变为 resolved
+  2. pending 变为 rejected
   说明：只有这两种状态改变的方式，且一个promise对象只能改变一次
         无论变为成功还是失败，都会有一个结果数据
         成功的结果数据一般称为value，失败的结果数据一般称为reason
