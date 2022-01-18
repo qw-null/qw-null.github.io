@@ -85,3 +85,6 @@ CSS奇淫技巧
 }
 ```
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220105102312.png)
+
+### 3.实现点击div添加选中样式
+[实现点击div添加选中样式](https://qw-null.github.io/2022/01/18/CSS%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%87%BBdiv%E6%B7%BB%E5%8A%A0%E9%80%89%E4%B8%AD%E6%A0%B7%E5%BC%8F/#%E6%83%85%E6%99%AF)
