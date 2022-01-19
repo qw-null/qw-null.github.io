@@ -39,8 +39,8 @@ pwa:
   # See https://realfavicongenerator.net/
   # theme_color: "#49B1F5"
   # apple_touch_icon: /apple-touch-icon.png
-  # favicon_32_32: /favicon-32x32.png
-  # favicon_16_16: /favicon-16x16.png
+  favicon_32_32: https://cdn.jsdelivr.net/gh/qw-null/BlogImages/bitbug_favicon.ico
+  favicon_16_16: https://cdn.jsdelivr.net/gh/qw-null/BlogImages/bitbug_favicon.ico
   # mask_icon: /safari-pinned-tab.svg
 
 # Highlight theme
