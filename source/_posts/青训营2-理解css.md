@@ -1,5 +1,5 @@
 ---
-title: 字节青训营2-理解css
+title: 字节青训营-理解css
 date: 2022-01-16 15:52:19
 categories:
 - 字节青训营

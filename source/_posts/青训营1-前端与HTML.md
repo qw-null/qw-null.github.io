@@ -1,5 +1,5 @@
 ---
-title: 字节青训营1-前端与HTML
+title: 字节青训营-前端与HTML
 date: 2022-01-16 11:09:31
 categories:
 - 字节青训营
