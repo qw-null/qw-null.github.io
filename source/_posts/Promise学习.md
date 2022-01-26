@@ -175,7 +175,7 @@ p.then(value => {
 
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
@@ -284,9 +284,9 @@ mineReadFile('content.txt').then(value => {
 ### 1.3 Promise的状态
 
   实例对象中的一个属性 [PromiseState]
-  *pending 未决定的
-  *resolved / fullfiled 成功
-  *rejected 失败
+  * pending 未决定的
+  * resolved / fullfiled 成功
+  * rejected 失败
    
 #####  1.3.1 Promise的状态的改变
 1. pending 变为 resolved
@@ -694,15 +694,10 @@ function Promise (executor) {
     executor(resolve, reject);
   } catch (e) {
     reject(e);
-
   }
-
-
-
 }
 
 // 添加 then 方法
-
 Promise.prototype.then = function (onResolved, onRejected) {
 
 }
@@ -742,11 +737,7 @@ function Promise (executor) {
     executor(resolve, reject);
   } catch (e) {
     reject(e);
-
   }
-
-
-
 }
 
 // 添加 then 方法
@@ -759,128 +750,115 @@ Promise.prototype.then = function (onResolved, onRejected) {
 // 声明构造函数
 function Promise (executor) {
   // 添加属性
-  this.PromiseState = 'pending';
+  this.promiseState = 'pending';
   this.promiseResult = null;
 
-  //保存实例对象的 this 的值
+  // 保存实例对象的this的值
   const self = this;
 
-  // resolve函数
+  //resolve函数
   function resolve (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'fulfilled'; // resolved
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
   }
   // reject函数
   function reject (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'rejected';
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
   }
-
   try {
     // 同步调用【执行器函数】
     executor(resolve, reject);
   } catch (e) {
-    //修改promise对象状态为【失败】
     reject(e);
-
   }
 }
 
-
-// 添加then方法
+// 添加 then 方法
 Promise.prototype.then = function (onResolved, onRejected) {
-  // 调用回调函数，根据PromiseState
-  if (this.PromiseState === 'fulfilled') {
+  // 调用回调函数,通过PromiseState决定调用谁
+  if (this.promiseState === 'fulfilled') {
     onResolved(this.promiseResult);
   }
-  if (this.PromiseState === 'rejected') {
+  if (this.promiseState === 'rejected') {
     onRejected(this.promiseResult);
   }
-
 }
 ```
-
 #### 4.7 异步任务回调的执行
 ```javascript
 // 声明构造函数
 function Promise (executor) {
   // 添加属性
-  this.PromiseState = 'pending';
+  this.promiseState = 'pending';
   this.promiseResult = null;
-  // 声明属性
-  this.callback = {};
 
-  //保存实例对象的 this 的值
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callback = {}
+
+  // 保存实例对象的this的值
   const self = this;
 
-  // resolve函数
+  //resolve函数
   function resolve (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'fulfilled'; // resolved
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-    // 调用成功的回调函数
-    if (self.callback.onResolved) {
-      self.callback.onResolved(data);
-    }
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
 
+    // 调用成功的回调函数 -- 异步任务
+    if (self.callback.onResolved) {
+      self.callback.onResolved(data)
+    }
   }
   // reject函数
   function reject (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'rejected';
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-    // 调用失败的回调函数
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
     if (self.callback.onRejected) {
-      self.callback.onResolved(data);
+      self.callback.onRejected(data)
     }
-
   }
-
   try {
     // 同步调用【执行器函数】
     executor(resolve, reject);
   } catch (e) {
-    //修改promise对象状态为【失败】
     reject(e);
-
   }
 }
 
-
-// 添加then方法
+// 添加 then 方法
 Promise.prototype.then = function (onResolved, onRejected) {
-  // 调用回调函数，根据PromiseState
-  if (this.PromiseState === 'fulfilled') {
+  // 调用回调函数,通过PromiseState决定调用谁
+  if (this.promiseState === 'fulfilled') {
     onResolved(this.promiseResult);
   }
-  if (this.PromiseState === 'rejected') {
+  if (this.promiseState === 'rejected') {
     onRejected(this.promiseResult);
   }
-  // 判断pending状态
-  if (this.PromiseState === 'pending') {
+  // 异步执行时，需要处理pending状态
+  if (this.promiseState === 'pending') {
     // 保存回调函数
     this.callback = {
       onResolved: onResolved,
       onRejected: onRejected
     }
-
-
   }
 }
 ```
@@ -890,270 +868,160 @@ Promise.prototype.then = function (onResolved, onRejected) {
 // 声明构造函数
 function Promise (executor) {
   // 添加属性
-  this.PromiseState = 'pending';
+  this.promiseState = 'pending';
   this.promiseResult = null;
-  // 声明属性
-  this.callbacks = [];
 
-  //保存实例对象的 this 的值
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
   const self = this;
 
-  // resolve函数
+  //resolve函数
   function resolve (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'fulfilled'; // resolved
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-    // 调用成功的回调函数
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
     self.callbacks.forEach(item => {
       item.onResolved(data);
     })
-
   }
   // reject函数
   function reject (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'rejected';
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-    // 调用失败的回调函数
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
     self.callbacks.forEach(item => {
       item.onRejected(data);
     })
-
-
   }
-
   try {
     // 同步调用【执行器函数】
     executor(resolve, reject);
   } catch (e) {
-    //修改promise对象状态为【失败】
     reject(e);
-
   }
 }
 
-// 添加then方法
+// 添加 then 方法
 Promise.prototype.then = function (onResolved, onRejected) {
-  // 调用回调函数，根据PromiseState
-  if (this.PromiseState === 'fulfilled') {
+  // 调用回调函数,通过PromiseState决定调用谁
+  if (this.promiseState === 'fulfilled') {
     onResolved(this.promiseResult);
   }
-  if (this.PromiseState === 'rejected') {
+  if (this.promiseState === 'rejected') {
     onRejected(this.promiseResult);
   }
-  // 判断pending状态
-  if (this.PromiseState === 'pending') {
+  // 异步执行时，需要处理pending状态
+  if (this.promiseState === 'pending') {
     // 保存回调函数
     this.callbacks.push({
       onResolved: onResolved,
       onRejected: onRejected
-    });
+    })
   }
 }
 ```
 
 #### 4.9 同步任务下then方法返回结果的实现
+
 ```javascript
 // 声明构造函数
 function Promise (executor) {
   // 添加属性
-  this.PromiseState = 'pending';
+  this.promiseState = 'pending';
   this.promiseResult = null;
-  // 声明属性
-  this.callbacks = [];
 
-  //保存实例对象的 this 的值
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
   const self = this;
 
-  // resolve函数
+  //resolve函数
   function resolve (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'fulfilled'; // resolved
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-    // 调用成功的回调函数
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
     self.callbacks.forEach(item => {
       item.onResolved(data);
     })
-
   }
   // reject函数
   function reject (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'rejected';
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-    // 调用失败的回调函数
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
     self.callbacks.forEach(item => {
       item.onRejected(data);
     })
-
-
   }
-
   try {
     // 同步调用【执行器函数】
     executor(resolve, reject);
   } catch (e) {
-    //修改promise对象状态为【失败】
     reject(e);
-
   }
 }
 
-
-// 添加then方法
+// 添加 then 方法
 Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
   return new Promise((resolve, reject) => {
-    // 调用回调函数，根据PromiseState
-    if (this.PromiseState === 'fulfilled') {
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
       try {
         // 获取回调函数的执行结果
         let result = onResolved(this.promiseResult);
-        // 判断
+        // 判断result是否是promise对象
         if (result instanceof Promise) {
-          // 如果是promise类型的对象
+          // 结果是promise对象
           result.then(v => {
             resolve(v);
           }, r => {
             reject(r);
           })
+
         } else {
-          // 结果的对象状态为成功
+          // 结果对象的状态为成功
           resolve(result);
         }
+
       } catch (e) {
-        resolve(e);
+        reject(e);
       }
     }
-    if (this.PromiseState === 'rejected') {
+    if (this.promiseState === 'rejected') {
       onRejected(this.promiseResult);
     }
-    // 判断pending状态
-    if (this.PromiseState === 'pending') {
-      // 保存回调函数
-      this.callbacks.push({
-        onResolved: onResolved,
-        onRejected: onRejected
-      });
-    }
-  })
-
-}
-```
-#### 4.10 异步任务下then方法返回结果的实现
-```javascript
-// 声明构造函数
-function Promise (executor) {
-  // 添加属性
-  this.PromiseState = 'pending';
-  this.promiseResult = null;
-  // 声明属性
-  this.callbacks = [];
-
-  //保存实例对象的 this 的值
-  const self = this;
-
-  // resolve函数
-  function resolve (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'fulfilled'; // resolved
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-    // 调用成功的回调函数
-    self.callbacks.forEach(item => {
-      item.onResolved(data);
-    })
-
-  }
-  // reject函数
-  function reject (data) {
-    // 判断状态
-    if (self.PromiseState !== 'pending') return;
-    // 1.修改对象的状态(promiseState)
-    this.PromiseState = 'rejected';
-    // 2.设置对象结果值(promiseResult)
-    this.promiseResult = data;
-    // 调用失败的回调函数
-    self.callbacks.forEach(item => {
-      item.onRejected(data);
-    })
-
-
-  }
-
-  try {
-    // 同步调用【执行器函数】
-    executor(resolve, reject);
-  } catch (e) {
-    //修改promise对象状态为【失败】
-    reject(e);
-
-  }
-}
-
-
-// 添加then方法
-Promise.prototype.then = function (onResolved, onRejected) {
-  const self = this;
-  return new Promise((resolve, reject) => {
-    // 调用回调函数，根据PromiseState
-    if (this.PromiseState === 'fulfilled') {
-      try {
-        // 获取回调函数的执行结果
-        let result = onResolved(this.promiseResult);
-        // 判断
-        if (result instanceof Promise) {
-          // 如果是promise类型的对象
-          result.then(v => {
-            resolve(v);
-          }, r => {
-            reject(r);
-          })
-        } else {
-          // 结果的对象状态为成功
-          resolve(result);
-        }
-      } catch (e) {
-        resolve(e);
-      }
-    }
-    if (this.PromiseState === 'rejected') {
-      onRejected(this.promiseResult);
-    }
-    // 判断pending状态
-    if (this.PromiseState === 'pending') {
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
       // 保存回调函数
       this.callbacks.push({
         onResolved: function () {
-          // 执行成功回调函数
-          let result = onResolved(self.PromiseResult);
-          if (result instanceof Promise) {
-            result.then(v => {
-              resolve(v);
-            }, r => {
-              reject(r);
-            })
-          } else {
-            resolve(result);
-
-          }
-        },
-        onRejected: function () {
           try {
-            let result = onRejected(self.PromiseResult);
+            // 执行成功回调函数
+            let result = onResolved(self.promiseResult);
             if (result instanceof Promise) {
               result.then(v => {
                 resolve(v);
@@ -1165,16 +1033,1509 @@ Promise.prototype.then = function (onResolved, onRejected) {
             }
           } catch (e) {
             reject(e);
+          }
+        },
 
+        onRejected: function () {
+          try {
+            let result = onRejected(self.promiseResult)
+            if (result instanceof Promise) {
+              result.then(v => {
+                resolve(v);
+              }, r => {
+                reject(r);
+              })
+            } else {
+              resolve(result);
+            }
+          } catch (e) {
+            reject(e);
           }
         }
-      });
+      })
     }
   })
+}
+```
 
+#### 4.10 异步任务下then方法返回结果的实现
+```javascript
+// 声明构造函数
+function Promise (executor) {
+  // 添加属性
+  this.promiseState = 'pending';
+  this.promiseResult = null;
+
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
+  const self = this;
+
+  //resolve函数
+  function resolve (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onResolved(data);
+    })
+  }
+  // reject函数
+  function reject (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onRejected(data);
+    })
+  }
+  try {
+    // 同步调用【执行器函数】
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+}
+
+// 添加 then 方法
+Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
+  return new Promise((resolve, reject) => {
+    // 封装函数
+    function callback (type) {
+      try {
+        // 获取回调函数的执行结果
+        let result = type(self.promiseResult);
+        // 判断result是否是promise对象
+        if (result instanceof Promise) {
+          // 结果是promise对象
+          result.then(v => {
+            resolve(v);
+          }, r => {
+            reject(r);
+          })
+        } else {
+          // 结果对象的状态为成功
+          resolve(result);
+        }
+      } catch (e) {
+        reject(e);
+      }
+
+    }
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
+      callback(onResolved);
+    }
+    if (this.promiseState === 'rejected') {
+      callback(onRejected);
+    }
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
+      // 保存回调函数
+      this.callbacks.push({
+        onResolved: function () {
+          callback(onResolved);
+        },
+        onRejected: function () {
+          callback(onRejected);
+        }
+      })
+    }
+  })
 }
 ```
 #### 4.11 then方法的完善与优化
 
-## 5.async 与 await
+```javascript
+// 声明构造函数
+function Promise (executor) {
+  // 添加属性
+  this.promiseState = 'pending';
+  this.promiseResult = null;
 
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
+  const self = this;
+
+  //resolve函数
+  function resolve (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onResolved(data);
+    })
+  }
+  // reject函数
+  function reject (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onRejected(data);
+    })
+  }
+  try {
+    // 同步调用【执行器函数】
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+}
+
+// 添加 then 方法
+Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
+  return new Promise((resolve, reject) => {
+    // 封装函数
+    function callback (type) {
+      try {
+        // 获取回调函数的执行结果
+        let result = type(self.promiseResult);
+        // 判断result是否是promise对象
+        if (result instanceof Promise) {
+          // 结果是promise对象
+          result.then(v => {
+            resolve(v);
+          }, r => {
+            reject(r);
+          })
+        } else {
+          // 结果对象的状态为成功
+          resolve(result);
+        }
+      } catch (e) {
+        reject(e);
+      }
+
+    }
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
+      callback(onResolved);
+    }
+    if (this.promiseState === 'rejected') {
+      callback(onRejected);
+    }
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
+      // 保存回调函数
+      this.callbacks.push({
+        onResolved: function () {
+          callback(onResolved);
+        },
+        onRejected: function () {
+          callback(onRejected);
+        }
+      })
+    }
+  })
+}
+
+```
+
+#### 4.11 catch方法、异常穿透、值传递
+```javascript
+// 声明构造函数
+function Promise (executor) {
+  // 添加属性
+  this.promiseState = 'pending';
+  this.promiseResult = null;
+
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
+  const self = this;
+
+  //resolve函数
+  function resolve (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onResolved(data);
+    })
+  }
+  // reject函数
+  function reject (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onRejected(data);
+    })
+  }
+  try {
+    // 同步调用【执行器函数】
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+}
+
+// 添加 then 方法
+Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
+  // 判断回调参数 -- catch方法使用
+  if (typeof onRejected !== 'function') {
+    onRejected = reason => {
+      throw reason;
+    }
+  }
+  if (typeof onResolved !== 'function') {
+    onResolved = value => value;
+
+  }
+
+  return new Promise((resolve, reject) => {
+    // 封装函数
+    function callback (type) {
+      try {
+        // 获取回调函数的执行结果
+        let result = type(self.promiseResult);
+        // 判断result是否是promise对象
+        if (result instanceof Promise) {
+          // 结果是promise对象
+          result.then(v => {
+            resolve(v);
+          }, r => {
+            reject(r);
+          })
+        } else {
+          // 结果对象的状态为成功
+          resolve(result);
+        }
+      } catch (e) {
+        reject(e);
+      }
+
+    }
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
+      callback(onResolved);
+    }
+    if (this.promiseState === 'rejected') {
+      callback(onRejected);
+    }
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
+      // 保存回调函数
+      this.callbacks.push({
+        onResolved: function () {
+          callback(onResolved);
+        },
+        onRejected: function () {
+          callback(onRejected);
+        }
+      })
+    }
+  })
+}
+
+// 添加 catch 方法
+Promise.prototype.catch = function (onRejected) {
+  return this.then(undefined, onRejected)
+}
+```
+#### 4.12 Promise.resolve()的封装
+```javascript
+// 声明构造函数
+function Promise (executor) {
+  // 添加属性
+  this.promiseState = 'pending';
+  this.promiseResult = null;
+
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
+  const self = this;
+
+  //resolve函数
+  function resolve (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onResolved(data);
+    })
+  }
+  // reject函数
+  function reject (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onRejected(data);
+    })
+  }
+  try {
+    // 同步调用【执行器函数】
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+}
+
+// 添加 then 方法
+Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
+  // 判断回调参数 -- catch方法使用
+  if (typeof onRejected !== 'function') {
+    onRejected = reason => {
+      throw reason;
+    }
+  }
+  if (typeof onResolved !== 'function') {
+    onResolved = value => value;
+
+  }
+
+  return new Promise((resolve, reject) => {
+    // 封装函数
+    function callback (type) {
+      try {
+        // 获取回调函数的执行结果
+        let result = type(self.promiseResult);
+        // 判断result是否是promise对象
+        if (result instanceof Promise) {
+          // 结果是promise对象
+          result.then(v => {
+            resolve(v);
+          }, r => {
+            reject(r);
+          })
+        } else {
+          // 结果对象的状态为成功
+          resolve(result);
+        }
+      } catch (e) {
+        reject(e);
+      }
+
+    }
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
+      callback(onResolved);
+    }
+    if (this.promiseState === 'rejected') {
+      callback(onRejected);
+    }
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
+      // 保存回调函数
+      this.callbacks.push({
+        onResolved: function () {
+          callback(onResolved);
+        },
+        onRejected: function () {
+          callback(onRejected);
+        }
+      })
+    }
+  })
+}
+
+// 添加 catch 方法
+Promise.prototype.catch = function (onRejected) {
+  return this.then(undefined, onRejected)
+}
+
+// 添加 resolve  方法
+Promise.resolve = function (value) {
+  // 返回Promise对象
+  return new Promise((resolve, reject) => {
+    if (value instanceof Promise) {
+      value.then(v => {
+        resolve(v);
+      }, r => {
+        reject(r);
+      })
+
+    } else {
+      //状态设置为成功
+      resolve(value);
+    }
+
+  })
+
+}
+
+```
+
+#### 4.13 Promise.reject()的封装
+```javascript
+// 声明构造函数
+function Promise (executor) {
+  // 添加属性
+  this.promiseState = 'pending';
+  this.promiseResult = null;
+
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
+  const self = this;
+
+  //resolve函数
+  function resolve (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onResolved(data);
+    })
+  }
+  // reject函数
+  function reject (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onRejected(data);
+    })
+  }
+  try {
+    // 同步调用【执行器函数】
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+}
+
+// 添加 then 方法
+Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
+  // 判断回调参数 -- catch方法使用
+  if (typeof onRejected !== 'function') {
+    onRejected = reason => {
+      throw reason;
+    }
+  }
+  if (typeof onResolved !== 'function') {
+    onResolved = value => value;
+
+  }
+
+  return new Promise((resolve, reject) => {
+    // 封装函数
+    function callback (type) {
+      try {
+        // 获取回调函数的执行结果
+        let result = type(self.promiseResult);
+        // 判断result是否是promise对象
+        if (result instanceof Promise) {
+          // 结果是promise对象
+          result.then(v => {
+            resolve(v);
+          }, r => {
+            reject(r);
+          })
+        } else {
+          // 结果对象的状态为成功
+          resolve(result);
+        }
+      } catch (e) {
+        reject(e);
+      }
+
+    }
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
+      callback(onResolved);
+    }
+    if (this.promiseState === 'rejected') {
+      callback(onRejected);
+    }
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
+      // 保存回调函数
+      this.callbacks.push({
+        onResolved: function () {
+          callback(onResolved);
+        },
+        onRejected: function () {
+          callback(onRejected);
+        }
+      })
+    }
+  })
+}
+
+// 添加 catch 方法
+Promise.prototype.catch = function (onRejected) {
+  return this.then(undefined, onRejected)
+}
+
+// 添加 resolve  方法
+Promise.resolve = function (value) {
+  // 返回Promise对象
+  return new Promise((resolve, reject) => {
+    if (value instanceof Promise) {
+      value.then(v => {
+        resolve(v);
+      }, r => {
+        reject(r);
+      })
+
+    } else {
+      //状态设置为成功
+      resolve(value);
+    }
+
+  })
+
+}
+
+// 添加 reject 方法
+Promise.reject = function (reason) {
+  return new Promise((resolve, reject) => {
+    reject(reason);
+  })
+}
+```
+
+#### 4.14 Promise.all()的封装
+```javascript
+// 声明构造函数
+function Promise (executor) {
+  // 添加属性
+  this.promiseState = 'pending';
+  this.promiseResult = null;
+
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
+  const self = this;
+
+  //resolve函数
+  function resolve (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onResolved(data);
+    })
+  }
+  // reject函数
+  function reject (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onRejected(data);
+    })
+  }
+  try {
+    // 同步调用【执行器函数】
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+}
+
+// 添加 then 方法
+Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
+  // 判断回调参数 -- catch方法使用
+  if (typeof onRejected !== 'function') {
+    onRejected = reason => {
+      throw reason;
+    }
+  }
+  if (typeof onResolved !== 'function') {
+    onResolved = value => value;
+
+  }
+
+  return new Promise((resolve, reject) => {
+    // 封装函数
+    function callback (type) {
+      try {
+        // 获取回调函数的执行结果
+        let result = type(self.promiseResult);
+        // 判断result是否是promise对象
+        if (result instanceof Promise) {
+          // 结果是promise对象
+          result.then(v => {
+            resolve(v);
+          }, r => {
+            reject(r);
+          })
+        } else {
+          // 结果对象的状态为成功
+          resolve(result);
+        }
+      } catch (e) {
+        reject(e);
+      }
+
+    }
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
+      callback(onResolved);
+    }
+    if (this.promiseState === 'rejected') {
+      callback(onRejected);
+    }
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
+      // 保存回调函数
+      this.callbacks.push({
+        onResolved: function () {
+          callback(onResolved);
+        },
+        onRejected: function () {
+          callback(onRejected);
+        }
+      })
+    }
+  })
+}
+
+// 添加 catch 方法
+Promise.prototype.catch = function (onRejected) {
+  return this.then(undefined, onRejected)
+}
+
+// 添加 resolve  方法
+Promise.resolve = function (value) {
+  // 返回Promise对象
+  return new Promise((resolve, reject) => {
+    if (value instanceof Promise) {
+      value.then(v => {
+        resolve(v);
+      }, r => {
+        reject(r);
+      })
+
+    } else {
+      //状态设置为成功
+      resolve(value);
+    }
+
+  })
+
+}
+
+// 添加 reject 方法
+Promise.reject = function (reason) {
+  return new Promise((resolve, reject) => {
+    reject(reason);
+  })
+}
+
+// 添加 all 方法
+Promise.all = function (promises) {
+  // 返回结果为promise对象
+  return new Promise((resolve, reject) => {
+    // 声明变量-> 保证所有的promise都成功才可以执行resolve()
+    let count = 0;
+    // 存放成功结果
+    let arr = [];
+    // 遍历 promises
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then(v => {
+        // 得知对象的状态是成功
+        // 每个promise对象都成功
+        count++;
+        // 将当前promise对象成功的结果存入到数组中
+        arr[i] = v;
+        // 判断
+        if (count === promises.length) {
+          // 修改状态
+          resolve(arr);
+        }
+      }, r => {
+        reject(r);
+
+      })
+    }
+  })
+}
+
+```
+
+#### 4.14 Promise.race()的封装
+```javascript
+// 声明构造函数
+function Promise (executor) {
+  // 添加属性
+  this.promiseState = 'pending';
+  this.promiseResult = null;
+
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
+  const self = this;
+
+  //resolve函数
+  function resolve (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onResolved(data);
+    })
+  }
+  // reject函数
+  function reject (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    self.callbacks.forEach(item => {
+      item.onRejected(data);
+    })
+  }
+  try {
+    // 同步调用【执行器函数】
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+}
+
+// 添加 then 方法
+Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
+  // 判断回调参数 -- catch方法使用
+  if (typeof onRejected !== 'function') {
+    onRejected = reason => {
+      throw reason;
+    }
+  }
+  if (typeof onResolved !== 'function') {
+    onResolved = value => value;
+
+  }
+
+  return new Promise((resolve, reject) => {
+    // 封装函数
+    function callback (type) {
+      try {
+        // 获取回调函数的执行结果
+        let result = type(self.promiseResult);
+        // 判断result是否是promise对象
+        if (result instanceof Promise) {
+          // 结果是promise对象
+          result.then(v => {
+            resolve(v);
+          }, r => {
+            reject(r);
+          })
+        } else {
+          // 结果对象的状态为成功
+          resolve(result);
+        }
+      } catch (e) {
+        reject(e);
+      }
+
+    }
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
+      callback(onResolved);
+    }
+    if (this.promiseState === 'rejected') {
+      callback(onRejected);
+    }
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
+      // 保存回调函数
+      this.callbacks.push({
+        onResolved: function () {
+          callback(onResolved);
+        },
+        onRejected: function () {
+          callback(onRejected);
+        }
+      })
+    }
+  })
+}
+
+// 添加 catch 方法
+Promise.prototype.catch = function (onRejected) {
+  return this.then(undefined, onRejected)
+}
+
+// 添加 resolve  方法
+Promise.resolve = function (value) {
+  // 返回Promise对象
+  return new Promise((resolve, reject) => {
+    if (value instanceof Promise) {
+      value.then(v => {
+        resolve(v);
+      }, r => {
+        reject(r);
+      })
+
+    } else {
+      //状态设置为成功
+      resolve(value);
+    }
+
+  })
+
+}
+
+// 添加 reject 方法
+Promise.reject = function (reason) {
+  return new Promise((resolve, reject) => {
+    reject(reason);
+  })
+}
+
+// 添加 all 方法
+Promise.all = function (promises) {
+  // 返回结果为promise对象
+  return new Promise((resolve, reject) => {
+    // 声明变量-> 保证所有的promise都成功才可以执行resolve()
+    let count = 0;
+    // 存放成功结果
+    let arr = [];
+    // 遍历 promises
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then(v => {
+        // 得知对象的状态是成功
+        // 每个promise对象都成功
+        count++;
+        // 将当前promise对象成功的结果存入到数组中
+        arr[i] = v;
+        // 判断
+        if (count === promises.length) {
+          // 修改状态
+          resolve(arr);
+        }
+      }, r => {
+        reject(r);
+
+      })
+    }
+  })
+}
+
+// 添加 race 方法
+Promise.race = function (promises) {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then(v => {
+        // 修改返回对象的状态为【成功】
+        resolve(v);
+      }, r => {
+        // 修改返回对象的状态为【失败】
+        reject(r);
+      })
+    }
+  })
+}
+```
+
+#### 4.15 then方法回调的异步执行
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220125163632.png)
+
+```javascript
+// 声明构造函数
+function Promise (executor) {
+  // 添加属性
+  this.promiseState = 'pending';
+  this.promiseResult = null;
+
+  // 声明属性 --> 用于then方法中保存回调函数
+  this.callbacks = []
+
+  // 保存实例对象的this的值
+  const self = this;
+
+  //resolve函数
+  function resolve (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'fulfilled'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    setTimeout(() => {
+      self.callbacks.forEach(item => {
+        item.onResolved(data);
+      })
+    })
+  }
+  // reject函数
+  function reject (data) {
+    // 判断
+    if (self.promiseState !== 'pending') return;
+    // 1. 修改对象状态（promiseState）
+    self.promiseState = 'rejected'
+    // 2.设置对象结果值（promiseResult）
+    self.promiseResult = data;
+
+    // 调用成功的回调函数 -- 异步任务
+    setTimeout(() => {
+      self.callbacks.forEach(item => {
+        item.onRejected(data);
+      })
+    })
+  }
+  try {
+    // 同步调用【执行器函数】
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+}
+
+// 添加 then 方法
+Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this;
+  // 判断回调参数 -- catch方法使用
+  if (typeof onRejected !== 'function') {
+    onRejected = reason => {
+      throw reason;
+    }
+  }
+  if (typeof onResolved !== 'function') {
+    onResolved = value => value;
+
+  }
+
+  return new Promise((resolve, reject) => {
+    // 封装函数
+    function callback (type) {
+      try {
+        // 获取回调函数的执行结果
+        let result = type(self.promiseResult);
+        // 判断result是否是promise对象
+        if (result instanceof Promise) {
+          // 结果是promise对象
+          result.then(v => {
+            resolve(v);
+          }, r => {
+            reject(r);
+          })
+        } else {
+          // 结果对象的状态为成功
+          resolve(result);
+        }
+      } catch (e) {
+        reject(e);
+      }
+
+    }
+    // 调用回调函数,通过PromiseState决定调用谁
+    if (this.promiseState === 'fulfilled') {
+      setTimeout(() => {
+        callback(onResolved);
+      })
+    }
+    if (this.promiseState === 'rejected') {
+      setTimeout(() => {
+        callback(onRejected);
+      })
+    }
+    // 异步执行时，需要处理pending状态
+    if (this.promiseState === 'pending') {
+      // 保存回调函数
+      this.callbacks.push({
+        onResolved: function () {
+          callback(onResolved);
+        },
+        onRejected: function () {
+          callback(onRejected);
+        }
+      })
+    }
+  })
+}
+
+// 添加 catch 方法
+Promise.prototype.catch = function (onRejected) {
+  return this.then(undefined, onRejected)
+}
+
+// 添加 resolve  方法
+Promise.resolve = function (value) {
+  // 返回Promise对象
+  return new Promise((resolve, reject) => {
+    if (value instanceof Promise) {
+      value.then(v => {
+        resolve(v);
+      }, r => {
+        reject(r);
+      })
+
+    } else {
+      //状态设置为成功
+      resolve(value);
+    }
+
+  })
+
+}
+
+// 添加 reject 方法
+Promise.reject = function (reason) {
+  return new Promise((resolve, reject) => {
+    reject(reason);
+  })
+}
+
+// 添加 all 方法
+Promise.all = function (promises) {
+  // 返回结果为promise对象
+  return new Promise((resolve, reject) => {
+    // 声明变量-> 保证所有的promise都成功才可以执行resolve()
+    let count = 0;
+    // 存放成功结果
+    let arr = [];
+    // 遍历 promises
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then(v => {
+        // 得知对象的状态是成功
+        // 每个promise对象都成功
+        count++;
+        // 将当前promise对象成功的结果存入到数组中
+        arr[i] = v;
+        // 判断
+        if (count === promises.length) {
+          // 修改状态
+          resolve(arr);
+        }
+      }, r => {
+        reject(r);
+
+      })
+    }
+  })
+}
+
+// 添加 race 方法
+Promise.race = function (promises) {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then(v => {
+        // 修改返回对象的状态为【成功】
+        resolve(v);
+      }, r => {
+        // 修改返回对象的状态为【失败】
+        reject(r);
+      })
+    }
+  })
+}
+```
+#### 4.16 封装Promise类
+```javascript
+class Promise {
+  //构造方法
+  constructor(executor) {
+    // 添加属性
+    this.promiseState = 'pending';
+    this.promiseResult = null;
+
+    // 声明属性 --> 用于then方法中保存回调函数
+    this.callbacks = []
+
+    // 保存实例对象的this的值
+    const self = this;
+
+    //resolve函数
+    function resolve (data) {
+      // 判断
+      if (self.promiseState !== 'pending') return;
+      // 1. 修改对象状态（promiseState）
+      self.promiseState = 'fulfilled'
+      // 2.设置对象结果值（promiseResult）
+      self.promiseResult = data;
+
+      // 调用成功的回调函数 -- 异步任务
+      setTimeout(() => {
+        self.callbacks.forEach(item => {
+          item.onResolved(data);
+        })
+      })
+    }
+    // reject函数
+    function reject (data) {
+      // 判断
+      if (self.promiseState !== 'pending') return;
+      // 1. 修改对象状态（promiseState）
+      self.promiseState = 'rejected'
+      // 2.设置对象结果值（promiseResult）
+      self.promiseResult = data;
+
+      // 调用成功的回调函数 -- 异步任务
+      setTimeout(() => {
+        self.callbacks.forEach(item => {
+          item.onRejected(data);
+        })
+      })
+    }
+    try {
+      // 同步调用【执行器函数】
+      executor(resolve, reject);
+    } catch (e) {
+      reject(e);
+    }
+
+  }
+
+  //then方法
+  then (onResolved, onRejected) {
+    const self = this;
+    // 判断回调参数 -- catch方法使用
+    if (typeof onRejected !== 'function') {
+      onRejected = reason => {
+        throw reason;
+      }
+    }
+    if (typeof onResolved !== 'function') {
+      onResolved = value => value;
+
+    }
+
+    return new Promise((resolve, reject) => {
+      // 封装函数
+      function callback (type) {
+        try {
+          // 获取回调函数的执行结果
+          let result = type(self.promiseResult);
+          // 判断result是否是promise对象
+          if (result instanceof Promise) {
+            // 结果是promise对象
+            result.then(v => {
+              resolve(v);
+            }, r => {
+              reject(r);
+            })
+          } else {
+            // 结果对象的状态为成功
+            resolve(result);
+          }
+        } catch (e) {
+          reject(e);
+        }
+
+      }
+      // 调用回调函数,通过PromiseState决定调用谁
+      if (this.promiseState === 'fulfilled') {
+        setTimeout(() => {
+          callback(onResolved);
+        })
+      }
+      if (this.promiseState === 'rejected') {
+        setTimeout(() => {
+          callback(onRejected);
+        })
+      }
+      // 异步执行时，需要处理pending状态
+      if (this.promiseState === 'pending') {
+        // 保存回调函数
+        this.callbacks.push({
+          onResolved: function () {
+            callback(onResolved);
+          },
+          onRejected: function () {
+            callback(onRejected);
+          }
+        })
+      }
+    })
+  }
+
+  //catch方法
+  catch (onRejected) {
+    return this.then(undefined, onRejected)
+  }
+
+  //添加resolve方法
+  static resolve (value) {
+    // 返回Promise对象
+    return new Promise((resolve, reject) => {
+      if (value instanceof Promise) {
+        value.then(v => {
+          resolve(v);
+        }, r => {
+          reject(r);
+        })
+
+      } else {
+        //状态设置为成功
+        resolve(value);
+      }
+    })
+  }
+
+  // 添加 reject 方法
+  static reject (reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason);
+    })
+  }
+
+  // 添加 all 方法
+  static all (promises) {
+    // 返回结果为promise对象
+    return new Promise((resolve, reject) => {
+      // 声明变量-> 保证所有的promise都成功才可以执行resolve()
+      let count = 0;
+      // 存放成功结果
+      let arr = [];
+      // 遍历 promises
+      for (let i = 0; i < promises.length; i++) {
+        promises[i].then(v => {
+          // 得知对象的状态是成功
+          // 每个promise对象都成功
+          count++;
+          // 将当前promise对象成功的结果存入到数组中
+          arr[i] = v;
+          // 判断
+          if (count === promises.length) {
+            // 修改状态
+            resolve(arr);
+          }
+        }, r => {
+          reject(r);
+
+        })
+      }
+    })
+  }
+
+  // 添加 race 方法
+  static race (promises) {
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < promises.length; i++) {
+        promises[i].then(v => {
+          // 修改返回对象的状态为【成功】
+          resolve(v);
+        }, r => {
+          // 修改返回对象的状态为【失败】
+          reject(r);
+        })
+      }
+    })
+  }
+}
+```
+## 5.async 与 await
+#### 5.1 async函数
+1. 函数的返回值为promise对象
+2. promise对象的结果由async函数执行的返回值决定
+
+async函数返回值的规则与then方法的规则是一致的
+
+```javascript
+async function main() {
+      // 1.如果返回值是一个非Promise类型的数据
+      // promiseState为fulfilled，promiseResult为返回的值
+      return 521;
+
+      // 2.如果返回的是一个Promise对象
+      // promiseState为返回promise对象的状态，promiseResult为返回的promise对象的值
+      return new Promise((resolve, reject) => {
+      resolve('ok')
+      reject('ERR')
+      })
+
+      //3.抛出异常
+      // promiseState为reject，promiseResult为抛出异常的值
+      throw 'error'
+
+    }
+```
+
+#### 5.2 await表达式
+1. await右侧的表达式一般为promise对象，但也可以是其他的值
+2. 如果表达式是promise对象，await返回的是promise成功的值
+3. 如果表达式是其他值，直接将此值作为await的返回值
+
+<b>注意</b>
+
++ await必须写在async函数中，但async函数中可以没有await
++ 如果await的promise失败了，就会抛出异常，需要通过try...catch捕获处理
+
+```await 10;```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220126094102.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220126095436.png)
+
+#### 5.3  async和await结合
+
+```javascript
+const fs = require('fs');
+const util = require('util')
+const mineReadFile = util.promisify(fs.readFile)
+
+// 回调函数的方式
+fs.readFile('1.txt', (err, data1) => {
+  if (err) throw err;
+  fs.readFile('2.txt', (err, data2) => {
+    if (err) throw err;
+    fs.readFile('3.txt', (err, data3) => {
+      if (err) throw err;
+      console.log(data1 + data2 + data3);
+
+    })
+  })
+})
+
+
+// async 与 await
+async function main () {
+  try {
+    // 读取文件内容
+    let data1 = await mineReadFile('1.txt')
+    let data2 = await mineReadFile('2.txt')
+    let data3 = await mineReadFile('3.txt')
+    console.log(data1 + data2 + data3);
+
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+main();
+
+```
+
+async 与 await方式非常简洁，且捕获异常也十分简单。
+
+#### 5.4 async 与 await结合发送AJAX
+情景：点击获取段子按钮，发送ajax请求，获取数据
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>async与await结合发送AJAX</title>
+</head>
+
+<body>
+  <button id="btn">获取段子</button>
+
+  <script>
+    function sendAJAX(url) {
+      return new Promise((resolve, reject) => {
+        //1.创建对象
+        const xhr = new XMLHttpRequest();
+        //2.初始化
+        xhr.open('GET', url);
+        //3.发送
+        xhr.send();
+        //4.处理响应结果
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            //判断响应状态码2xx
+            if (xhr.status >= 200 && xhr.status < 300) {
+              //控制台输出响应体
+              resolve(xhr.response);
+            } else {
+              //控制台输出响应状态码
+              reject(xhr.status);
+            }
+          }
+        }
+      })
+    }
+
+    let btn = document.querySelector('#btn');
+    btn.addEventListener('click', async function () {
+      // 获取段子信息
+      let duanzi = await sendAJAX('https://api.apiopen.top/getJoke');
+      console.log(duanzi);
+
+
+    })
+
+  </script>
+
+</body>
+
+</html>
+
+```
