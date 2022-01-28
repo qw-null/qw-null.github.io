@@ -1,5 +1,5 @@
 ---
-title: 删除有序数组中的重复项【Leetcode】
+title: 【Leetcode】删除有序数组中的重复项
 date: 2021-11-18 11:26:53
 categories:
 - Leetcode
