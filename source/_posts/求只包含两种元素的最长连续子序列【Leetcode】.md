@@ -27,7 +27,6 @@ tags:
 设置一个保存水果种类的数组，初始化时填入第一棵树的水果种类。 ``` ftype = [fruits[0]]```
 当走到下一棵树时，先判断是否是已经保存的水果种类 ``` ftype.includes(fruits[j] ```,如果没有包含，则存在下面两种情况：
 ```javascript
-
 // 1. 只有一种水果，将新的水果种类加入种类数组中
 if(ftype.length<=1){
     ftype[1] = fruits[j];
