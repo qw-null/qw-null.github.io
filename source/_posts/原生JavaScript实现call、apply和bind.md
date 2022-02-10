@@ -64,5 +64,11 @@ _f.fn3xx(); //call简单实现多重继承
 ```
 
 #### 1.2 模拟实现call
+[函数this的绑定规则](https://qw-null.github.io/2022/02/08/%E5%87%BD%E6%95%B0this%E7%9A%84%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/#1-%E9%BB%98%E8%AE%A4%E7%BB%91%E5%AE%9A)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220208224245.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220208224357.png)
+
+
 
 
