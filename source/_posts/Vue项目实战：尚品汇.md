@@ -45,7 +45,9 @@ tags:
 <b>★项目的其他配置</b>
 
 1. 项目运行起来时，让浏览器自动打开
-```package.json```文件中
+
+```package.json``` 文件中
+
 ```json
 "scripts": {
     "serve": "vue-cli-service serve --open",
