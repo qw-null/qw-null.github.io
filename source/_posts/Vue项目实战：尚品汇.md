@@ -356,13 +356,15 @@ this.$router.push({
 ```
 但是上述这种解决方法治标不治本，在别的组件中```push | replace```，编程式导航还是要类似的错误。因此需要更加通用的解决方法。解决之前需要明确几点信息：
 
-```this```：指的是当前组件实例（search）
++ ```this```：指的是当前组件实例（search）
 
-```this.$router```属性：当前的这个属性，属性值VueRouter类的一个实例，当在入口文件注册路由的时候，给组件实例添加```$router | $route```属性
++ ```this.$router```属性：当前的这个属性，属性值VueRouter类的一个实例，当在入口文件注册路由的时候，给组件实例添加```$router | $route```属性
 
-```push```:VueRouter类的一个实例
++ ```push```:VueRouter类的一个实例
+
 
 ```javascript
+
 function VueRouter(){
 
 }
@@ -372,7 +374,7 @@ VueRouter.prototype.push = function(){
   //函数的上下文为VueRouter类的一个实例
 }
 
------------------------
+     ----------------------
 
 let $router = new VueRouter();
 
