@@ -49,3 +49,41 @@ while(line = readline()){
     print(a+b);
 }
 ```
+
+## A + B (4)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220215231917.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220215232009.png)
+
+```javascript
+while(line = readline()){
+    let lines = line.split(' ');
+    let len = parseInt(lines[0]);
+    if(len === 0) break;
+    let res = 0;
+    for(let i=1;i<=len;++i){
+        res += parseInt(lines[i]);
+    }
+    print(res);
+}
+```
+
+## A + B (5)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220215232728.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220215232745.png)
+
+```javascript
+let len = readline();
+while(len--){
+    let lines = readline().split(' ');
+    let end = parseInt(lines[0]);
+    let res = 0;
+    for(let i=1;i<=end;++i){
+        res += parseInt(lines[i]);
+    }
+    print(res);
+}
+```
