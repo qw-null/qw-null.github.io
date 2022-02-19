@@ -80,3 +80,5 @@ for (let [key, value] of map) {
 // "b" 2
 
 ```
+
+使用Map解题：[数组中第K个独一无二的字符串【Leetcode】](https://qw-null.github.io/2022/02/19/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%AC%ACK%E4%B8%AA%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%90Leetcode%E3%80%91/)
