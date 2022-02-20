@@ -9,6 +9,7 @@ tags:
 
 > 凡事预则立，不预则废。
 
+[练习地址](https://ac.nowcoder.com/acm/contest/5657)
 ## A + B (1)
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220214221602.png)
@@ -86,4 +87,52 @@ while(len--){
     }
     print(res);
 }
+```
+## A + B (6)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220145030.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220145111.png)
+
+```javascript
+while(line = readline()){
+    let lines = line.split(' ');
+    let len = (lines[0]);
+    let sum = 0;
+    while(len--){
+        sum += parseInt(lines[len+1]);
+    }
+    print(sum);
+}
+```
+## A + B (7)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220145904.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220145920.png)
+
+```javascript
+while(line = readline()){
+    lines = line.split(' ');
+    if(parseInt(lines[0])===0){
+        print(0);
+        break;
+    }
+    let sum = 0;
+    for(let i=0;i<lines.length;++i){
+        sum += parseInt(lines[i]);
+    }
+    print(sum);
+}
+```
+
+## 字符串排序（1）
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220152332.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220152405.png)
+
+```javascript
+let len = readline();
+let arr = readline().split(' ');
+print(arr.sort().join(' '));
 ```
