@@ -136,3 +136,27 @@ let len = readline();
 let arr = readline().split(' ');
 print(arr.sort().join(' '));
 ```
+
+## 字符串排序（2）
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220182815.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220182905.png)
+
+```javascript
+while(line = readline()){
+    lines = line.split(' ');
+    print(lines.sort().join(' '));
+}
+```
+
+## 字符串排序（3）
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220184015.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220220184036.png)
+
+```javascript
+while(line = readline()){
+    lines = line.split(',');
+    print(lines.sort().join(','));
+}
+```
