@@ -46,7 +46,7 @@ tags:
 
 1. 项目运行起来时，让浏览器自动打开
 
-```package.json``` 文件中
+修改 package.json 文件
 
 ```json
 "scripts": {
@@ -57,6 +57,7 @@ tags:
 ```
 
 2. eslint校验功能关闭
+
 方法：在根目录下创建```vue.config.js```文件
 
 ```javascript
@@ -67,6 +68,7 @@ module.exports = {
 ```
 
 3. 配置别名（例如将src配置别名为@）
+
 方法：在根目录下创建```jsconfig.json```文件 
 @代表的是src文件夹，当文件过多时可以方便查找
 
@@ -98,11 +100,11 @@ value：相应的路由组件
 
 注意：项目上中下结构
 
-路由组件：
+* 路由组件：
 Home首页路由组件、Search路由组件、login登录路由
-非路由组件：
+* 非路由组件：
 Header
-Footer【在首页、搜索页】，但在 登录 | 注册 页面是没有
+Footer 在【首页、搜索页】，但在 【登录 | 注册】 页面是没有
 
 ## 2 完成非路由组件Header与Footer的业务
 
@@ -117,6 +119,7 @@ Footer【在首页、搜索页】，但在 登录 | 注册 页面是没有
 注意：
 1. 创建组件的时候，需要保证 组件结构 + 组件样式 + 图片资源 正确
 2. 项目采用less样式，但浏览器不识别less样式，需要通过less、less-loader进行处理less，把less样式变为css样式，浏览器才能识别。
+
 ```bash
 // 安装less和less-loader【注意：less-loader不能安装最新版，否则报错】
 
@@ -190,9 +193,9 @@ export default new VueRouter({
 2. 路由组件一般需要在```router```文件夹中进行注册（使用的即为组件的名字），非路由组件在使用的时候，一般都是以标签的形式使用
 3. 注册完路由，不管路由组件还是非路由组件身上都有```$route```和```$router```属性
 
-```$route```:一般获取路由信息【路径、query、params等】
+* ```$route``` :一般获取路由信息【路径、query、params等】
 
-```$router```:一般进行编程式导航，进行路由跳转【push | replace】
+* ```$router``` :一般进行编程式导航，进行路由跳转【push | replace】
 
 ##### 2.2.3 路由跳转
 路由跳转有两种形式：

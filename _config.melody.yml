@@ -45,7 +45,7 @@ pwa:
 
 # Highlight theme
 # ---------------
-highlight_theme: light
+highlight_theme: ocean
 
 # code_word_wrap: true or false
 
