@@ -44,7 +44,7 @@ tags:
 
 <b>★项目的其他配置</b>
 
-1. 项目运行起来时，让浏览器自动打开
+<b>1.项目运行起来时，让浏览器自动打开</b>
 
 修改 package.json 文件
 
@@ -56,7 +56,7 @@ tags:
   }
 ```
 
-2. eslint校验功能关闭
+<b>2.eslint校验功能关闭</b>
 
 方法：在根目录下创建```vue.config.js```文件
 
@@ -67,7 +67,7 @@ module.exports = {
 }
 ```
 
-3. 配置别名（例如将src配置别名为@）
+<b>3.配置别名（例如将src配置别名为@）</b>
 
 方法：在根目录下创建```jsconfig.json```文件 
 @代表的是src文件夹，当文件过多时可以方便查找
@@ -209,8 +209,7 @@ export default new VueRouter({
 Footer组件：在Home、Search显示Footer组件；在登录、注册时隐藏
 
 显示或者隐藏组件：```v-if | v-show```
-两者使用```v-show```更好一些，原因：```v-if```控制显示与否是通过操作DOM实现的，```v-if```会频繁的操作DOM，损耗性能。
-```v-show```仅仅通过样式显示元素（```display:block```）或者隐藏元素（```display:none```）。
+两者使用```v-show```更好一些，原因：```v-if```控制显示与否是通过操作DOM实现的，```v-if```会频繁的操作DOM，损耗性能。```v-show```仅仅通过样式显示元素（```display:block```）或者隐藏元素（```display:none```）。
 
 + 我们可以依据路由身上的```$route```获取当前路由的信息，通过路由路径（```this.$route.path```）判断Footer显示与隐藏。
 + 配置路由的时候，可以给路由添加路由元信息【meta】，路由需要配置对象，它的key不能乱写，需要依据开发文档。
