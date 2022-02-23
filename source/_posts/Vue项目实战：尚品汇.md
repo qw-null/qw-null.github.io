@@ -417,4 +417,137 @@ VueRouter.prototype.replace = function (location, resolve, reject) {
 
 }
 ```
+## 3 Home组件
+#### 3.1 组件拆分步骤
+1. 先将静态页面完成
+2. 拆分出静态组件
+3. 获取服务器的数据进行展示
+4. 完成动态业务
 
+#### 3.2 全局组件的使用方法
+首先明确全局组件的引入，注册需要在程序入口```main.js```中实现
+
+例如，引如一个名为TypeNav的全局组件，```mian.js```中的代码：
+```javascript
+import TypeNav from '@/pages/Home/TypeNav'
+// 第一个参数：全局组件的名字   第二个参数：哪一个组件
+Vue.component(TypeNav.name, TypeNav)
+```
+
+## 4 axios
+#### 4.1 为什么需要二次封装axios?
+请求拦截器、响应拦截器：
++ 请求拦截器可以在发送请求之前处理一些业务
++ 响应拦截器，当服务器数据返回以后，可以处理一些事情
+
+```bash
+// 安装axios
+npm install --save axios
+```
+
+#### 4.2 项目中api文件夹【axios】
+在接口中，路径都带有```/api```，因此可将```/api```设置为baseURL
+api下的request.js文件的基本结构如下：
+```javascript
+// 对于axios进行二次封装
+import axios from 'axios';
+
+// 1.利用axios对象的方法create去创建一个axios实例
+const requests = axios.create({
+  // 配置对象
+  // 基础路径，发送请求的路径都会出现api
+  baseURL: '/api',
+  // 代表请求超时时间为5s
+});
+
+//请求拦截器：在发送请求之前，请求拦截器可以检测到，可以在请求发送出去之前做一些事情
+requests.interceptors.request.use((config) => {
+  //config：配置对象，对象里面有一个属性很重要->headers请求头
+
+  return config;
+})
+
+// 响应拦截器
+requests.interceptors.response.use((res) => {
+  // 成功的回调函数：服务器相应数据回来以后，相应拦截器可以检测到，可以做一些事情
+  return res.data;
+
+}, (error) => {
+  // 响应失败的回调函数
+  return Promise.reject(error)
+})
+
+
+
+// 对外暴露
+export default requests;
+```
+
+其中的一些配置内容可以参考[axios文档](http://www.axios-js.com/zh-cn/docs/)
+
+#### 4.3 接口的统一管理
+* 项目很小：完全可以在组件的生命周期函数中发送
+* 项目很大：需要在```api```文件夹下的```index.js```中统一管理
+
+##### 4.3.1 跨域问题
+什么是跨域？协议、域名、端口号不同的请求，称之为跨域。
+
+例如：
+http://localhost:8080/#/home  -- 前端项目本地服务
+http://39.98.123.211 -- 后台服务器
+
+解决跨域的方法：```JSONP``` ```CROS``` ```代理```
+
++ 代理方法
+在```webpack.config.js```文件 或者 ```vue.config.js```文件中设置代理
+```javascript
+module.exports = {
+  //...
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',//目标服务器
+        pathRewrite: { '^/api': '' }, // 路径重写
+      },
+    },
+  },
+};
+
+```
+
+## 5 nprogress
+这是一个类似youtube、Medium等网站上的小进度条插件。纳米级的进度条，涓涓细流动画告诉你的用户，一些事情正在发生！
+安装命令：``` npm install --save nprogress ```
+
+<b>项目当中如何使用？</b>
+
+可以在项目接口的请求拦截器【进度条开始】和响应拦截器【进度条结束】中使用。
+
+注意：在使用时要引入 ```nprogress.css``` 文件，否则无法显示
+
+```javascript
+// 引入进度条
+import nprogress from 'nprogress'
+
+// 引入进度条样式
+import "nprogress/nprogress.css"
+
+// start方法：进度条开始 done方法：进度条结束
+nprogress.start();
+nprogress.done();
+```
+❤ 如果想要修改进度条的颜色，可在```node_modules```中找到```nprogress```下的```nprogress.css```，修改其中的样式即可
+
+## 6 vuex状态管理库
+
+vuex是官方提供的一个状态管理库，可以集中式管理项目中组件共用的数据。
+切记，并不是所有的项目都需要vuex，如果项目很小，完全不需要vuex，如果项目很大，组件很多，数据很多，数据维护很费劲，则使用vuex。
+
+安装命令：```npm install --save vuex```
+
+#### 6.1 vuex核心概念
+state
+mutations 
+actidons
+getters
+modules

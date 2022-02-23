@@ -122,33 +122,36 @@ methods:{
   ...mapMutations(['add'])
 }
 ```
-> 可以在触发mutations时传递参数
-> ```javascript
->const store = new Vuex.Store({
->  state:{
->    count: 0
->  },
->  mutations:{
->    addN(state,step){
->      //变更状态
->      state.count += step
->    }
->  }
->})
->```
->```javascript
->methods:{
->      handle(){
->         	this.$store.commit('add',3)
->       }
->}
->```
->另外一种方法：
->```javascript
->methods:{
->  ...mapMutations(['addN'])
->}
->```
+<b>可以在触发mutations时传递参数</b>
+
+  ```javascript
+  const store = new Vuex.Store({
+  state:{
+      count: 0
+    },
+    mutations:{
+      addN(state,step){
+        //变更状态      
+        state.count += step
+      }
+    }
+  })
+  ```
+
+```javascript
+  methods:{
+    handle(){
+        this.$store.commit('add',3)
+    }
+  }
+```
+另外一种方法：
+
+```javascript
+  methods:{
+    ...mapMutations(['addN'])
+  }
+```
 
 ##### 1.4.3 Action
 用于处理异步任务
