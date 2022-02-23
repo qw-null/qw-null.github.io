@@ -122,21 +122,22 @@ methods:{
   ...mapMutations(['add'])
 }
 ```
+
 <b>可以在触发mutations时传递参数</b>
 
-  ```javascript
-  const store = new Vuex.Store({
-  state:{
-      count: 0
-    },
-    mutations:{
-      addN(state,step){
-        //变更状态      
-        state.count += step
-      }
+```javascript
+const store = new Vuex.Store({
+state:{
+    count: 0
+  },
+  mutations:{
+    addN(state,step){
+      //变更状态      
+      state.count += step
     }
-  })
-  ```
+  }
+})
+```
 
 ```javascript
   methods:{
@@ -145,6 +146,7 @@ methods:{
     }
   }
 ```
+
 另外一种方法：
 
 ```javascript
