@@ -88,7 +88,7 @@ computed:{
 Vuex中不允许组件直接修改Store中的数据
 
 ##### 1.4.2 Mutation
-用于变更Store中的数据
+用于变更Store中的数据，<b>mutation 必须是同步函数</b>
 ①只能通过Mutation变更store数据，不可以直接操作store中的数据
 ②通过这种方式虽然操作起来繁琐一些，但是可以集中监控所有数据的变化
 ```javascript
@@ -120,6 +120,7 @@ import { mapMutations } from 'vuex'
 // 通过刚才导入的mapMutations函数，按需要的mutations函数映射为组件的methods方法
 methods:{
   ...mapMutations(['add'])
+  // 将 `this.add()` 映射为 `this.$store.commit('add')`
 }
 ```
 
@@ -145,15 +146,18 @@ state:{
         this.$store.commit('add',3)
     }
   }
-```
 
 另外一种方法：
 
-```javascript
   methods:{
     ...mapMutations(['addN'])
   }
 ```
+上述第二种方法，使用时采用如下方法传递参数：
+```html
+ <button @click="addN(5)">+5</button>
+```
+
 
 ##### 1.4.3 Action
 用于处理异步任务

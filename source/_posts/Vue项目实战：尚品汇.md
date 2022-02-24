@@ -551,3 +551,9 @@ mutations
 actidons
 getters
 modules
+
+详情见 [vuex学习笔记](https://qw-null.github.io/2021/06/01/Vuex%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/)
+
+#### 6.2 vuex实现模块式开发
+如果项目过大，组件过多，接口也很多，数据很多，可以让vuex实现模块式开发。
+
