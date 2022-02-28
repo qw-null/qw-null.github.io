@@ -189,8 +189,8 @@ git branch name commitHash   新建一个分支并且使分支指向对应的提
 git log --oneline --decorate --graph --all     查看项目的分叉历史
 ```
  
-##### 3.1git操作最基本流程
-创建工作目录 $\rightarrow$  对工作目录进行修改
+##### 3.1 git操作最基本流程
+创建工作目录 ——>  对工作目录进行修改
 ```bash
 git add ./
    + 对应底层命令 ：
@@ -217,7 +217,7 @@ git log --pretty=oneline
 git log --oneline
 ```
 
-##### 3.2git的分支
+##### 3.2 git的分支
 创建分支
 命令：```git branch```
 作用：为你创建了一个可以移动的新的指针。 比如，创建一个 testing 分支：```git branch testing```。这会在当前所在的提交对象上创建一个指针
