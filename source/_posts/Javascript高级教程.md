@@ -81,6 +81,29 @@ console.log(typeof b1.b3 === 'function'); //true
 console.log(typeof b1.b2[2] === 'function');//true
 b1.b2[2](4);// 4
 ```
+#### 1.undefined与null的区别是什么？
++ undefiddned 代表定义未赋值
++ null表示定义了变量并且赋值为null
+#### 2.什么时候给变量赋值为null?
++ 初始赋值为null，表明将要赋值为对象。
++ 结束前，让对象成为垃圾对象（被垃圾回收器回收）
+
+
+```javascript
+// 起始
+var b = null; // 初始赋值为null，表明将要赋值为对象
+
+// 确定对象就要赋值
+b = ['xiaoming',12];
+
+// 最后
+b = null; // 释放对象：让b指向的对象成为垃圾对象（被垃圾回收器回收）
+```
+#### 3.严格区别变量类型与数据类型？
+数据的类型：
+
+
+
 ### 1.2 对象，变量与内存
 
 ### 1.3 对象
