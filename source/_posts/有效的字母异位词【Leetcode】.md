@@ -47,3 +47,65 @@ var isAnagram = function(s, t) {
     return true;
 };
 ```
+## 相似题目
+给你一个字符串数组，请你将 <b>字母异位词</b> 组合在一起。可以按任意顺序返回结果列表。
+
+<b>字母异位词</b> 是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母通常恰好只用一次。
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220301095554.png)
+
+#### 解题思路
+统计字符串数组每一项的字母出现的次数，并且以此作为键，具有相同键值的元素作为该键的值，就是字母异位词。
+效果如下：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220301100250.png)
+
+#### 解题代码
+```javascript
+var groupAnagrams = function(strs) {
+    let map = {};
+    for(let item of strs){
+        let count = new Array(26).fill(0);
+        for(let i of item){
+            count[i.charCodeAt()-'a'.charCodeAt()]++;
+        }
+        if(map[count]){
+            map[count].push(item);
+        }else{
+            map[count] = [item];
+        }
+    }
+    return Object.values(map);
+
+};
+```
+## 补充知识
+Object.values()方法
+
+返回一个给定对象自身的所有可枚举属性值的数组，值的顺序与使用for...in循环的顺序相同 ( 区别在于 for-in 循环枚举原型链中的属性 )。
+
+语法：```Object.values(obj)```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220301101119.png)
+
+```javascript
+var obj = { foo: 'bar', baz: 42 };
+console.log(Object.values(obj)); // ['bar', 42]
+
+// array like object
+var obj = { 0: 'a', 1: 'b', 2: 'c' };
+console.log(Object.values(obj)); // ['a', 'b', 'c']
+
+// 类似于数组的对象，具有随机键排序
+// 当我们使用数字键时，按照数字键的顺序返回数值。
+var an_obj = { 100: 'a', 2: 'b', 7: 'c' };
+console.log(Object.values(an_obj)); // ['b', 'c', 'a']
+
+// getFoo 是不可枚举的属性
+var my_obj = Object.create({}, { getFoo: { value: function() { return this.foo; } } });
+my_obj.foo = 'bar';
+console.log(Object.values(my_obj)); // ['bar']
+
+// 非对象参数将被强制转换为对象
+console.log(Object.values('foo')); // ['f', 'o', 'o']
+```
+

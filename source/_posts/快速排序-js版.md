@@ -1,5 +1,5 @@
 ---
-title: '快速排序[js版]'
+title: 快速排序[js版]
 date: 2021-09-06 10:28:54
 categories:
 - 算法基础
