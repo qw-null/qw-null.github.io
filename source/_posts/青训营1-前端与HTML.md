@@ -100,7 +100,7 @@ tags:
    + blockquote：
    \<blockquote> 标签定义摘自另一个源的块引用。
     浏览器通常会对 \<blockquote> 元素进行缩进。
-    属性：cite $\rightarrow$指定引用的来源
+    属性：cite →指定引用的来源
   + cite:
      \<cite> 标签通常表示它所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。按照惯例，引用的文本将以斜体显示。
   + q：
@@ -115,7 +115,7 @@ tags:
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220116130638.png)
 
 8. 表示强调
-   \<strong>\<strong> $\rightarrow$ 加粗
+   \<strong>\<strong> → 加粗
    \<em>\<em>
 
 9. 页面内容划分

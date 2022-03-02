@@ -192,7 +192,7 @@ html{
 + 第一步：筛选出节点对应的样式（样式个数：0~多个）
 + 第二步：筛选出样式中优先级最高的样式
 + 第三步：查看样式是否为空，若是空的，则依据继承或者初始值
-+ 第四步：将一些相对值转化为绝对值（rem $\rightarrow$ px、相对路径 $\rightarrow$  绝对路径等），这些绝对值是在浏览器未进行实际布局的情况下得到的具体值，其中会包含百分数。
++ 第四步：将一些相对值转化为绝对值（rem → px、相对路径 →  绝对路径等），这些绝对值是在浏览器未进行实际布局的情况下得到的具体值，其中会包含百分数。
 + 第五步：将计算值进一步计算，即将百分比转化为具体数值等
 + 第六步：上一步的计算值中可能会出现100.2px、超出min-width或max-width的情况，需要进一步将其转化为整数值
 
@@ -217,7 +217,7 @@ html{
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a312738c01b4bc5b10a4123a1a94bbd~tplv-k3u1fbpfcp-zoom-1.image)
 
-使用border属性生成三角形 $\rightarrow$ [详情](https://qw-null.github.io/2021/09/22/CSS%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/#2-%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2)
+使用border属性生成三角形 → [详情](https://qw-null.github.io/2021/09/22/CSS%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/#2-%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2)
 ```css
 #triangle{
   width:0;

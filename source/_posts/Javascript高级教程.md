@@ -121,7 +121,7 @@ b = null; // 释放对象：让b指向的对象成为垃圾对象（被垃圾回
 
 2. 什么是内存？
 ● 内存条通电之后产生的可存储数据的空间（临时的）；
-● 内存的产生和死亡：内存条（电路板） $\rightarrow$ 通电  $\rightarrow$ 产生内存空间  $\rightarrow$ 存储数据  $\rightarrow$ 处理数据  $\rightarrow$  断电  $\rightarrow$  内存空间和数据都消失；
+● 内存的产生和死亡：内存条（电路板） → 通电  → 产生内存空间  → 存储数据  → 处理数据  →  断电  →  内存空间和数据都消失；
 ● 一块小内存可以保存的2种数据：内部存储的数据 + 地址值
 ● 内存的分类：
   栈：全局变量和局部变量
@@ -147,13 +147,13 @@ console.log(obj.name);
 
 5. 相关问题：
 
-<b>var a = xxx，a内存中到底保存的是什么？</b>
+<b>⭐ var a = xxx，a内存中到底保存的是什么？</b>
 
 * xxx是基本数据，保存的是这个数据
 * xxx是对象，保存的是对象的地址值
 * xxx是一个变量，保存的是xxx的内容值（可能是基本数据，也可能是地址值）
 
-<b>关于引用变量赋值问题？</b>
+<b>⭐ 关于引用变量赋值问题？</b>
 
 ● n个引用变量指向同一个对象，通过一个变量修改对象内部的数据，其他所有变量看到的是修改之后的数据。
 
@@ -191,6 +191,9 @@ fn2(a);
 console.log(a.age); // 13
 ```
 上述第二部分代码图示：
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220302084101.png)
+
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220228154520.png)
 
 代码执行完毕之后，```age:15```会在哪里？
@@ -205,8 +208,127 @@ console.log(a.name); // Lily
 ```
 实际上只要是没有切断变量与堆内存中存储内容之间的执行，修改其中一个，其他都会跟着变。
 
-### 1.3 对象
 
+<b>⭐ 在JS调用函数时传递变量参数，是值传递还是引用传递？</b>
+
+答案：
++ 理解1：都是值传递，值分为两种：基本值和地址值。
++ 理解2：可能是值传递，也可能是引用传递（地址值）。
+
+```javascript
+var a = 3;
+function fn (a) {
+  a = a + 1;
+}
+fn(a);
+console.log(a); // 3
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220302091425.png)
+
+<b>⭐ JS引擎如何管理内存？</b>
+
+1.内存生命周期
+* 分配小内存空间，得到它的使用权
+* 存储数据，可以反复进行操作
+* 释放小内存空间
+
+2.释放内存
+* 局部变量：函数执行完自动释放
+* 对象：成为垃圾对象，由垃圾回收器回收
+
+```javascript
+var a = 3;
+var obj = {};
+```
+上述代码中共使用几个内存空间？
+3个内存空间。一个是栈内存a，存储数据3；一个是栈内存obj，存储数据{}（堆内存）的地址；另一个是堆内存中存储的{}。
+
+<hr>
+
+```javascript
+var a = 3;
+var obj = {};
+obj = null;
+```
+上述代码中共使用几个内存空间？
+2个内存空间。一个是栈内存a，存储数据3；一个是栈内存obj，存储值为null。堆内存中存储的{}被回收。
+
+<hr>
+
+```javascript
+function fn(){
+  var b = {};
+}
+
+fn();
+```
+上述代码中的b在函数```fn()```执行完毕之后会自动释放，而b指向的对象是在后面的某个时刻由垃圾回收器回收。
+
+### 1.3 对象
+1. 什么是对象？
+多个数据的封装体 或者 是用来保存多个数据的容器；
+一个对象代表现实中的一个事物
+```javascript
+var person = {
+  name:'Tom',
+  age:13
+}
+```
+
+2. 为什么用对象？
+统一管理多个数据
+
+3. 对象的组成
+属性 + 方法
+♥ 属性：属性名（字符串）和属性值（任意类型）组成
+♥ 方法：是一种特别的属性（属性值是函数）
+
+```javascript
+var person = {
+  name: 'Tom',
+  age: 13,
+  setName: function (name) {
+    this.name = name;
+  },
+  setAge: function (age) {
+    this.age = age;
+  }
+}
+
+console.log(person.name, person.setName)
+```
+输出结果：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220302110213.png)
+
+4. 如何访问对象内部数据？
+※ 第一种方式：```.属性名```，编码简单，有时不能用
+```javascript
+p.setName('Bob');
+p.name;
+```
+※ 第二种方式：```['属性名']```，编码麻烦，能通用
+```javascript
+person['setAge'](23);
+p['age'];
+```
+
+<b>⭐ 什么情况下必须使用```['属性名']```的方式？</b>
+
+1.属性名包含特殊字符：- 、空格
+2.属性名不确定
+```javascript
+var p = {}
+1.给p对象添加一个属性：content-type : text/json
+p.content-type = 'text/json'  // 不能用
+p['content-type'] = 'text/json' //可以使用
+
+2.属性名不确定
+var propName = 'myAge';
+var value = 18;
+p.propName = value; //不能用
+p[propName] = value; //可以使用
+```
 
 ### 1.4 函数
 

@@ -88,7 +88,7 @@ must-revalidate会与max-age结合使用，如果缓存中设置了must-revalida
 ##### Cookie
 当用户第一次访问并登陆一个网站的时候，cookie的设置以及发送会经历以下4个步骤：
 
-(1)客户端发送一个请求到服务器  $\rightarrow$  (2)服务器发送一个HttpResponse响应到客户端，其中包含Set-Cookie的头部  $\rightarrow$  (3)客户端保存cookie，之后向服务器发送请求时，HttpRequest请求中会包含一个Cookie的头部  $\rightarrow$  (4)服务器返回响应数据
+(1)客户端发送一个请求到服务器  →  (2)服务器发送一个HttpResponse响应到客户端，其中包含Set-Cookie的头部  →  (3)客户端保存cookie，之后向服务器发送请求时，HttpRequest请求中会包含一个Cookie的头部  →  (4)服务器返回响应数据
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220124100217.png)
 

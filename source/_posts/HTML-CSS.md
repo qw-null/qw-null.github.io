@@ -125,8 +125,8 @@ html中列表一共三种：
 超链接：可以从一个页面跳转到其他页面，或者当前页面的其他位置
 使用a标签定义超链接
   属性：
-    href $\rightarrow$ 指定跳转的目标路径
-    target $\rightarrow$ 用来指定超链接打开的位置
+    href → 指定跳转的目标路径
+    target → 用来指定超链接打开的位置
    ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220116132414.png)
 
 超链接，行内元素，在a标签中可以嵌套除自身外的任何元素
