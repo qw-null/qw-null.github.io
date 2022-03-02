@@ -327,14 +327,106 @@ p[propName] = value; //可以使用
 
 ### 1.4 函数
 #### 1.4.1 什么是函数？
+实现特定功能的n条语句的封装体
+只有函数是可以执行的，其他类型的数据不能执行
 
 #### 1.4.2 为什么要用函数？
+提高代码复用、便于阅读交流
 
 #### 1.4.3 如何定义函数？
+函数声明
+表达式
 
+```javascript
+1.函数声明
+function fn1(){
+  console.log('fn1()');
+}
+
+2.表达式
+var fn2 = function(){
+  console.log('fn2()');
+}
+```
 
 #### 1.4.4 如何调用（执行）函数？
+直接调用：```test()```
+通过对象调用：```obj.test()```
+new调用：```new test()```
+临时让test成为obj的方法进行调用：```test.call(obj) ```、``` test.apply(obj)```
 
+```javascript
+举例：
+var obj = {};
+function test(){
+  this.xx = 'Hello';
+}
+
+* obj.test(); // 不能直接调用，因为obj中根本没有这个函数
+
+test.call(obj) //可以让一个函数成为指定任意对象的方法进行调用
+console.log(obj.xx) // Hello
+
+```
+#### 1.4.4 回调函数
+##### 什么是回调函数？
+3个特点：
+1）自己定义的
+2）没有调用
+3）最终执行了
+##### 常见的回调函数
+* dom事件的回调函数
+* 定时器回调函数
+* ajax请求回调函数
+* 生命周期回调函数
+
+#### 1.4.5 IIFE
+Immediately-Invoked Function Expression，立即调用函数表达式
+匿名函数自调用 = IIFE
+```javascript
+// 匿名函数自调用
+(function(){
+  console.log('Hello');
+})()
+```
+<b> ♥ 作用：</b>
+
+* 隐藏实现
+* 不会污染外部（全局）命名空间
+* 用它来编写js模块
+
+```javascript
+(function () {
+  var a = 1;
+  function test () {
+    console.log(++a);
+  }
+  window.$ = function () { //向外暴露一个全局函数
+    return {
+      test: test
+    }
+  }
+})();
+
+$().test() // 1.$是一个函数 2.$执行后返回的是一个对象
+```
+
+#### 1.4.6 函数中的this
+##### this 是什么？
+* 任何函数本质上都是通过某个对象来调用的
+* 所有函数内部都有一个变量this
+* 它的值是调用函数的当前对象
+
+##### 如何确定this的值？
+* ```test()``` ：window
+* ```p.test()``` ：p
+* ```new test()``` ：新创建的对象
+* ```p.call(obj)```：obj
+
+>1. 函数调用时，指向window 
+>2. 以方法调用时，指向调用该方法的对象 
+>3. 使用new创建一个对象时，指向新创建的对象 
+>4. call,apply ,bind可以改变this指向
 
 ## 2.函数高级
 
@@ -343,3 +435,36 @@ p[propName] = value; //可以使用
 
 
 ## 4.线程机制与事件机制
+
+## 补充问题
+
+#### JS分号问题
+* JS一条语句的后面可以不加分号
+* 是否加分号是编码风格问题，没有应该不应该，只有开发者喜欢与否
+* 下面两种情况不加分号会报错
+※ 小括号开头的前一条语句 （匿名函数自调用）
+※ 中方括号开头的前一条语句
+```javascript
+1.小括号开头的前一条语句 （匿名函数自调用）
+var a = 3
+;(function(){
+  console.log('Hello')
+})()
+错误理解：
+var a = 3(function(){
+  console.log('Hello')
+})()
+
+---
+
+2.中方括号开头的前一条语句
+var a = 3
+;[3,4].forEach(function(){
+  console.log('Hello')
+})
+错误理解：
+var a = 3[3,4].forEach(function(){
+  console.log('Hello')
+})
+```
+⭐解决方法：在行首加分号
