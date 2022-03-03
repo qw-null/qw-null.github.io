@@ -15,7 +15,7 @@ tags:
 1. 基本（值）类型
 String：任意字符串
 Number：任意数字
-Symbol
+Symbol：生成一个全局唯一的值
 Boolean：true / false
 Undefined：undefined
 Null：null
@@ -124,8 +124,8 @@ b = null; // 释放对象：让b指向的对象成为垃圾对象（被垃圾回
 ● 内存的产生和死亡：内存条（电路板） → 通电  → 产生内存空间  → 存储数据  → 处理数据  →  断电  →  内存空间和数据都消失；
 ● 一块小内存可以保存的2种数据：内部存储的数据 + 地址值
 ● 内存的分类：
-  栈：全局变量和局部变量
-  堆：对象
+  栈：全局变量和局部变量（空间较小）
+  堆：对象（空间较大）
 ```javascript
 var obj = {name:'Tom'};
 console.log(obj.name);
@@ -311,14 +311,14 @@ p['age'];
 ##### ⭐ 什么情况下必须使用```['属性名']```的方式？
 
 1.属性名包含特殊字符：- 、空格
-2.属性名不确定
+2.属性名不确定（属性名是个变量）
 ```javascript
 var p = {}
 1.给p对象添加一个属性：content-type : text/json
 p.content-type = 'text/json'  // 不能用
 p['content-type'] = 'text/json' //可以使用
 
-2.属性名不确定
+2.属性名不确定（属性名是个变量）
 var propName = 'myAge';
 var value = 18;
 p.propName = value; //不能用
@@ -373,10 +373,10 @@ console.log(obj.xx) // Hello
 3个特点：
 1）自己定义的
 2）没有调用
-3）最终执行了
+3）最终执行了（在某个时刻 或者 某个条件下）
 ##### 常见的回调函数
-* dom事件的回调函数
-* 定时器回调函数
+* dom事件的回调函数 ➡ this指的是发生事件的dom元素
+* 定时器回调函数 ➡ this指的是window
 * ajax请求回调函数
 * 生命周期回调函数
 
@@ -426,9 +426,47 @@ $().test() // 1.$是一个函数 2.$执行后返回的是一个对象
 >1. 函数调用时，指向window 
 >2. 以方法调用时，指向调用该方法的对象 
 >3. 使用new创建一个对象时，指向新创建的对象 
->4. call,apply ,bind可以改变this指向
+>4. call,apply ,bind可以改变this指向，this指向指定的那个对象
+>5. 在全局作用域中this代表window
 
 ## 2.函数高级
+### 2.1原型与原型链
+#### 2.1.1 原型（prototype）
+<b>1.函数的```prototype```属性</b>
+* 每个函数都有一个```prototype```属性，它默认指向一个```Object```空对象（即称为：原型对象）
+> 何为Object空对象？ 没有我们自己定义的属性
+* 原型对象中有一个属性```constructor ```，它指向函数对象
+```javascript
+console.log(Date.prototype.constructor === Date); // true
+console.log(fun.prototype.constructor === fun); //true（fun为自定义函数）
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220303112643.png)
+⭐ 构造函数和它的原型对象是一个相互引用的关系。
+解释相互引用：当前存在两个对象```A```和```B```，```A```当中有一个属性可以找到```B```，```B```当中有一个属性可以找到```A```。
+
+<b>2.给原型对象添加属性（这里的属性一般都是方法）</b>
+给原型对象添加属性（一般是方法）➡ 实例对象可以访问
+
+```javascript
+function Fun(){
+
+}
+
+//给原型对象添加属性（一般是方法）➡ 实例对象可以访问
+Fun.prototype.test = function(){
+  console.log('test方法');
+}
+
+var fun = new Fun();
+fun.test();// test方法
+```
+### 2.2执行上下文与执行上下文栈
+
+### 2.3作用域与作用域链
+
+### 2.4闭包
+
 
 
 ## 3.面向对象高级
