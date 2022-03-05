@@ -461,6 +461,88 @@ Fun.prototype.test = function(){
 var fun = new Fun();
 fun.test();// test方法
 ```
+
+#### 2.1.2 显式原型与隐式原型
+1. 每个函数```function```都有一个```prototype```，即显式原型（属性）
+2. 每个实例对象都有一个```__proto__```，可称为隐式原型（属性）
+3. 对象的隐式原型的值为其对应构造函数的显式原型的值
+4. 总结：
+* 函数的```prototype```属性：在定义函数时自动添加的，默认为一个空Object对象
+* 对象的```__proto__```属性：在创建对象时自动添加的，默认值为构造函数的```prototype```属性值
+* 程序员能直接操作显式原型，但不能直接操作隐式原型（ES6之前）
+
+```javascript
+function Fn () { // 内部语句：this.prototype = {}
+
+}
+
+// 1. 每个函数function都有一个prototype，即显式原型（属性），默认指向一个空Object对象
+console.log(Fn.prototype);
+
+// 2.每个实例对象都有一个__proto__，可称为隐式原型（属性）
+var fn = new Fn(); // 内部语句：this.__proto__ = Fn.prototype;
+console.log(fn.__proto__);
+
+//3.对象的隐式原型的值为其对应构造函数的显式原型的值
+console.log(Fn.prototype === fn.__proto__) //true
+
+// 给原型添加方法
+Fn.prototype.test = function(){
+  console.log('test');
+}
+// 通过实例对象调用原型的方法
+fn.test()
+```
+上述代码内存结构图：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220304121321.png)
+
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220305214943.png)
+
+
+#### 2.1.3 原型链
+
+访问一个对象的属性时：
+* 先在自身属性中查找，如果找到则返回
+* 如果未找到，再沿着```__proto__```这条链向上查找，找到返回
+* 如果最终没有找到，返回```undefined```
+
+原型链的别名是隐式原型链。
+原型链的作用：查找对象的属性（方法）
+
+<b style="background:#f8df70">原型链的本质是隐式原型链。</b>
+原型链的尽头是```Object的原型对象```。
+
+```javascript
+function Fn () {
+  this.test1 = function () {
+    console.log('test1()');
+  }
+}
+
+console.log(Fn.prototype);
+Fn.prototype.test2 = function () {
+  console.log('test2()');
+}
+
+var fn = new Fn()
+
+fn.test1(); // test1()
+fn.test2(); // test2()
+
+console.log(fn.toString()); // [object Object]
+console.log(fn.test3); // undefined
+fn.test3(); //  "TypeError: fn.test3 is not a function
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220305205820.png)
+原型链的尽头是```Object的原型对象```。
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220305214943.png)
+
+创建两个实例对象，实例对象有隐式原型属性```__proto__```，这个隐式原型属性指向的是Object的原型对象，（隐式原型属性```__proto__```的值是将```prototype```的值赋给它得到的）。
+
+
 ### 2.2执行上下文与执行上下文栈
 
 ### 2.3作用域与作用域链
