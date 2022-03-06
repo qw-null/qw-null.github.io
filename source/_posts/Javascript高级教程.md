@@ -538,6 +538,11 @@ fn.test3(); //  "TypeError: fn.test3 is not a function
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220305214943.png)
 创建两个实例对象，实例对象有隐式原型属性```__proto__```，这个隐式原型属性指向的是Object的原型对象，（隐式原型属性```__proto__```的值是将```prototype```的值赋给它得到的）。
 
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220306140152.png)
++ 所有函数的```__proto__```都是一样的，都是通过```new Function()```产生的
++ 任何函数都是通过```new Function()```产生的.因此，所有函数对象的隐式原型都指向```Function.prototype```
+
++ 实例对象的隐式原型属性等于构造函数的显示原型属性
 
 
 
