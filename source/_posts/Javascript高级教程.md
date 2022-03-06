@@ -496,10 +496,6 @@ fn.test()
 上述代码内存结构图：
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220304121321.png)
 
-
-![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220305214943.png)
-
-
 #### 2.1.3 原型链
 
 访问一个对象的属性时：
@@ -538,9 +534,11 @@ fn.test3(); //  "TypeError: fn.test3 is not a function
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220305205820.png)
 原型链的尽头是```Object的原型对象```。
 
-![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220305214943.png)
 
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220305214943.png)
 创建两个实例对象，实例对象有隐式原型属性```__proto__```，这个隐式原型属性指向的是Object的原型对象，（隐式原型属性```__proto__```的值是将```prototype```的值赋给它得到的）。
+
+
 
 
 ### 2.2执行上下文与执行上下文栈
