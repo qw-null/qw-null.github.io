@@ -544,8 +544,109 @@ fn.test3(); //  "TypeError: fn.test3 is not a function
 
 + 实例对象的隐式原型属性等于构造函数的显示原型属性
 
+#### 小结：
++ 函数的显式原型指向的对象：默认是空Object实例对象【但是Object不满足】
+```javascript
+function Fn () {
+  this.test1 = function () {
+    console.log('test1()');
+  }
+}
 
+console.log(Fn.prototype instanceof Object); // true
+console.log(Object.prototype instanceof Object); //false
+console.log(Function.prototype instanceof Object); // true
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220307084657.png)
+( 😀 因此，上图中存在绿色部分)
 
++ 所有函数都是Function的实例，包括Function它自身。
+```javascript
+console.log(Function.__proto__ === Function.prototype); // true
+```
++ Object 的原型对象是原型链的尽头
+```javascript
+console.log(Object.prototype.__proto__); // null
+```
+
+#### 原型链的属性问题
++ 读取对象属性值时：会自动到原型链中查找
++ 设置对象的属性值时：不会查找原型链，如果当前对象中没有此属性，直接添加属性并设置其值
++ 方法一般定义在原型中，属性一般通过构造函数定义在对象本身上
+
+※ <i style = "background:#a7ed3d">原型链是用来查找属性的，当为一个对象添加属性时，不会看原型链</i>
+
+```javascript
+function Fn () {
+
+}
+Fn.prototype.a = 'AAA';
+
+var fn1 = new Fn();
+console.log(fn1.a); // AAA
+
+var fn2 = new Fn();
+fn2.a = 'BBB';
+console.log(fn1.a, fn2.a); // AAA BBB
+```
+此时```fn1```的内容为：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220307101504.png)
+⭐ 查找```fn1```的```a```属性值时，发现```fn1```本身没有属性```a```，所以会自动到原型链中查找属性```a```。
+
+此时```fn2```的内容为：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220307101627.png)
+⭐ 查找```fn2```的```a```属性值时，发现```fn2```本身有属性```a```，所以直接输出该属性值，不再去查找原型链，但是原型链中实际上仍存在属性```a```。
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+}
+Person.prototype.setName = function (name) {
+  this.name = name;
+}
+
+var p1 = new Person('Tom', 12);
+console.log(p1);
+p1.setName('Bob');
+console.log(p1);
+```
+⭐ 方法一般定义在原型中，属性一般通过构造函数定义在对象本身上
+
+```javascript
+var p2 = new Person('Lily', 13)
+console.log(p1.__proto__ === p2.__proto__) // true
+```
+⭐ 实例对象的隐式原型等于构造函数的显式原型
+
+#### 2.1.4 instanceof
+instanceof 作用：```a instanceof b``` → 判断```a```是否是```b```的实例
++ instanceof 是如何判断的？
+表达式：```A instanceof B```
+如果B函数的显式原型对象在A对象的原型链上，返回true，否则返回false
+
+```javascript
+function Foo () {
+
+}
+var f1 = new Foo();
+console.log(f1 instanceof Foo); // true
+console.log(f1 instanceof Object); // true
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220307113311.png)
+
+<hr>
+
+```javascript
+console.log(Object instanceof Function); // true
+console.log(Object instanceof Object); // true
+console.log(Function instanceof Function); // true
+console.log(Function instanceof Object); // true
+
+function Foo () { }
+console.log(Object instanceof Foo); // false
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/无标题.png)
 ### 2.2执行上下文与执行上下文栈
 
 ### 2.3作用域与作用域链
