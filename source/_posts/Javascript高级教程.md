@@ -15,7 +15,7 @@ tags:
 1. 基本（值）类型
 String：任意字符串
 Number：任意数字
-Symbol：生成一个全局唯一的值
+Symbol：代表创建后独一无二且不可变的数据类型【它的出现我认为是为了解决可能出现的全局变量冲突的问题】
 Boolean：true / false
 Undefined：undefined
 Null：null
@@ -647,6 +647,65 @@ function Foo () { }
 console.log(Object instanceof Foo); // false
 ```
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/无标题.png)
+
+#### 2.1.5 面试题
+<b>题目1</b>
+
+```javascript
+function A () {
+
+}
+A.prototype.n = 1;
+
+var b = new A();
+
+A.prototype = {
+  n: 2,
+  m: 3
+}
+
+var c = new A()
+console.log(b.n, b.m, c.n, c.m);// 1 undefined  2 3
+```
+
+上述代码在内存中的示意图：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220308130123.png)
+（*最开始是是红色指示线，后来变为蓝色指示线*）
+
+对于代码
+```javascript
+A.prototype = {
+  n: 2,
+  m: 3
+}
+``` 
+的理解：现在堆内存中创建对象```{n:2,m:3}```，然后改变```A.prototype```的指向。（*蓝色指示线部分*）
+
+<b>题目2</b>
+
+```javascript
+var F = function () {
+  Object.prototype.a = function () {
+    console.log('a()');
+  }
+  Function.prototype.b = function () {
+    console.log('b()');
+  }
+}
+
+var fn = new F();
+fn.a(); // a()
+fn.b(); // TypeError: fn.b is not a function
+F.a(); // a()
+F.b(); // b()
+```
+
+#### 原型链一张图
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/原型链.jpg)
+
+
+
 ### 2.2执行上下文与执行上下文栈
 
 ### 2.3作用域与作用域链
