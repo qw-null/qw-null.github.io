@@ -704,6 +704,16 @@ F.b(); // b()
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/原型链.jpg)
 
+<b>实记口诀：</b>
+
+1. 函数都是```Function```构造出来的
+2. 一切函数都是对象，只要是函数对象，就会有原型```prototype```和隐式原型```__proto__```两个属性
+3. 普通对象身上只有```__proto__```，没有```prototype```
+4. 实例化对象的```__proto__```都指向构造函数的```prototype```
+5. 所有函数的```prototype```都指向自身的```prototype```
+6. 所有的```prototype```的```__proto__```都指向```Object.prototype```（Object除外）
+7. 所有函数对象的```__proto__```都指向```Function.prototype```（包括Function自身）
+8. 所有对象身上都有```constructor```指向函数自身
 
 
 ### 2.2执行上下文与执行上下文栈
