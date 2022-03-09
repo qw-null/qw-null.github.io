@@ -717,6 +717,169 @@ F.b(); // b()
 
 
 ### 2.2执行上下文与执行上下文栈
+#### 2.2.1 变量提升与函数提升
+
+```javascript
+// 面试题：程序最终输出什么？
+var a = 3;
+function fn () {
+  console.log(a);
+  var a = 4;
+}
+fn(); // undefined
+```
+上述代码的实际执行过程是
+```javascript
+function fn(){
+  var a;
+  console.log(a);
+  a = 4;
+}
+```
+<hr>
+
+```javascript
+console.log(b); //undefined   
+fn2(); // fn2
+
+var b = 3;
+function fn2 () {
+  console.log('fn2');
+}
+```
+上述代码在执行```console.log```时，变量```b```和函数```fn2```均未提前声明，但是仍然可以执行。原因是变量```b```进行了变量提升，函数```fn2```进行了函数提升。
+
+1. 变量（声明）提升
+通过```var```定义（声明）的变量，在定义语句之前就可以访问到，值为```undefined```
+2. 函数（声明）提升
+通过```function```声明的函数，在之前就可以直接调用，值为函数定义。
+函数提升必须使用声明的方式。
+```javascript
+console.log(fn2);
+
+function fn2 () {
+  console.log('fn2');
+}
+```
+结果为：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220309091249.png)
+
+```javascript
+console.log(fn3); //undefined
+
+var fn3 = function () {
+  console.log('fn3');
+}
+
+```
+上述代码遵循的是变量提升。
+
+#### 2.2.2 执行上下文
+<b>1.代码分类</b>
+全局代码 和 函数（局部）代码
+
+<b>2.全局执行上下文</b>
+在执行全局代码前将```window```确定为全局执行上下文。
+
+对全局数据进行预处理:
+* ```var```定义的全局变量 → ```undefined```，添加为```window```的属性
+* ```function```声明的全局函数 → 赋值（```fun```）,添加为```window```的方法
+* ```this``` → 赋值（```var```）
+--上述过程是在全局代码执行之前就会进行的操作
+* 执行全局代码
+
+<b>3.函数执行上下文</b>
+在调用函数时，准备执行函数体之前，创建对应的函数执行上下文对象（虚拟的，存在于栈中）
+
+对局部数据进行预处理：
+* 形参变量 → 赋值（实参） → 添加为执行上下文的属性
+* ```arguments``` → 赋值（实参列表），添加为执行上下文的属性
+* ```var```定义的局部变量 → undefined，添加为执行上下文的属性
+* ```function```声明的函数 → 赋值（fun），添加为执行上下文的方法
+* ```this``` → 赋值（调用函数的对象）
+
+开始执行函数体代码
+
+#### 2.2.3 执行上下文栈
+1. 在全局代码执行前，JS引擎就会创建一个栈来存储管理所有的执行上下文对象
+2. 在全局执行上下文（window）确定后，将其添加到栈中（压栈）
+3. 在函数执行上下文创建后，将其添加到栈中（压栈）
+4. 在当前函数执行完成后，将栈顶的对象移除（出栈）
+5. 当所有的代码执行完后，栈中只剩下window
+
+<span style="background-color:#f9c116"> 处于活动状态的执行上下文环境只有一个。</span>
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220309154025.png)
+
+```javascript
+// 1.进入全局执行上下文
+var a = 10;
+var bar = function (x) {
+  var b = 5;
+  fn(x + b);// 3. 进入foo执行上下文
+}
+
+var fn = function (y) {
+  var c = 5;
+  console.log(a + c + y);
+}
+
+bar(10);// 2.进入bar函数执行上下文
+```
+上述代码结果为30。
+
+执行上下文栈结构图如下所示：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220309153021.png)
+
+栈的底部始终是```window```，因为第一个产生的是```window```，要放入栈中进行管理。
+
+#### 面试题
+<b>⭐ 1.依次输出什么？整个过程中产生了几个执行上下文？</b>
+
+```javascript
+console.log('global begin:' + i);
+var i = 1;
+foo(1);
+function foo (i) {
+  if (i == 4) {
+    return;
+  }
+  console.log('foo begin:' + i);
+  foo(i + 1);
+  console.log('foo end:' + i);
+}
+console.log('global end:' + i);
+```
+依次输出的结果：
+>global begin:undefidned
+>foo begin:1
+>foo begin:2
+>foo begin:3
+>foo end:3
+>foo end:2
+>foo end:1
+>global end:1
+
+整个过程中产生了5个执行上下文。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220309163434.png)
+
+<b>⭐ 2.函数提升与变量提升顺序</b>
+
+```javascript
+function a () { }
+var a;
+console.log(typeof a); // 'function'
+```
+上述代码先执行变量提升，再执行函数提升。
+具体参考：[变量提升和函数提升的优先级问题]()
+<b>⭐ 3.函数提升与变量提升顺序</b>
+
+```javascript
+if (!(b in window)) {
+  var b = 1;
+}
+console.log(b); // undefined
+
+```
 
 ### 2.3作用域与作用域链
 
