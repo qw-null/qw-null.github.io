@@ -51,6 +51,4 @@ tags:
 
 2. ```Last-Modified```和```If-Modified-Since```
 浏览器第一次请求一个资源的时候，服务器返回的```header```中会加上```Last-Modify```，```Last-modify```是一个时间标识该资源的最后修改时间，例如```Last-Modify: Thu,31 Dec 2037 23:59:59 GMT```。
-当浏览器再次请求该资源时，request的请求头中会包含```If-Modify-Since```，该值为缓存之前返回的```Last-Modify```。服务器收到```If-Modify-Since```后，根据资源的最后修改时间判断是否命中缓存。
-
-如果命中缓存，则返回304状态码。
+当浏览器再次请求该资源时，request的请求头中会包含```If-Modify-Since```，该值为缓存之前返回的```Last-Modify```。服务器收到```If-Modify-Since```后，根据资源的最后修改时间判断是否命中缓存。如果命中缓存，则返回304状态码。
