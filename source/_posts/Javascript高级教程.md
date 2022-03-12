@@ -504,7 +504,7 @@ fn.test()
 * 如果最终没有找到，返回```undefined```
 
 原型链的别名是隐式原型链。
-原型链的作用：查找对象的属性（方法）
+原型链的作用：查找对象的属性（方法），只是用来查找，如果是一些赋值操作等，则不会查找原型链。
 
 <b style="background:#f8df70">原型链的本质是隐式原型链。</b>
 原型链的尽头是```Object的原型对象```。
@@ -620,7 +620,7 @@ console.log(p1.__proto__ === p2.__proto__) // true
 ⭐ 实例对象的隐式原型等于构造函数的显式原型
 
 #### 2.1.4 instanceof
-instanceof 作用：```a instanceof b``` → 判断```a```是否是```b```的实例
+instanceof 作用：```a instanceof b``` → 判断```a```是否是```b```的实例【其中，a是实例对象，b是构造函数】
 + instanceof 是如何判断的？
 表达式：```A instanceof B```
 如果B函数的显式原型对象在A对象的原型链上，返回true，否则返回false
@@ -659,7 +659,7 @@ A.prototype.n = 1;
 
 var b = new A();
 
-A.prototype = {
+A.prototype = { //这步操作直接改变了原型对象
   n: 2,
   m: 3
 }
@@ -671,6 +671,22 @@ console.log(b.n, b.m, c.n, c.m);// 1 undefined  2 3
 上述代码在内存中的示意图：
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220308130123.png)
 （*最开始是是红色指示线，后来变为蓝色指示线*）
+
+两种表达方式：
+```javascript
+var B = function(){}
+表达方式1：
+B.prototype.n = 1;
+表达方式2：
+B.prototype = { 
+  n: 2,
+  m: 3
+}
+```
+其中表达方式1会影响原有的实例对象，因为表达方式1是在原有的实例对象上添加到。
+表达方式2不会影响原有的实例对象，因为表达方式2直接改变了实例对象原型。
+
+
 
 对于代码
 ```javascript
@@ -871,7 +887,6 @@ console.log(typeof a); // 'function'
 ```
 上述代码先执行函数提升，再执行变量提升，但是变量未进行赋值操作，所以是function。
 具体参考：[变量提升和函数提升的优先级问题](https://qw-null.github.io/2022/03/09/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%92%8C%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/)
-<b>⭐ 3.函数提升与变量提升顺序</b>
 
 ```javascript
 if (!(b in window)) {
@@ -881,7 +896,19 @@ console.log(b); // undefined
 
 ```
 
+```javascript
+var c = 1;
+function c (c) {
+  console.log(c);
+}
+c(2); // TypeError: c is not a function
+```
+上述代码相当于：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220311102431.png)
+
 ### 2.3作用域与作用域链
+
+
 
 ### 2.4闭包
 
