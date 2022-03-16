@@ -127,7 +127,7 @@ html中列表一共三种：
   属性：
     href → 指定跳转的目标路径
     target → 用来指定超链接打开的位置
-   ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220116132414.png)
+   ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220316192446.png)
 
 超链接，行内元素，在a标签中可以嵌套除自身外的任何元素
 ```html
@@ -173,6 +173,24 @@ loop 音频文件是否循环播放
 
 video标签 引入视频文件
 使用方式和audio标签一致
+
+video标签示例：
+```html
+<video controls width="250">
+
+    <source src="/media/cc0-videos/flower.webm"
+            type="video/webm">
+
+    <source src="/media/cc0-videos/flower.mp4"
+            type="video/mp4">
+
+    Sorry, your browser doesn't support embedded videos.
+</video>
+```
+当视频的媒体数据加载期间发生错误时执行 JavaScript :
+```html
+<video onerror="myFunction()">
+```
 
 ## 14.表格（P96-P97）
 网页中通过table标签来创建表格
