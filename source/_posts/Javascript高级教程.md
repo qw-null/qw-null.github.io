@@ -958,9 +958,196 @@ fn1();
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220314230130.png)
 
 #### 2.3.4 面试题
+⭐
+```javascript
+var x = 10;
+function fn () {
+  console.log(x);
+}
+function show (f) {
+  var x = 20;
+  f();
+}
+show(fn); // 10
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220315140359.png)
+执行函数```fn()```时，会先在```fn```的作用域中查找```x```，没有找到后会跳到其外部的作用域中继续寻找，```fn```的作用域和```show```的作用域是同级的不会相互查找。
+⭐
+```javascript
+var fn = function () {
+  console.log(fn);
+}
+fn();
 
+var obj = {
+  fn2: function () {
+    console.log(fn2);
+  }
+}
 
+obj.fn2();
+```
+结果为：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220315142215.png)
+报错的原因是
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220315142435.png)
+在函数作用域中查找不到```fn2```，会到全局作用域中继续查找，在全局作用域中不存在```fn2```。
+※ 如果想要调用```fn2```，应该修改代码为
+```javascript
+var obj = {
+  fn2: function () {
+    console.log(this.fn2);
+  }
+}
+
+obj.fn2(); // 结果为打印fn2
+```
 ### 2.4闭包
+1. 如何产生闭包？
+当一个嵌套的内部（子）函数引用了嵌套的外部（父）函数的变量（函数）时，就产生了闭包。
+2. 闭包是什么？
+闭包指的是那些引用了另一个函数作用域中变量的函数，通常是在嵌套函数中实现的。
+>使用chrome调试查看：
+※ 理解一：闭包是嵌套的内部函数（该函数中引用了外部函数的变量）
+※ 理解二：包含被引用变量（函数）的对象
+<b>注意：</b>闭包存在于嵌套的内部函数中
+
+3. 产生闭包的条件？
+* 函数嵌套
+* 内部函数引用了外部函数的数据（变量 \ 函数）
+* 执行了外部函数
+
+#### 2.4.1 常见的闭包
+1. 将函数作为另一个函数的返回值
+```javascript
+function fn1 () {
+  var a = 2;
+  function fn2 () {
+    a++;
+    console.log(a);
+  }
+  return fn2;
+}
+var f = fn1();
+console.log(f);
+```
+结果为
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220315154451.png)
+上述过程中<b>创建了1个闭包</b>。通过代码```fn1()```产生。
+再执行下列代码：
+```javascript
+f(); // 3
+f(); // 4
+```
+2. 将函数作为实参传递给另一个函数调用
+```javascript
+function showDelay (msg, time) {
+  setTimeout(function () {
+    console.log(msg)
+  }, time)
+}
+
+showDelay('延迟输出', 2000)
+```
+上述代码在执行过程中产生了闭包。因为
+嵌套的内部函数引用了外部函数的变量```msg```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220315160727.png)
+若将代码修改如下，就不会产生闭包
+```javascript
+function showDelay (msg, time) {
+  setTimeout(function () {
+    console.log('无闭包产生')；
+  }, time)
+}
+
+showDelay('延迟输出', 2000)
+```
+#### 2.4.2 闭包的作用
+1. 使得函数内部的变量在函数执行完后，仍存活在内存中（延长了局部变量的生命周期）
+2. 让函数外部可以操作（读写）到函数内部的数据（变量/函数）
+
+问题：
+<b>※ 1. 函数执行完后，函数内部声明的局部变量是否还在？</b>
+一般是不存在，存在于闭包中的变量才可能存在
+
+<b>※ 2. 在函数外部能直接访问函数内部的局部变量吗？</b>
+不能，但是通过闭包可以让外部操作它
+
+#### 2.4.3 闭包的生命周期
+1. 产生：在嵌套内部函数定义执行完时就产生了（不是在调用时）
+2. 死亡：在嵌套的内部函数成为垃圾对象时 
+
+```javascript
+function fn1 () {
+  // 此时闭包就已经产生了（函数提升，内部函数对象已经创建了）
+  var a = 2;
+  function fn2 () {
+    a++;
+    console.log(a);
+  }
+  return fn2;
+}
+
+var f = fn1();
+f(); // 3
+f(); // 4
+f = null;// 闭包死亡（包含必报的函数对象成为垃圾对象）
+```
+#### 2.4.3 闭包的应用：定义JS模块
+JS模块是具有特定功能的JS文件，将所有的数据和功能都封装在一个函数内部（私有的），只向外暴露一个包含n个方法的对象或者函数，模块的使用者，只需要通过模块暴露的对象调用方法来实现对应的功能。
+
+<b>※ 方式一</b>
+
+```javascript
+function myModule () {
+  // 私有数据
+  var msg = "My module";
+
+  // 操作数据的对象
+  function doSomething () {
+    console.log('doSomething()', msg.toUpperCase());
+  }
+  function doOtherthing () {
+    console.log('doOtherthing()', msg.toLowerCase());
+  }
+
+  // 向外暴露对象（给外部使用的方法）
+  return {
+    doSomething: doSomething,
+    doOtherthing: doOtherthing
+  }
+}
+```
+<b>※ 方式二</b>
+
+```javascript
+(function () {
+  // 私有数据
+  var msg = "My module";
+
+  // 操作数据的对象
+  function doSomething () {
+    console.log('doSomething()', msg.toUpperCase());
+  }
+  function doOtherthing () {
+    console.log('doOtherthing()', msg.toLowerCase());
+  }
+
+  // 向外暴露对象（给外部使用的方法）
+  window.myModule = {
+    doSomething: doSomething,
+    doOtherthing: doOtherthing
+  }
+})()
+```
+
+#### 2.4.4 闭包的缺点及解决
+1. 缺点：
+■ 函数执行完后，函数内的局部变量没有释放，占用内存时间会变长
+■ 容易造成内存泄漏
+2. 解决：
+■ 能不用闭包就不用
+■ 及时释放
 
 
 
