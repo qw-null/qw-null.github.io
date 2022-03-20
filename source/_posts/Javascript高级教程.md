@@ -383,6 +383,7 @@ console.log(obj.xx) // Hello
 #### 1.4.5 IIFE
 Immediately-Invoked Function Expression，立即调用函数表达式
 匿名函数自调用 = IIFE
+IIFE（ 立即调用函数表达式）是一个在定义时就会立即执行的 JavaScript 函数。
 ```javascript
 // 匿名函数自调用
 (function(){
@@ -1062,8 +1063,11 @@ function showDelay (msg, time) {
 
 showDelay('延迟输出', 2000)
 ```
+
 #### 2.4.2 闭包的作用
+
 1. 使得函数内部的变量在函数执行完后，仍存活在内存中（延长了局部变量的生命周期）
+
 2. 让函数外部可以操作（读写）到函数内部的数据（变量/函数）
 
 问题：
@@ -1144,12 +1148,27 @@ function myModule () {
 #### 2.4.4 闭包的缺点及解决
 1. 缺点：
 ■ 函数执行完后，函数内的局部变量没有释放，占用内存时间会变长
-■ 容易造成内存泄漏
+■ 容易造成内存泄漏 【内存泄漏：内存占用却不使用】
 2. 解决：
 ■ 能不用闭包就不用
 ■ 及时释放
 
+```javascript
+function fn1 () {
+  var arr = new Array[100000];
+  function fn2 () {
+    console.log(arr.length);
+  }
+  return fn2;
+}
 
+var f = fn1();
+f();
+
+f = null;// 让内部函数成为垃圾对象 --> 回收闭包
+```
+补充知识点：[内存溢出与内存泄漏]()
+#### 2.4.5 面试题
 
 ## 3.面向对象高级
 
