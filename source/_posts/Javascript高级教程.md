@@ -1167,11 +1167,277 @@ f();
 
 f = null;// 让内部函数成为垃圾对象 --> 回收闭包
 ```
-补充知识点：[内存溢出与内存泄漏]()
+补充知识点：[内存溢出与内存泄漏](https://qw-null.github.io/2022/03/20/%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/)
 #### 2.4.5 面试题
 
-## 3.面向对象高级
+<b>⭐ 题目 1</b>
 
+```javascript
+var name = 'This Window';
+var object = {
+  name: 'My Object',
+  getNameFunc: function () {
+    return function () {
+      return this.name;
+    }
+  }
+};
+console.log(object.getNameFunc()());
+```
+输出的结果为```This Window```，原因是函数调用时，```this```指向```window```，因此```this.name```指的是全局变量```name```的值。
+
+```javascript
+var name = 'This Window';
+var object = {
+  name: 'My Object',
+  getNameFunc: function () {
+    var that = this;
+    return function () {
+      return that.name;
+    }
+  }
+};
+console.log(object.getNameFunc()());
+```
+输出的结果为```My Object```，原因是```this```是在对象```object```的方法```getNameFunc```中进行调用的，以方法调用时，```this```指向调用该方法的对象，因此```that.name```相当于```object.name```。
+
+
+<b>⭐ 题目 2</b>
+
+```javascript
+function fun (n, o) {
+  console.log(o);
+  return {
+    fun: function (m) {
+      return fun(m, n);
+    }
+  }
+}
+var a = fun(0); // undefidned
+a.fun(1); a.fun(2); a.fun(3);// ? ? ?
+
+var b = fun(0).fun(1).fun(2).fun(3);// undefined ? ? ?
+
+var c = fun(0).fun(1);// undefined ?
+c.fun(2); c.fun(3);// ? ?
+```
+结果为：
+```
+undefidned 0 0 0
+undefidned 0 1 2
+undefidned 0 1 1
+```
+
+## 3.面向对象高级
+### 3.1 对象创建模式
+⭐ 方式一：Object构造函数模式
++ 套路：先创建空```Object```对象，再动态添加属性/方法
++ 使用场景：起始时不确定对象内部数据
++ 问题：语句太多
+
+```javascript
+// 一个人：name:"Tom",age:12
+var p = new Object();
+p.name = 'Tom';
+p.age = 12;
+p.setName = function (name) {
+  this.name = name;
+}
+
+// 测试
+p.setName('Jack');
+console.log(p);
+```
+结果为
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220321112724.png)
+
+⭐ 方式二：对象字面量模式
++ 套路：使用{}创建对象，同时指定属性/方法
++ 使用场景：起始时对象内部数据是确定的
++ 问题：如果创建多个对象，有重复代码
+
+```javascript
+// 一个人：name:"Tom",age:12
+var p = {
+  name: 'Tom',
+  age: 12,
+  setName: function (name) {
+    this.name = name;
+  }
+}
+
+// 测试
+p.setName('Jack');
+console.log(p.name, p.age); // Jack 12
+```
+
+⭐ 方式三：工厂模式
++ 套路：通过工厂函数动态创建对象并返回
++ 适用场景：需要创建多个对象
++ 问题：对象没有一个具体的类型，都是object类型
+
+※ 何为工厂函数？  —— 返回一个对象的函数成为工厂函数
+
+
+```javascript
+function createPerson (name, age) {
+  var obj = {
+    name: name,
+    age: age,
+    setName: function (name) {
+      this.name = name;
+    }
+  }
+  return obj;
+}
+
+// 创建2个人
+var p1 = createPerson('Tom',12);
+var p2 = createPerson('Jack',14);
+```
+
+⭐ 方式四：自定义构造函数模式
++ 套路：自定义构造函数，通过new创建对象
++ 适用场景：需要创建多个类型确定的对象
++ 问题：每个对象都有相同的数据，浪费内存
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+  this.setName = function (name) {
+    this.name = name;
+  }
+}
+
+var p1 = new Person('Tom', 12);
+p1.setName('Jack');
+console.log(p1);
+console.log(p1 instanceof Person); // true
+```
+但是此种方式创建的对象，每个对象中都包含```setName```方法，占用内存。
+
+⭐ 方式五：构造函数+原型的组合模式
++ 套路：自定义构造函数，属性在函数中初始化，方法添加到原型上
++ 适用场景：需要创建多个类型确定的对象
+```javascript
+function Person (name, age) {
+  // 在构造函数中，只初始化一般属性
+  this.name = name;
+  this.age = age;
+}
+Person.prototype.setName = function (name) {
+  this.name = name;
+}
+
+var p1 = new Person('Tom', 12);
+var p2 = new Person('Jack', 13);
+console.log(p1, p2)
+```
+结果为：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220321135956.png)
+
+
+### 3.2 原型链继承
+#### 3.2.1 方式一： 原型链继承
+过程如下：
+1. 定义父类型构造函数
+2. 给父类型的原型添加方法
+3. 定义子类型的构造函数
+4. 创建父类型的对象赋值给子类型的原型
+5. 将子类型原型的构造属性设置为子类型
+6. 给子类型原型添加方法
+7. 创建子类型的对象：可以调用父类型的方法
+
+<b>⭐ 关键点：子类型的原型为父类型的一个实例对象</b>
+
+```javascript
+1. 定义父类型构造函数
+function Supper () {
+  this.supProp = 'Supper Property';
+}
+2. 给父类型的原型添加方法
+Supper.prototype.showSupperProp = function () {
+  console.log(this.supProp);
+}
+
+3. 定义子类型的构造函数
+function Sub () {
+  this.subProp = 'Sub Property';
+}
+// 子类型的原型为父类型的一个实例对象
+4. 创建父类型的对象赋值给子类型的原型
+Sub.prototype = new Supper();
+5. 将子类型原型的构造属性设置为子类型
+Sub.prototype.constructor = Sub
+6. 给子类型原型添加方法
+Sub.prototype.showSubProp = function () {
+  console.log(this.subProp);
+}
+
+7. 创建子类型的对象：可以调用父类型的方法
+var sub = new Sub();
+sub.showSupperProp();
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220321171328.png)
+
+#### 3.2.2 方式二： 借用构造函数继承（假的）
+过程如下：
+1. 定义父类型构造函数
+2. 定义子类型构造函数
+3. 在子类型构造函数中调用父类型构造
+
+<b>⭐ 关键点：在子类型构造函数中通过```call()```调用父类型构造函数</b>
+
+```javascript
+1. 定义父类型构造函数
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+2. 定义子类型构造函数
+function Student (name, age, price) {
+  3. 在子类型构造函数中调用父类型构造
+  Person.call(this, name, age); //相当于 this.Person(name,age)
+  this.price = price;
+}
+
+var s = new Student('Tom', 12, 13000);
+console.log(s);
+```
+结果为：```Student { name: 'Tom', age: 12, price: 13000 }```
+#### 3.2.3 方式三： 组合继承（原型链 + 借用构造函数）
+过程如下： 
+1. 利用原型链实现对父类型对象的方法继承
+2. 利用```call()```借用父类型构造函数初始化相同属性
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+}
+Person.prototype.setName = function (name) {
+  this.name = name;
+}
+
+function Student (name, age, price) {
+  Person.call(this, name, age); // 为了得到属性
+  this.price = price;
+}
+Student.prototype = new Person(); // 为了能看到父类型的方法
+Student.prototype.constructor = Student; // 修正constructor属性
+Student.prototype.setPrice = function (price) {
+  this.price = price;
+}
+
+var s = new Student('Tom', 12, 13000);
+s.setName('Jack');
+s.setPrice(15000);
+console.log(s);
+```
+结果为```Student { name: 'Jack', age: 12, price: 15000 }```
 
 ## 4.线程机制与事件机制
 
