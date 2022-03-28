@@ -86,6 +86,7 @@ History对象主要有两个属性：```length```和```state```。
 + + ```object```：是一个对象，通过 pushState 方法可以将该对象内容传递到新页面中。如果不需要这个对象，此处可以填 null。
 + + ```title```：指标题，几乎没有浏览器支持该参数，传一个空字符串比较安全。
 + + ```url```：新的网址，必须与当前页面处在同一个域。不指定的话则为当前的路径，如果设置了一个跨域网址，则会报错。
+
 ```javascript
 var data = { foo: 'bar' };
 history.pushState(data, '', '2.html');
