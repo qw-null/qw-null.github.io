@@ -15,11 +15,19 @@ Ajax异步请求可以实现页面的无缝刷新，导致浏览器地址栏的U
 
 ## 🎸1.URL地址介绍
 URL属性介绍：
-![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220328100455.png)
+属性|含义
+:----:|:----:
+location.protocal|协议
+location.hostname|主机名
+location.host|主机
+location.port|端口号
+location.patchname|访问页面
+location.search|搜索内容
+location.hash|哈希值
 
 举例：
 ```javascript
-以网址 http://127.0.0.1:8080/01-hash.html?a=1&b=2#/aaa/bbb 为例
+以网址 "http://127.0.0.1:8080/01-hash.html?a=1&b=2#/aaa/bbb" 为例
 location.protocal ➡ 'http:'
 location.hostname ➡ '127.0.0.1:'
 location.host ➡ '127.0.0.1:8080:'
