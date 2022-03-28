@@ -1464,11 +1464,158 @@ console.log(s);
 5. 多个进程之间的数据是不能直接共享的
 6. 线程池（thread pool）：保存多个线程对象的容器，实现线程对象的反复利用
 
-
-
+⭐ 相关问题：
+1. 何为多进程与多线程？
+多进程运行：一个应用程序可以启动多个实例运行
+多线程：在一个进程内，同时有多个线程运行
+2. 比较单线程与多线程？
+多线程：【优点】能有效提升CPU的利用率 【缺点】创建多线程开销，线程间切换开销，死锁与状态同步问题
+单线程：【优点】顺序变成简单易懂 【缺点】效率低
+3. JS是单线程还是多线程？
+JS是单线程运行的。但使用H5中的Web Workers可以多线程运行。
+4. 浏览器运行是单线程还是多线程？
+浏览器运行是多线程。
+5. 浏览器运行是单进程还是多进程？
+有单进程也有多进程。其中，单进程：firefox、老版IE，多进程：chrome、Edge。
 ### 4.2 浏览器内核
 
+|  浏览器名称   | 内核  |
+|  ----  | ----  |
+| Chrome、Safari  | webkit |
+| firefox  | Gecko |
+| IE  | Trident |
+| 360，搜狗等国内浏览器  | Trident + webkit |
+
+浏览器内核由很多模块组成，其中包括：
++ js引擎模块：负责js程序的编译与运行
++ html，css文档解析模块：负责页面文本解析
++ DOM/CSS模块：负责dom/css在内存中的相关处理
++ 布局和渲染模块：负责页面的布局和效果的绘制（内存中的对象）
+
+<b>【上述部分运行在主线程】</b>
+
++ ……
++ 定时器模块：负责定时器的管理
++ DOM事件响应模块：负责事件管理
++ 网络请求模块：负责ajax请求
+
+<b>【上述部分运行在分线程】</b>
+
 ### 4.3 定时器引发的思考
+相关问题：
+1. 定时器真的是定时执行的吗？
+定时器并不能保证真正定时执行，一般会延迟一丁点（可以接受），也可能延迟很长时间（不能接收）
+```javascript
+var start = Date.now();
+console.log('启动定时器前……');
+setTimeout(function () {
+  console.log('定时器执行了', Date.now() - start);
+}, 200)
+```
+多次执行结果为
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324103330.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324103357.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324103437.png)
+
+```javascript
+var start = Date.now();
+console.log('启动定时器前……');
+setTimeout(function () {
+  console.log('定时器执行了', Date.now() - start);
+}, 200)
+for (let i = 0; i < 1000000000; ++i) {
+
+}
+```
+多次执行结果为
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324110425.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324110514.png)
+
+
+2. 定时器回调函数是在哪个线程执行的？
+在主线程执行（JS是单线程的）
+
+3. 定时器是如何实现的？
+事件循环模型（详情见后续内容）
+
+### 4.4 JS是单线程执行的
+1. 如何证明JS执行是单线程的？
+setTimeout()的回调函数是在主线程执行的
+定时器回调函数只有在运行栈中的代码全部执行完后才有可能执行
+```javascript
+setTimeout(function () {
+  console.log('timeout --> 2000');
+}, 2000)
+setTimeout(function () {
+  console.log('timeout --> 1000');
+}, 1000)
+function fn () {
+  console.log('fn函数执行');
+}
+fn()
+```
+执行结果：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324113636.png)
+
+```javascript
+setTimeout(function () {
+  console.log('timeout --> 2000');
+}, 2000)
+setTimeout(function () {
+  console.log('timeout --> 1000');
+}, 1000)
+function fn () {
+  console.log('fn函数执行');
+}
+fn()
+console.log('alert之前');
+alert('---------'); // 暂停当前主线程的执行，同时暂停计时，点击确定之后，恢复程序的执行和计时
+console.log('alert之后');
+```
+执行结果：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324114233.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324114309.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324114353.png)
+
+2. 为什么JS要用单线程模式，而不用多线程模式？
+Javascript的单线程与它的用途有关，作为浏览器脚本语言，Javascript的主要用途是与用户互动以及操作DOM，这决定了它只能是单线程的，负责会带来很复杂的同步问题。
+
+3. 代码分类
+* 初始化代码
+* 回调代码
+
+4. JS引擎执行代码的基本流程
+先执行初始化代码【包含一些特别的代码：设置定时器、绑定监听、发送ajax请求】，后面的某一个时刻才会执行回调代码
+
+> 其中，设置定时器指的是setTimeout(),不包括内部的回调函数，其内部的回调函数需要在初始化代码执行完毕之后再执行
+```javascript
+setTimeout(function () {
+  console.log('timeout --> 2000');
+}, 2000)
+setTimeout(function () {
+  console.log('timeout --> 1000');
+}, 1000)
+setTimeout(function () {
+  console.log('timeout --> 0');
+}, 0)
+function fn () {
+  console.log('fn函数执行');
+}
+fn()
+console.log('alert之前');
+alert('---------');
+console.log('alert之后');
+```
+最终结果执行顺序：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324143955.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324144022.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324144050.png)
+
+### 4.5 事件循环（轮询）模型
+
+#### 4.5.1 模型原型图
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324151657.png)
+
 
 ## 补充问题
 
