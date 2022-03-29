@@ -1614,8 +1614,104 @@ console.log('alert之后');
 ### 4.5 事件循环（轮询）模型
 
 #### 4.5.1 模型原型图
-![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220324151657.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/2356897452565.png)
+对于JS代码可以分为两类：
+1. 初始化执行代码（同步代码）：包含绑定dom事件监听，设置定时器，发送ajax请求的代码
+2. 回调执行代码（异步代码）：处理回调逻辑
 
+<b>JS引擎执行代码的基本流程：</b>初始化代码 ➡ 回调代码
+
+<b>模型的两个重要组成部分：</b>事件管理模块、回调队列
+
+<b>🍎 模型的运转流程：</b>执行初始化代码，将事件回调函数交给对应模块管理 ➡ 当事件发生时，管理模块会将回调函数及其数据添加到回调队列中 ➡ 只有当初始化代码执行完成后（可能需要一段时间），才会遍历读取回调队列中的回调函数执行
+
+```javascript
+  function fn1 () {
+    console.log('执行fn1()');
+  }
+  fn1();
+  document.getElementById('btn').onclick = function () {
+    console.log('点击了btn');
+  }
+  setTimeout(function () {
+    console.log('执行了定时器');
+  }, 2000);
+  function fn2 () {
+    console.log('执行fn2()');
+  }
+  fn2();
+```
+上述代码的执行结果不唯一，首先确定的结果是
+```javascript
+执行fn1()
+执行fn2()
+```
+剩余的```执行了定时器```和```点击了btn```，需要看点击btn的时机，如果点击btn在前，则执行顺序为```点击了btn```、```执行了定时器```，否则为```执行了定时器```、```点击了btn```。但是无论怎样```执行fn1()```和```执行fn2()```的顺序是不会改变的，因为这个为初始化执行代码。
+
+#### 4.5.2 相关概念
++ 执行栈（execution stack）：所有代码都是在此空间中执行的
++ 浏览器内核（browser core）:js引擎模块（在主线程）、其他模块（在主/分线程处理）
++ 任务队列（task queue）、消息队列（message queue）、事件队列（event queue）：同一个callback queue
++ 事件轮询（event loop）：从任务队列中循环取出回调函数放入执行栈中处理（一个接一个）
+
+### 4.6 H5 Web Workers（多线程）
+H5提供了JS分线程的实现，取名为：```Web Workers```，我们可以将一些大计算量的代码交由web Worker 运行而不冻结用户界面。但是子线程完全受主线程控制，且不操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。
+
+Web Worker 的作用，就是为 JavaScript 创造多线程环境，允许主线程创建 Worker 线程，将一些任务分配给后者运行。在主线程运行的同时，Worker 线程在后台运行，两者互不干扰。等到 Worker 线程完成计算任务，再把结果返回给主线程。这样的好处是，一些计算密集型或高延迟的任务，被 Worker 线程负担了，主线程（通常负责 UI 交互）就会很流畅，不会被阻塞或拖慢。
+
+Worker 线程一旦新建成功，就会始终运行，不会被主线程上的活动（比如用户点击按钮、提交表单）打断。这样有利于随时响应主线程的通信。但是，这也造成了 Worker 比较耗费资源，不应该过度使用，而且一旦使用完毕，就应该关闭。
+
+相关API：
++ ```Worker```：构造函数，加载分线程执行的JS文件
++ ```Worker.prototype.onmessage```：用于接收另一个线程的回调函数
++ ```Worker.prototype.postMessage```：向另一个线程发送消息
+
+不足之处：
+1. ```Worker```内代码不能操作DOM（更新UI）
+2. 不能跨域加载JS
+3. 不是每个浏览器都支持这个新特性
+4. 速度慢
+
+```html
+  <input type="text" id="number">
+  <button id="btn">计算</button>
+  <script>
+    var input = document.getElementById('number');
+    document.getElementById('btn').onclick = function () {
+      var number = input.value;
+
+      // 创建一个Worker对象
+      var worker = new Worker('work.js');
+      // 绑定接收消息的监听
+      worker.onmessage = function (event) {
+        console.log('主线程接收分线程返回的数据' + event.data);
+      }
+
+      // 向分线程发送消息
+      worker.postMessage(number);
+      console.log('主线程向分线程发送数据' + number);
+    }
+
+  </script>
+```
+```javascript
+// work.js文件
+function fn (n) {
+  return n <= 2 ? 1 : fn(n - 1) + fn(n - 2);
+}
+var onmessage = function (event) {
+  console.log('分线程接收主线程发送的数据' + event.data);
+  var result = fn(event.data);
+  postMessage(result);
+  console.log('分线程向主线程发送数据' + result);
+
+}
+```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220329142438.png)
+结果：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220329142359.png)
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220329142107.png)
 
 ## 补充问题
 

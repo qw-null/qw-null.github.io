@@ -103,6 +103,7 @@ history.pushState(null, '', 'https://baidu.com/hello');
 上面代码中，```pushState``` 想要插入一个跨域的网址，导致报错。这样设计的目的是，防止恶意代码让用户以为他们是在另一个网站上，因为这个方法不会导致页面跳转。
 
 + ```History.replaceState()```：该方法用来修改 History 对象的当前记录，用法与 pushState() 方法一样。
+
 ```javascript
 当前网页网址是 example.com/example.html。
 
