@@ -1654,6 +1654,7 @@ console.log('alert之后');
 + 任务队列（task queue）、消息队列（message queue）、事件队列（event queue）：同一个callback queue
 + 事件轮询（event loop）：从任务队列中循环取出回调函数放入执行栈中处理（一个接一个）
 
+
 ### 4.6 H5 Web Workers（多线程）
 H5提供了JS分线程的实现，取名为：```Web Workers```，我们可以将一些大计算量的代码交由web Worker 运行而不冻结用户界面。但是子线程完全受主线程控制，且不操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。
 
@@ -1713,6 +1714,7 @@ var onmessage = function (event) {
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220329142107.png)
 
+主线程中的```this```是```window```，而work线程中的```this```是一个专门为 ```Worker``` 定制的全局对象。
 ## 补充问题
 
 #### JS分号问题
