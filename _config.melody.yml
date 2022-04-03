@@ -211,10 +211,10 @@ addThis:
 # enable: false
 # disabled_sites:
 
-# Comments System
+# Comments System 评论模块
 # ---------------
-disqus:
-  enable: false
+# disqus:
+#   enable: false
   #shortname:
   #count:
 
@@ -229,13 +229,13 @@ disqus:
 # client_id:
 # client_secret:
 
-# gitalk:
-#   enable: false
-#   client_id:
-#   client_secret:
-#   repo:
-#   owner:
-#   admin:
+gitalk:
+  enable: true
+  client_id: '44447f6848cb1055dfc7'
+  client_secret: 'a0ce0faa730cdc822d2e20342d98f605099f3797'
+  repo: 'CommentData'
+  owner: 'qw-null'
+  admin: ['qw-null']
 
 # valine comment system. https://valine.js.org
 # valine:
