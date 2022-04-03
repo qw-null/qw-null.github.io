@@ -15,15 +15,15 @@ Ajax异步请求可以实现页面的无缝刷新，导致浏览器地址栏的U
 
 ## 🎸1.URL地址介绍
 URL属性介绍：
-属性|含义
-:----:|:----:
-location.protocal|协议
-location.hostname|主机名
-location.host|主机
-location.port|端口号
-location.patchname|访问页面
-location.search|搜索内容
-location.hash|哈希值
+| 属性| 含义 |
+|:----:|:----:|
+| location.protocal|协议|
+| location.hostname|主机名|
+| location.host|主机|
+| location.port|端口号|
+| location.patchname|访问页面|
+| location.search|搜索内容|
+| location.hash|哈希值|
 
 举例：
 ```javascript
