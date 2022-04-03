@@ -14,9 +14,8 @@ Ajax异步请求可以实现页面的无缝刷新，导致浏览器地址栏的U
 > SPA（Single Page Application），即<b>单页面应用</b>。所谓单页 Web 应用，就是只有一张 Web 页面的应用。单页应用程序 (SPA) 是加载单个 HTML 页面并在用户与应用程序交互时动态更新该页面的 Web 应用程序。 浏览器一开始会加载必需的 HTML 、 CSS 和 JavaScript ，所有的操作都在这张页面上完成，都由 JavaScript 来控制。
 
 ## 🎸1.URL地址介绍
-
-
 URL属性介绍：
+
 | 属性| 含义 |
 |:-----|:-----|
 | location.protocal|协议|
@@ -26,7 +25,6 @@ URL属性介绍：
 | location.patchname|访问页面|
 | location.search|搜索内容|
 | location.hash|哈希值|
-
 
 举例：
 ```javascript
