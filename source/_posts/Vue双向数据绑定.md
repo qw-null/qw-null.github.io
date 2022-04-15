@@ -116,7 +116,7 @@ dep.notify()
 + 接下来，订阅者（DOM元素）要根据最新的数据，更新自己的内容 
 
 ## 2. 使用```Object.defineProperty()```进行数据劫持
-```Object.defineProperty()``` 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+Object.defineProperty()方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
 > 备注：应当直接在 Object 构造器对象上调用此方法，而不是在任意一个 Object 类型的实例上调用。
 
 语法：```Object.defineProperty(obj, prop, descriptor)```
