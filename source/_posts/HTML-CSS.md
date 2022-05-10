@@ -1,12 +1,9 @@
 ---
 title: HTML+CSS学习笔记
 date: 2021-07-18 22:20:47
-categories:
-- HTML+CSS+Javascript
 tags:
 - HTML
 - CSS
-- JavaScript
 ---
 
 [【尚硅谷】Web前端零基础入门HTML5+CSS3基础教程丨初学者从入门到精通](https://www.bilibili.com/video/BV1XJ411X7Ud?p=1)
