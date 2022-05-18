@@ -140,9 +140,9 @@ cdn:
 
 avatar: https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013182113.JPG
 
-top_img: https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013172437.jpg # false or url of img
+top_img: https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg # false or url of img
 
-top_img_height: 40 # best range: 60 - 100
+top_img_height: 45 # best range: 60 - 100
 
 post_meta:
   date_type: created # created or updated
