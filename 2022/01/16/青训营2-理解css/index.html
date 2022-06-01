@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="字节青训营-理解css"><meta name="keywords" content="CSS"><meta name="author" content="qinwei"><meta name="copyright" content="qinwei"><title>字节青训营-理解css | QW's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '5.4.0'
+} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">CSS是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E4%BD%BF%E7%94%A8css"><span class="toc-text">页面使用css</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%EF%BC%9F"><span class="toc-text">css如何工作？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8Selector"><span class="toc-text">选择器Selector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E7%BB%84%E5%90%88%E4%BD%BF%E7%94%A8"><span class="toc-text">选择器的组合使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%9C%E8%89%B2"><span class="toc-text">颜色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E4%BD%93"><span class="toc-text">字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95CSS"><span class="toc-text">调试CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-text">继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%80%BC"><span class="toc-text">初始值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E6%B1%82%E5%80%BC%E8%BF%87%E7%A8%8B"><span class="toc-text">CSS求值过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B1%80"><span class="toc-text">布局</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#width%E5%92%8Cheight"><span class="toc-text">width和height</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#padding"><span class="toc-text">padding</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#border"><span class="toc-text">border</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#margin"><span class="toc-text">margin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#box-sizing"><span class="toc-text">box-sizing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#overflow"><span class="toc-text">overflow</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%97%E7%BA%A7-VS-%E8%A1%8C%E7%BA%A7"><span class="toc-text">块级 VS 行级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#display%E5%B1%9E%E6%80%A7"><span class="toc-text">display属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E6%B5%81-Normal-Flow-%E6%96%87%E6%A1%A3%E6%B5%81"><span class="toc-text">常规流 Normal Flow (文档流)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%8C%E7%BA%A7%E6%8E%92%E7%89%88%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-text">行级排版上下文</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9D%97%E7%BA%A7%E6%8E%92%E7%89%88%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-text">块级排版上下文</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Flex-Box"><span class="toc-text">Flex Box</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Grid-%E5%B8%83%E5%B1%80"><span class="toc-text">Grid 布局</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%AE%E5%8A%A8-Float"><span class="toc-text">浮动 Float</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="toc-text">绝对定位</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013182113.JPG"></div><div class="author-info__name text-center">qinwei</div><div class="author-info__description text-center"></div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/qw-null">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">83</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">27</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">24</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">QW's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">首页</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/archives">创作时间线</a><a class="site-page" target="_blank" rel="noopener" href="https://github.com/qw-null">Github</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">字节青训营-理解css</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-01-16</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5/">字节青训营</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 7 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="CSS是什么？"><a href="#CSS是什么？" class="headerlink" title="CSS是什么？"></a>CSS是什么？</h2><p>css(cascading style sheets):用来定义页面元素的样式。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b0323042c94648ebb71b785f0b3a70d1~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h2 id="页面使用css"><a href="#页面使用css" class="headerlink" title="页面使用css"></a>页面使用css</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 1. 外链形式</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/assets/style.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">// 2.嵌入形式</span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">  <span class="selector-tag">div</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span></span><br><span class="line"><span class="css">    <span class="attribute">color</span>: red;</span></span><br><span class="line"><span class="css">  &#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">// 3.内联形式</span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span>一级标题<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="css如何工作？"><a href="#css如何工作？" class="headerlink" title="css如何工作？"></a>css如何工作？</h2><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7a53824239cb443b8f6ca103b4b99c32~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h2 id="选择器Selector"><a href="#选择器Selector" class="headerlink" title="选择器Selector"></a>选择器Selector</h2><p>找出页面中元素的位置，以便给其设置样式</p>
+<p>选择页面元素的方式：</p>
+<ul>
+<li>标签名、类名、id</li>
+<li>属性</li>
+<li>DOM树中的位置</li>
+</ul>
+<p>选择器种类：通配选择器、标签选择器、id选择器、类选择器、属性选择器、伪类选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 属性选择器</span><br><span class="line"><span class="selector-attr">[disabled]</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: blue;</span><br><span class="line">  <span class="attribute">color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="选择器的组合使用"><a href="#选择器的组合使用" class="headerlink" title="选择器的组合使用"></a>选择器的组合使用</h2><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="center">语法</th>
+<th align="left">说明</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">直接组合</td>
+<td align="center">AB</td>
+<td align="left">满足A的同时满足B</td>
+<td align="center"><code>input:focus</code></td>
+</tr>
+<tr>
+<td align="left">后代组合</td>
+<td align="center">A B</td>
+<td align="left">选中B，如果他是A的子孙</td>
+<td align="center"><code>nav a </code></td>
+</tr>
+<tr>
+<td align="left">亲子组合</td>
+<td align="center">A &gt; B</td>
+<td align="left">选中B，如果他是A的子元素</td>
+<td align="center"><code>selection &gt; p</code></td>
+</tr>
+<tr>
+<td align="left">兄弟选择器</td>
+<td align="center">A ~ B</td>
+<td align="left">选中B，如果他在A后且和A同级</td>
+<td align="center"><code>h2 ~ p</code></td>
+</tr>
+<tr>
+<td align="left">相邻选择器</td>
+<td align="center">A + B</td>
+<td align="left">选中B，如果他<b>紧跟</b>在A的后面</td>
+<td align="center"><code>h2 + p</code></td>
+</tr>
+</tbody></table>
+<h2 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h2><p>RGB</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9a228ad26abb4bcaa8d5ea27ba31dc32~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p>HSL</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/392aec0267444896883b6e5f64ef8208~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d4c43482dfad478cac01c596feb73575~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cd845c3faa8a4c748df64b56e37ec421~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>color：用来设置字体颜色</p>
+<p>font-size:字体大小</p>
+<ul>
+<li>和font-size相关的单位：</li>
+<li>em 相当于当前元素的一个font-size</li>
+<li>rem相当于根元素的一个font-size</li>
+</ul>
+<p>font-family:字体族（字体的格式），可选值：（字体分类）</p>
+<ul>
+<li>serif 衬线字体</li>
+<li>sans-serif 非衬线字体</li>
+<li>monospave 等宽字体</li>
+</ul>
+<p>指定字体类别，浏览器会自动使用该类别下的字体，font-family可以同时指定多个字体，多个字体间使用,隔开，字体生效时优先使用第一个，第一个无法使用则使用第二个，以此类推</p>
+<p>@font-face可以将服务器中的字体直接提供给用户去使用。</p>
+<p>存在问题：</p>
+<ul>
+<li>1.加载速度</li>
+<li>2.版权</li>
+<li>3.字体格式</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ac410a72e0c642e39256fc7f5f534699~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span>&#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;myfont&#x27;</span>; <span class="comment">/* 指定字体名字 */</span></span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;&#x27;</span>); <span class="comment">/* 服务器端中的地址 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span>&#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;myfont&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>font-weight 字重，字体加粗<br>可选值：</p>
+<ul>
+<li>normal 默认值，不加粗</li>
+<li>blod 加粗</li>
+<li>100-900 九个级别（没什么用）</li>
+</ul>
+<p>font-style 字体风格<br>可选值：</p>
+<ul>
+<li>normal 正常的</li>
+<li>italic 斜体</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">font</span>: style weight size/height family;</span><br></pre></td></tr></table></figure>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/368829e3fe43434a99e9a1ddce0a06ea~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p>text-aligh 设置文字对齐样式<br>可选值：</p>
+<ul>
+<li>left 左对齐 </li>
+<li>center 居中对齐 </li>
+<li>right 右对齐 </li>
+<li>justify 两端对齐（对最后一行的文字不生效）</li>
+</ul>
+<p>letter-spacing:调整文字字母之间的间距<br>word-spacing:调整单词之间的距离<br>text-index:设置文字缩进</p>
+<p>text-decoration 设置文本修饰<br>可选值：</p>
+<ul>
+<li>none 默认值，什么都没有</li>
+<li>underline 下划线</li>
+<li>line-through 删除线</li>
+<li>overline 上划线</li>
+</ul>
+<p>white-space 设置网页如何处理空白<br>可选值：</p>
+<ul>
+<li>normal 默认值，正常</li>
+<li>nowrap 不换行</li>
+<li>pre 保留空白（源代码中文本格式不做处理，保留）</li>
+<li>pre-wrap 一行内容显示不全会换行</li>
+<li>pre-line 会保留换行</li>
+</ul>
+<h2 id="调试CSS"><a href="#调试CSS" class="headerlink" title="调试CSS"></a>调试CSS</h2><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/15843ca7bdfa44be9daca4ffc9257cb0~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>某些属性会自动继承其父元素的计算值，除非显式指定一个值。<br>一般与文字相关的样式都会被继承，与宽度、高度、盒模型相关的不会被继承。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 显示继承</span><br><span class="line">*&#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: inherit;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.some-widget</span>&#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始值"><a href="#初始值" class="headerlink" title="初始值"></a>初始值</h2><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a93cd90dc08e431abc172a2ca646f94d~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h2 id="CSS求值过程"><a href="#CSS求值过程" class="headerlink" title="CSS求值过程"></a>CSS求值过程</h2><p>如何从一个DOM节点生成一棵渲染树或渲染节点</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/09d977f8411a4823bc1bf64381fa3542~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<ul>
+<li>第一步：筛选出节点对应的样式（样式个数：0~多个）</li>
+<li>第二步：筛选出样式中优先级最高的样式</li>
+<li>第三步：查看样式是否为空，若是空的，则依据继承或者初始值</li>
+<li>第四步：将一些相对值转化为绝对值（rem → px、相对路径 →  绝对路径等），这些绝对值是在浏览器未进行实际布局的情况下得到的具体值，其中会包含百分数。</li>
+<li>第五步：将计算值进一步计算，即将百分比转化为具体数值等</li>
+<li>第六步：上一步的计算值中可能会出现100.2px、超出min-width或max-width的情况，需要进一步将其转化为整数值</li>
+</ul>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>布局相关技术：常规流、浮动、绝对定位</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e93f05f2ccaf46beb0939b197cfdfb2b~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h4 id="width和height"><a href="#width和height" class="headerlink" title="width和height"></a>width和height</h4><ul>
+<li>指定content box 的宽度和高度；</li>
+<li>取值为长度、百分比、auto【百分比时，只有元素的容器指定width和height的具体值时才会生效】</li>
+</ul>
+<h4 id="padding"><a href="#padding" class="headerlink" title="padding"></a>padding</h4><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/441bde485d5d4fa38e2f48007a75702c~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p>设置数值为百分数时，是相对于元素容器宽度</p>
+<h4 id="border"><a href="#border" class="headerlink" title="border"></a>border</h4><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a312738c01b4bc5b10a4123a1a94bbd~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p>使用border属性生成三角形 → <a href="https://qw-null.github.io/2021/09/22/CSS%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/#2-%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2">详情</a></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#triangle</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-left</span>:<span class="number">50px</span> solid red;</span><br><span class="line">  <span class="attribute">border-top</span>:<span class="number">50px</span> solid green;</span><br><span class="line">  <span class="attribute">border-right</span>:<span class="number">50px</span> solid blue;</span><br><span class="line">  <span class="attribute">border-bottom</span>:<span class="number">50px</span> solid yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ca9e85b6ce224e0abab99b0b32343f34~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h4 id="margin"><a href="#margin" class="headerlink" title="margin"></a>margin</h4><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5950db38bc4b4843a2c889591fb82bb8~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p><b>margin collapse问题（边距折叠）</b><br>仅仅发生在垂直方向上，水平方向上不会存在这个问题</p>
+<ol>
+<li>兄弟元素：兄弟元素间的相邻垂直外边距会取两者之间的较大值（正值），特殊情况：如果相邻的外边距一正一负，则取两者的和；如果相邻的外边距都是负值，则取两者中绝对值较大的</li>
+<li>父子元素：父子元素间的相邻外边距，子元素的会传递给父元素（上外边距）</li>
+</ol>
+<h4 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h4><p>默认情况下，盒子可见框的大小由内容区、内边距和边框共同决定。<br>box-sizing 用来设置盒子尺寸的计算方式（设置width和height的作用）<br>可选值：</p>
+<ul>
+<li>content-box 默认值，宽度和高度用来设置内容区的大小</li>
+<li>border-box 宽度和高度用来设置整个盒子可见框的大小（width和height指的是内容区、内边距和边框的总大小）</li>
+</ul>
+<h4 id="overflow"><a href="#overflow" class="headerlink" title="overflow"></a>overflow</h4><p>overflow属性用来设置父元素如何处理溢出的子元素<br>可选值：</p>
+<ul>
+<li>visible，默认值，子元素会从父元素中溢出，在父元素外部的位置显示</li>
+<li>hidden，溢出的内容将会被裁剪不会显示</li>
+<li>scroll，生成两个滚动条，通过滚动条来查看完整内容</li>
+<li>auto，根据需要生成滚动条</li>
+</ul>
+<h4 id="块级-VS-行级"><a href="#块级-VS-行级" class="headerlink" title="块级 VS 行级"></a>块级 VS 行级</h4><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5f73e0eda7fd48078e965f79efc442e6~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4b604b67902f46b6b0381e98a4aa3b1c~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h4 id="display属性"><a href="#display属性" class="headerlink" title="display属性"></a>display属性</h4><p>可选值：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0db732fa41da45fc9f92e79c2739ec85~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h4 id="常规流-Normal-Flow-文档流"><a href="#常规流-Normal-Flow-文档流" class="headerlink" title="常规流 Normal Flow (文档流)"></a>常规流 Normal Flow (文档流)</h4><ul>
+<li>根元素、浮动和绝对定位的元素会脱离常规流</li>
+<li>其他元素都在常规流之中</li>
+<li>常规流中的盒子，在某种排版上下文中参与布局，可通过display属性设置</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8262764db73b437a8090b9a0a1b133ae~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h5 id="行级排版上下文"><a href="#行级排版上下文" class="headerlink" title="行级排版上下文"></a>行级排版上下文</h5><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6b0f2ac6b711436e9c299a24ee0a034e~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h5 id="块级排版上下文"><a href="#块级排版上下文" class="headerlink" title="块级排版上下文"></a>块级排版上下文</h5><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/787387e2b30f4a279f0eb9cb47060e19~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h5 id="Flex-Box"><a href="#Flex-Box" class="headerlink" title="Flex Box"></a>Flex Box</h5><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c4e8bf862b9b47c98a290965e55685f4~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<hr/>
+flex-direction 指定容器中弹性元素的排列方式（主轴方向）
+
+<p>   可选值：</p>
+<ul>
+<li>row 默认值，弹性元素在容器中水平排列（自左向右）</li>
+<li>row-reverse 弹性元素在容器中反向水平排列（自右向左）</li>
+<li>column 弹性元素纵向排列（自上向下）</li>
+<li>column-reverse 弹性元素反向纵向排列（自下向上）</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ffb6b591c2b64756af3876ad527a1a66~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/de37ef63f41746a38c172e0b6dae4583~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<hr/>
+justify-content 如何分配主轴上的空白空间（主轴上的元素如何排列）
+
+<p>   可选值：</p>
+<ul>
+<li>flex-start 元素沿着主轴的起边排列</li>
+<li>flex-end 元素沿着主轴的终边排列</li>
+<li>center 元素居中排列</li>
+<li>space-around 空白分布到元素的两个</li>
+<li>space-between 空白均匀分布到元素间</li>
+<li>space-evenly 空白分布到元素的单侧</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/01cb8f4b015040a58c05231eee8c38e4~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<hr/>
+align-items 定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式（元素间关系）
+
+<p>   可选值：</p>
+<ul>
+<li>stretch 默认值，将元素的长度设置为相同的值</li>
+<li>flex-start 元素不会拉伸，沿着辅轴起边对齐</li>
+<li>flex-end 元素不会拉伸，沿着辅轴终边对齐</li>
+<li>center 居中对齐</li>
+<li>baseline 基线对齐</li>
+</ul>
+<p>  ** align-self 用来覆盖当前弹性元素上的align-items</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c9fe55c05bc4e3ab2bb914449a2359a~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a3d3694162d942ada4dcceb0ac00ef7a~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<hr/>
+Flexibility
+
+<ul>
+<li>可以设置子项的弹性：当容器有剩余空间时，会伸展；容器空间不够时，会收缩。</li>
+<li>flex-grow 有剩余空间时的伸展能力</li>
+<li>flex-shrink 容器空间不足时收缩的能力</li>
+<li>flex-basis 没有伸展或收缩时的基础长度</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b61f6dfc2e0b473a95dc952d36b19507~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h5 id="Grid-布局"><a href="#Grid-布局" class="headerlink" title="Grid 布局"></a>Grid 布局</h5><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0af06cb54fc043c28538c5f755b612dc~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p>Flex仅可以设置一个方向的布局，Grid是一个二维布局方式</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a28a40f5fdc04a95aac76a533beca73b~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<hr/>
+划分网格：
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grid-template-<span class="attribute">columns</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">200px</span>;</span><br><span class="line">grid-template-rows: <span class="number">100px</span> <span class="number">100px</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/397276cb11a245fa8eeb1306659b1965~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grid-template-<span class="attribute">columns</span>: <span class="number">30%</span> <span class="number">30%</span> auto;</span><br><span class="line">grid-template-rows: <span class="number">100px</span> auto;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fed64fe6060240128f8fefa4c792a760~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grid-template-<span class="attribute">columns</span>: <span class="number">100px</span> <span class="number">1</span>fr <span class="number">1</span>fr;</span><br><span class="line">// fr表示一份</span><br><span class="line">// 含义：除去第一部分<span class="number">100px</span>外，剩余的第二部分、第三部分各占剩余部分的一份。</span><br><span class="line">grid-template-rows: <span class="number">100px</span> <span class="number">1</span>fr;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/56556798271c413885435dfc7fc71057~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<hr/>
+grid line网格线：
+
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/080fb704459b472699e90be75af5e271~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p>grid area 网格区域：<br>网格区域使用网格线表示</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dd7708ed23f24aa39f1afcc2f5fdfd77~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fae3b461f78c4000b6d2076ecb9a3809~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h4 id="浮动-Float"><a href="#浮动-Float" class="headerlink" title="浮动 Float"></a>浮动 Float</h4><p>通过浮动可以使一个元素向其父元素的左侧或者右侧移动，通过float属性来设置元素的浮动。<br>float可选值:</p>
+<ul>
+<li>none 默认值，元素不浮动</li>
+<li>left 元素向左浮动</li>
+<li>right 元素向右浮动</li>
+</ul>
+<h4 id="绝对定位"><a href="#绝对定位" class="headerlink" title="绝对定位"></a>绝对定位</h4><p>定位(position)，是一种更加高级的布局手段，通过定位可以将元素摆放在页面的任意位置，使用position属性来设置定位<br>可选值：</p>
+<ul>
+<li>static 默认值，元素是静止的没有开启定位</li>
+<li>relative 开启元素相对定位</li>
+<li>absolute 开启元素绝对定位</li>
+<li>fixed 开启元素的固定定位</li>
+<li>sticky 开启元素的粘滞定位</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5784d5476cf4490180f20e81e285f002~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/949b3423a1084ffe9fecd71f8a8d2126~tplv-k3u1fbpfcp-zoom-1.image"></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">qinwei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qw-null.github.io/2022/01/16/青训营2-理解css/">https://qw-null.github.io/2022/01/16/青训营2-理解css/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qw-null.github.io">QW's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CSS/">CSS</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/01/18/CSS%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%87%BBdiv%E6%B7%BB%E5%8A%A0%E9%80%89%E4%B8%AD%E6%A0%B7%E5%BC%8F/"><i class="fa fa-chevron-left">  </i><span>CSS实现点击div添加选中样式</span></a></div><div class="next-post pull-right"><a href="/2022/01/16/%E9%9D%92%E8%AE%AD%E8%90%A51-%E5%89%8D%E7%AB%AF%E4%B8%8EHTML/"><span>字节青训营-前端与HTML</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '44447f6848cb1055dfc7',
+  clientSecret: 'a0ce0faa730cdc822d2e20342d98f605099f3797',
+  repo: 'CommentData',
+  owner: 'qw-null',
+  admin: 'qw-null',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By qinwei</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

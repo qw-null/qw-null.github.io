@@ -1,0 +1,967 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="HTML+CSS学习笔记"><meta name="keywords" content="CSS,HTML"><meta name="author" content="qinwei"><meta name="copyright" content="qinwei"><title>HTML+CSS学习笔记 | QW's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '5.4.0'
+} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81HTML"><span class="toc-text">一、HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A0%87%E7%AD%BE"><span class="toc-text">1.标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%B3%A8%E9%87%8A"><span class="toc-text">2.注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%A0%87%E7%AD%BE%E7%9A%84%E5%B1%9E%E6%80%A7%EF%BC%88P7%EF%BC%89"><span class="toc-text">3.标签的属性（P7）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%96%87%E6%A1%A3%E5%A3%B0%E6%98%8E-P8"><span class="toc-text">4.文档声明 (P8)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%88P10%EF%BC%89"><span class="toc-text">5.字符编码（P10）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%AE%9E%E4%BD%93%EF%BC%88%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6%EF%BC%89"><span class="toc-text">6.实体（转义字符）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-meta%E6%A0%87%E7%AD%BE"><span class="toc-text">7.meta标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE-%E5%9D%97%E5%85%83%E7%B4%A0%E3%80%81%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%EF%BC%88P16-P18%EF%BC%89"><span class="toc-text">8.语义化标签 + 块元素、行内元素（P16-P18）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E5%88%97%E8%A1%A8list%EF%BC%88P19%EF%BC%89"><span class="toc-text">9.列表list（P19）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E8%B6%85%E9%93%BE%E6%8E%A5%EF%BC%88P20%EF%BC%89"><span class="toc-text">10.超链接（P20）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%EF%BC%88P21%EF%BC%89"><span class="toc-text">相对路径（P21）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE%EF%BC%88P23-P24%EF%BC%89"><span class="toc-text">11.图片标签（P23,P24）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E5%86%85%E8%81%94%E6%A1%86%E6%9E%B6%EF%BC%88P25%EF%BC%89"><span class="toc-text">12.内联框架（P25）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%EF%BC%88P26%EF%BC%89"><span class="toc-text">13.音视频播放（P26）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E8%A1%A8%E6%A0%BC%EF%BC%88P96-P97%EF%BC%89"><span class="toc-text">14.表格（P96-P97）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-%E8%A1%A8%E6%A0%BC%E7%9A%84%E6%A0%B7%E5%BC%8F%EF%BC%88P98%EF%BC%89"><span class="toc-text">14.1 表格的样式（P98）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-%E8%A1%A8%E5%8D%95%EF%BC%88P99%EF%BC%89"><span class="toc-text">15.表单（P99）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81CSS%EF%BC%88P27-P28%EF%BC%89"><span class="toc-text">二、CSS（P27-P28）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-CSS%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%88P29%EF%BC%89"><span class="toc-text">1.CSS基本语法（P29）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%B8%B8%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88P30%EF%BC%89"><span class="toc-text">2.常用选择器（P30）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88P31%EF%BC%89"><span class="toc-text">3.复合选择器（P31）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88P32%EF%BC%89"><span class="toc-text">4.关系选择器（P32）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88P33%EF%BC%89"><span class="toc-text">5.属性选择器（P33）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">6.伪类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E4%B8%8A%E8%BF%99%E4%BA%9B%E4%BC%AA%E7%B1%BB%E9%83%BD%E6%98%AF%E6%A0%B9%E6%8D%AE%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F"><span class="toc-text">以上这些伪类都是根据所有元素进行排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E5%87%A0%E4%B8%AA%E4%BC%AA%E7%B1%BB%E7%9A%84%E5%8A%9F%E8%83%BD%E5%92%8C%E4%B8%8A%E8%BF%B0%E7%9A%84%E7%B1%BB%E4%BC%BC%EF%BC%8C%E4%B8%8D%E5%90%8C%E7%82%B9%E6%98%AF%E5%AE%83%E4%BB%AC%E5%9C%A8%E5%90%8C%E7%B1%BB%E5%9E%8B%E5%85%83%E7%B4%A0%E4%B8%AD%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F"><span class="toc-text">这几个伪类的功能和上述的类似，不同点是它们在同类型元素中进行排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88P36%EF%BC%89"><span class="toc-text">7.伪元素选择器（P36）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A1%B9%E7%9B%AE%EF%BC%9A%E9%A4%90%E5%8E%85%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">[练习项目：餐厅选择器]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E6%A0%B7%E5%BC%8F%E7%9A%84%E7%BB%A7%E6%89%BF%EF%BC%88P38%EF%BC%89"><span class="toc-text">8.样式的继承（P38）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E6%9D%83%E9%87%8D%EF%BC%88P39%EF%BC%89"><span class="toc-text">9.选择器的权重（P39）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E9%95%BF%E5%BA%A6%E5%8D%95%E4%BD%8D"><span class="toc-text">10.长度单位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%83%8F%E7%B4%A0%E5%92%8C%E7%99%BE%E5%88%86%E6%AF%94%EF%BC%88P40%EF%BC%89"><span class="toc-text">像素和百分比（P40）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#em%E5%92%8Crem%EF%BC%88P41%EF%BC%89"><span class="toc-text">em和rem（P41）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E6%96%87%E6%A1%A3%E6%B5%81%EF%BC%88P44%EF%BC%89"><span class="toc-text">11.文档流（P44）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E5%9C%A8%E6%96%87%E6%A1%A3%E6%B5%81%E4%B8%AD%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="toc-text">元素在文档流中的特点：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E7%9B%92%E6%A8%A1%E5%9E%8B-box-model%EF%BC%88P45%EF%BC%89"><span class="toc-text">12.盒模型 box model（P45）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E6%B0%B4%E5%B9%B3%E6%96%B9%E5%90%91%E7%9A%84%E5%B8%83%E5%B1%80%EF%BC%88P49%EF%BC%89"><span class="toc-text">13.盒子模型水平方向的布局（P49）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E5%9E%82%E7%9B%B4%E6%96%B9%E5%90%91%E7%9A%84%E5%B8%83%E5%B1%80%EF%BC%88P50%EF%BC%89"><span class="toc-text">14.盒子模型垂直方向的布局（P50）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E5%A4%96%E8%BE%B9%E8%B7%9D%E7%9A%84%E6%8A%98%E5%8F%A0%EF%BC%88P51%EF%BC%89"><span class="toc-text">15.盒子模型外边距的折叠（P51）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%E7%9A%84%E7%9B%92%E6%A8%A1%E5%9E%8B%EF%BC%88P52%EF%BC%89"><span class="toc-text">16.行内元素的盒模型（P52）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E9%BB%98%E8%AE%A4%E6%A0%B7%E5%BC%8F"><span class="toc-text">17.浏览器的默认样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98%EF%BC%88P54-P58%EF%BC%89"><span class="toc-text">练习题（P54-P58）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-%E7%9B%92%E5%AD%90%E7%9A%84%E5%A4%A7%E5%B0%8F%EF%BC%88P58%EF%BC%89"><span class="toc-text">18.盒子的大小（P58）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-%E8%BD%AE%E5%BB%93%E9%98%B4%E5%BD%B1%E5%92%8C%E5%9C%86%E8%A7%92%EF%BC%88P59%EF%BC%89"><span class="toc-text">19.轮廓阴影和圆角（P59）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-%E6%B5%AE%E5%8A%A8%EF%BC%88P60-P61%EF%BC%89"><span class="toc-text">20.浮动（P60-P61）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%AE%E5%8A%A8%E7%BB%83%E4%B9%A0%E2%80%93%E5%AF%BC%E8%88%AA%E6%9D%A1%EF%BC%88P62%EF%BC%89"><span class="toc-text">浮动练习–导航条（P62）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21-%E9%AB%98%E5%BA%A6%E5%A1%8C%E9%99%B7%E5%92%8CBFC%EF%BC%88P64%EF%BC%89"><span class="toc-text">21.高度塌陷和BFC（P64）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22-%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BA%A6%E5%A1%8C%E9%99%B7%E9%97%AE%E9%A2%98"><span class="toc-text">22.解决高度塌陷问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#22-1-clear%E5%B1%9E%E6%80%A7%EF%BC%88P66%EF%BC%89"><span class="toc-text">22.1 clear属性（P66）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-2-%E4%BD%BF%E7%94%A8after%E4%BC%AA%E7%B1%BB%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BA%A6%E5%A1%8C%E9%99%B7%E9%97%AE%E9%A2%98%EF%BC%88P67%EF%BC%89"><span class="toc-text">22.2.使用after伪类解决高度塌陷问题（P67）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%EF%BC%9A%E8%A7%A3%E5%86%B3%E5%A4%96%E8%BE%B9%E8%B7%9D%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%EF%BC%88P68%EF%BC%89"><span class="toc-text">补充知识：解决外边距重叠问题（P68）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23-position%E5%AE%9A%E4%BD%8D"><span class="toc-text">23.position定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#23-1-%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8Drelative%EF%BC%88P69%EF%BC%89"><span class="toc-text">23.1 相对定位relative（P69）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#23-2-%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8Dabsolute%EF%BC%88P70%EF%BC%89"><span class="toc-text">23.2 绝对定位absolute（P70）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#23-3-%E5%9B%BA%E5%AE%9A%E5%AE%9A%E4%BD%8Dfixed%EF%BC%88P71%EF%BC%89"><span class="toc-text">23.3 固定定位fixed（P71）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#23-4-%E7%B2%98%E6%BB%9E%E5%AE%9A%E4%BD%8Dsticky%EF%BC%88P72%EF%BC%89"><span class="toc-text">23.4 粘滞定位sticky（P72）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%EF%BC%9A%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D%EF%BC%88P73%EF%BC%89"><span class="toc-text">补充知识：绝对定位（P73）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E5%BE%97%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%EF%BC%9A"><span class="toc-text">使得元素水平垂直居中：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24-%E5%85%83%E7%B4%A0%E7%9A%84%E5%B1%82%E7%BA%A7%EF%BC%88P74%EF%BC%89"><span class="toc-text">24.元素的层级（P74）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%AC%E4%B8%9C%E8%BD%AE%E6%92%AD%E5%9B%BE%E5%B8%83%E5%B1%80%E7%BB%83%E4%B9%A0"><span class="toc-text">京东轮播图布局练习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25-%E5%AD%97%E4%BD%93%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%B7%E5%BC%8F%EF%BC%88P76%EF%BC%89"><span class="toc-text">25.字体相关的样式（P76）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#25-1-%E5%9B%BE%E6%A0%87%E5%AD%97%E4%BD%93iconfont%EF%BC%88P77-P78%EF%BC%89"><span class="toc-text">25.1 图标字体iconfont（P77-P78）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#25-2-Iconfont%E9%98%BF%E9%87%8C%E5%9B%BE%E6%A0%87%E5%BA%93%EF%BC%88P79%EF%BC%89"><span class="toc-text">25.2 Iconfont阿里图标库（P79）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#25-3-%E5%AD%97%E4%BD%93%E7%9A%84%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%EF%BC%88P81%EF%BC%89"><span class="toc-text">25.3 字体的简写属性（P81）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#26-%E8%A1%8C%E9%AB%98%EF%BC%88P80%EF%BC%89"><span class="toc-text">26.行高（P80）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#27-%E6%96%87%E6%9C%AC%E7%9A%84%E6%B0%B4%E5%B9%B3%E5%92%8C%E5%9E%82%E7%9B%B4%E5%AF%B9%E9%BD%90%EF%BC%88P82%EF%BC%89"><span class="toc-text">27.文本的水平和垂直对齐（P82）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#28-%E5%85%B6%E4%BB%96%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F%EF%BC%88P83%EF%BC%89"><span class="toc-text">28.其他文本样式（P83）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98%EF%BC%88P84-P86%EF%BC%89"><span class="toc-text">练习题（P84-P86）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#29-%E8%83%8C%E6%99%AF%EF%BC%88P88%EF%BC%89"><span class="toc-text">29.背景（P88）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%BB%83%E4%B9%A0%E9%A2%98%EF%BC%88P92%EF%BC%89"><span class="toc-text">背景练习题（P92）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#30-%E9%9B%AA%E7%A2%A7%E5%9B%BE%EF%BC%88P92%EF%BC%89"><span class="toc-text">30.雪碧图（P92）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#31-%E7%BA%BF%E6%80%A7%E6%B8%90%E5%8F%98%EF%BC%88P93%EF%BC%89"><span class="toc-text">31.线性渐变（P93）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#31-1-linear-gradient"><span class="toc-text">31.1 linear-gradient()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#31-2-repeating-linear-gradient"><span class="toc-text">31.2 repeating-linear-gradient()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#31-2-%E5%BE%84%E5%90%91%E6%B8%90%E5%8F%98%EF%BC%88P94%EF%BC%89"><span class="toc-text">31.2 径向渐变（P94）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A1%B9%E7%9B%AE%EF%BC%9A%E5%B0%8F%E7%B1%B3%E5%95%86%E5%9F%8E"><span class="toc-text">练习项目：小米商城</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32-%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C"><span class="toc-text">32.动画效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#32-1-%E8%BF%87%E6%B8%A1%E6%95%88%E6%9E%9C%EF%BC%88P115%EF%BC%89"><span class="toc-text">32.1 过渡效果（P115）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#32-2-%E8%BF%87%E6%B8%A1%E7%BB%83%E4%B9%A0%EF%BC%9A%E7%B1%B3%E5%85%94%EF%BC%88P116%EF%BC%89"><span class="toc-text">32.2 过渡练习：米兔（P116）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#33-%E5%8F%98%E5%BD%A2%EF%BC%88P120-P121%EF%BC%89"><span class="toc-text">33.变形（P120-P121）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%98%85%E5%85%83%E7%B4%A0%E5%B1%85%E4%B8%AD%E6%98%BE%E7%A4%BA%E2%98%85"><span class="toc-text">★元素居中显示★</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#34-%E6%97%8B%E8%BD%AC%EF%BC%88P122%EF%BC%89"><span class="toc-text">34.旋转（P122）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#35-%E7%BC%A9%E6%94%BE%EF%BC%88P125%EF%BC%89"><span class="toc-text">35.缩放（P125）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#36-less-P126"><span class="toc-text">36.less (P126)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#37-%E5%BC%B9%E6%80%A7%E7%9B%92%EF%BC%88P131%EF%BC%89"><span class="toc-text">37.弹性盒（P131）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#38-%E5%83%8F%E7%B4%A0%EF%BC%88P136-P138%EF%BC%89"><span class="toc-text">38.像素（P136 - P138）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#39-%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%EF%BC%88P143%EF%BC%89"><span class="toc-text">39.媒体查询（P143）</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013182113.JPG"></div><div class="author-info__name text-center">qinwei</div><div class="author-info__description text-center"></div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/qw-null">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">83</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">27</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">24</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">QW's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">首页</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/archives">创作时间线</a><a class="site-page" target="_blank" rel="noopener" href="https://github.com/qw-null">Github</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">HTML+CSS学习笔记</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-07-18</time><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">15.1k</span><span class="post-meta__separator">|</span><span>阅读时长: 51 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1XJ411X7Ud?p=1">【尚硅谷】Web前端零基础入门HTML5+CSS3基础教程丨初学者从入门到精通</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/%E8%AF%BE%E7%A8%8B%E8%B5%84%E6%96%99">+ 课程配套资料 +</a></p>
+<p>网页分成三部分：</p>
+<ul>
+<li>结构HTML</li>
+<li>表现CSS</li>
+<li>行为JavaScript</li>
+</ul>
+<h1 id="一、HTML"><a href="#一、HTML" class="headerlink" title="一、HTML"></a>一、HTML</h1><p>HTML(Hypertext Markup Language)超文本标记语言。</p>
+<h2 id="1-标签"><a href="#1-标签" class="headerlink" title="1.标签"></a>1.标签</h2><p>标签一般成对出现，但是存在一些自结束标签（单标签），如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span>&gt;</span>、<span class="tag">&lt;<span class="name">img</span>/&gt;</span>、<span class="tag">&lt;<span class="name">input</span>&gt;</span>、<span class="tag">&lt;<span class="name">input</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-注释"><a href="#2-注释" class="headerlink" title="2.注释"></a>2.注释</h2><p>注释不能嵌套</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 注释内容 --&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-标签的属性（P7）"><a href="#3-标签的属性（P7）" class="headerlink" title="3.标签的属性（P7）"></a>3.标签的属性（P7）</h2><p>在标签（开始标签或自结束标签）还可以设置属性;<br>属性和标签中的内容应该使用空格隔开</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">&quot;red&quot;</span>&gt;</span> 标签属性 <span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- color为font标签的属性 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-文档声明-P8"><a href="#4-文档声明-P8" class="headerlink" title="4.文档声明 (P8)"></a>4.文档声明 (P8)</h2><ul>
+<li>文档声明用来告诉浏览器当前网页版本</li>
+<li>html5的文档声明 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="meta-keyword">html</span>&gt;</span> / <span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="5-字符编码（P10）"><a href="#5-字符编码（P10）" class="headerlink" title="5.字符编码（P10）"></a>5.字符编码（P10）</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 网页字符集通过&lt;meta&gt;设置</span></span><br><span class="line"><span class="comment">&lt;meta&gt;需要放在&lt;head&gt;&lt;/head&gt;中 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-实体（转义字符）"><a href="#6-实体（转义字符）" class="headerlink" title="6.实体（转义字符）"></a>6.实体（转义字符）</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">实体语法：</span><br><span class="line">- &amp;实体名字;</span><br><span class="line">(空格：<span class="symbol">&amp;nbsp;</span></span><br><span class="line">大于号：<span class="symbol">&amp;gt;</span></span><br><span class="line">小于号：<span class="symbol">&amp;lt;</span></span><br><span class="line">版权符号：<span class="symbol">&amp;copy;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-meta标签"><a href="#7-meta标签" class="headerlink" title="7.meta标签"></a>7.meta标签</h2><p>meta主要用于设置网页中的一些元数据，元数据不是给用户看的<br>charset - 指定网页的字符集<br>name - 指定的数据的名称<br>content - 指定的数据的内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;HTML5,前端,CSS3&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">keywords表示网站的关键字，可以同时指定多个关键字，关键字之间使用，隔开</span><br><span class="line"></span><br><span class="line">description 用于指定网站的描述</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-语义化标签-块元素、行内元素（P16-P18）"><a href="#8-语义化标签-块元素、行内元素（P16-P18）" class="headerlink" title="8.语义化标签 + 块元素、行内元素（P16-P18）"></a>8.语义化标签 + 块元素、行内元素（P16-P18）</h2><p>块元素：在页面中独占一行的元素（block element），网页中一般通过块元素进行布局</p>
+<ul>
+<li>p标签表示页面中的一个段落，块元素</li>
+<li>h1~h6标签，标题，块元素</li>
+<li>hgroup标签用来为标题分组，可以将一组相关的标题同时放入到hgroup</li>
+</ul>
+<p>行内元素：在页面中不会独占一行的元素（inline element），主要用于包裹文字</p>
+<ul>
+<li>em标签表示语音语调的加重,行内元素</li>
+<li>strong标签表示强调 </li>
+</ul>
+<p>一般情况下，会在块元素中放置行内元素，而不会在行内元素中放置块元素；<br>块元素中基本什么元素都能放，特殊情况：p元素中不能放置块元素</p>
+<h2 id="9-列表list（P19）"><a href="#9-列表list（P19）" class="headerlink" title="9.列表list（P19）"></a>9.列表list（P19）</h2><p>html中列表一共三种：</p>
+<ul>
+<li>有序列表</li>
+<li>无序列表</li>
+<li>定义列表<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 1.有序列表 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>结构<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>表现<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>行为<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 2.无序列表 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>结构<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>表现<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>行为<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 3.定义列表 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>结构<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>结构表示网页的结构，结构用来规定网页中哪里是标题，哪里是段落<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>结构表示网页的结构，结构用来规定网页中哪里是标题，哪里是段落<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>结构表示网页的结构，结构用来规定网页中哪里是标题，哪里是段落<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+定义列表效果：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211011141506.png"></li>
+</ul>
+<h2 id="10-超链接（P20）"><a href="#10-超链接（P20）" class="headerlink" title="10.超链接（P20）"></a>10.超链接（P20）</h2><p>超链接：可以从一个页面跳转到其他页面，或者当前页面的其他位置<br>使用a标签定义超链接<br>  属性：<br>    href → 指定跳转的目标路径<br>    target → 用来指定超链接打开的位置<br>   <img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220316192446.png"></p>
+<p>超链接，行内元素，在a标签中可以嵌套除自身外的任何元素</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span>的作用和<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span>相同</span><br></pre></td></tr></table></figure>
+<h3 id="相对路径（P21）"><a href="#相对路径（P21）" class="headerlink" title="相对路径（P21）"></a>相对路径（P21）</h3><p>当需要跳转到服务器内部的页面是，一般使用相对路径，相对路径都会使用.或..开头，如果不写./或../则相当于写了./<br>./表示当前文件所在的目录<br>../表示当前文件所在目录的上一级目录</p>
+<h2 id="11-图片标签（P23-P24）"><a href="#11-图片标签（P23-P24）" class="headerlink" title="11.图片标签（P23,P24）"></a>11.图片标签（P23,P24）</h2><p>img标签是一个自结束标签<br>属性：</p>
+<ul>
+<li>src属性指定的是外部图片路径（路径规则和超链接相同）</li>
+<li>width 图片宽度</li>
+<li>height 图片高度<br>-宽度和高度如果只修改了一个，则另一个会等比例缩放</li>
+</ul>
+<p>图片格式：</p>
+<ul>
+<li>jepg(jpg)-支持的颜色比较丰富，不支持透明效果，不支持动图</li>
+<li>gif-支持的颜色比较少，支持简单透明，支持动图</li>
+<li>png-支持的颜色丰富，支持复杂透明，不支持动图</li>
+<li>webp-这种格式是谷歌新推出的专门用来表示网页中的图片的一种格式，具备其他图片格式的所有优点，而且文件特别小/缺点：兼容性差/</li>
+<li>base64-将图片使用base64进行编码，这样可以直接通过字符形式引入图片，一般用于需要和网页同时加载的图片才会使用base64</li>
+</ul>
+<h2 id="12-内联框架（P25）"><a href="#12-内联框架（P25）" class="headerlink" title="12.内联框架（P25）"></a>12.内联框架（P25）</h2><p>iframe标签，用于在当前页面中引入其他页面<br>属性：</p>
+<ul>
+<li>src指定要引入的网页的路径 </li>
+<li>frameborder 指定内联框架的边框</li>
+</ul>
+<h2 id="13-音视频播放（P26）"><a href="#13-音视频播放（P26）" class="headerlink" title="13.音视频播放（P26）"></a>13.音视频播放（P26）</h2><p>音视频文件引入时，默认情况下不允许用户自己控制播放停止。</p>
+<p>audio标签 用来向页面中引入外部音频文件<br>属性：controls 是否允许用户控制播放<br>autoplay 音频文件是否自动播放<br>loop 音频文件是否循环播放</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">&quot;***&quot;</span> <span class="attr">contorls</span>&gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>video标签 引入视频文件<br>使用方式和audio标签一致</p>
+<p>video标签示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">controls</span> <span class="attr">width</span>=<span class="string">&quot;250&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;/media/cc0-videos/flower.webm&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">type</span>=<span class="string">&quot;video/webm&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;/media/cc0-videos/flower.mp4&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    Sorry, your browser doesn&#x27;t support embedded videos.</span><br><span class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当视频的媒体数据加载期间发生错误时执行 JavaScript :</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">onerror</span>=<span class="string">&quot;myFunction()&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="14-表格（P96-P97）"><a href="#14-表格（P96-P97）" class="headerlink" title="14.表格（P96-P97）"></a>14.表格（P96-P97）</h2><p>网页中通过table标签来创建表格<br>在table中使用tr表示表格中的一行，有几个tr就有几行，在tr中使用td表示一个单元格，有几个td就有几个单元格<br>colspan 横向的合并单元格； rowsoan 纵向合并单元格</p>
+<p>可以将一个表格分为三部分：</p>
+<ol>
+<li>头部 thead</li>
+<li>主体 tbody</li>
+<li>底部 tfoot</li>
+</ol>
+<p>th 表示头部单元格</p>
+<h4 id="14-1-表格的样式（P98）"><a href="#14-1-表格的样式（P98）" class="headerlink" title="14.1 表格的样式（P98）"></a>14.1 表格的样式（P98）</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">table</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 1.border-spacing 指定边框之间的距离 */</span></span><br><span class="line">  <span class="comment">/* 此时边框的宽度为2px */</span></span><br><span class="line">  <span class="attribute">border-spacing</span>：<span class="number">0px</span>; </span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 2.border-collapse: collapse; 设置边框的合并 */</span></span><br><span class="line">   <span class="comment">/* 此时边框的宽度为1px */</span></span><br><span class="line">  <span class="attribute">border-collapse</span>: collapse;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">table</span> <span class="selector-tag">tr</span><span class="selector-pseudo">:nth-child</span>(<span class="number">2</span>n)&#123;</span><br><span class="line">  <span class="comment">/* 调整表格偶数行的背景颜色 */</span></span><br><span class="line">  <span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果表格中没有使用tbody而直接使用tr，那么浏览器会自动创建一个tbody，并且将所有的tr都放到tbody中，因此tr不再是tbody的子元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">table</span> &gt; <span class="selector-tag">tr</span> &#123;</span><br><span class="line">  <span class="comment">/* 此时效果无法生效 */</span></span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下元素在td中是垂直居中的，可以通过 vertical-align 来修改</p>
+<h2 id="15-表单（P99）"><a href="#15-表单（P99）" class="headerlink" title="15.表单（P99）"></a>15.表单（P99）</h2><p>网页中的表单用于将本地的数据提交给远程的服务器，使用form标签来创建一个表单<br>form的属性：</p>
+<ul>
+<li>action 表单要提交的服务器的地址<br>表单项：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 文本框 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;数据提交给服务器必须指定唯一的名称&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 提交按钮 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;指定显示文字&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 密码框 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;**&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 单选按钮 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 像这种选择框，必须要指定一个value属性，value属性最终会作为用户的填写的值传递给服务器 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- checked可以将单选按钮设置为默认选中 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;**&quot;</span> <span class="attr">value</span>=<span class="string">&quot;**&quot;</span> <span class="attr">checked</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 多选框 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;**&quot;</span> <span class="attr">value</span>=<span class="string">&quot;**&quot;</span> <span class="attr">checked</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 下拉列表 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- selected 属性设置默认选中 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span> <span class="attr">selected</span>&gt;</span>选项1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span>选项2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span>&gt;</span>选项3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 重置按钮 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 普通按钮 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;按钮&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+autocomplete=”off” 关闭自动补全<br>readonly 将表单项设置为只读，数据会提交到服务器端<br>disabled 将表单项设置为禁用，数据不会提交到服务器端<br>autofocus 设置表单项自动获取焦点</li>
+</ul>
+<h1 id="二、CSS（P27-P28）"><a href="#二、CSS（P27-P28）" class="headerlink" title="二、CSS（P27-P28）"></a>二、CSS（P27-P28）</h1><p>CSS 层叠样式表<br>网页实际上是一个多层结构，通过CSS可以分别为网页的每一层来设计样式，而最终我们能看到的只是网页的最上边一层<br>使用方式：</p>
+<ul>
+<li>内联样式/行内样式：在标签内部通过style属性来设置元素样式</li>
+<li><ul>
+<li>问题：样式只对一个标签生效、希望影响多个元素必须在每一个元素中都复制一遍，并且样式发生变化时，我们必须要一个一个的修改，不方便维护</li>
+</ul>
+</li>
+<li><ul>
+<li>注意：开发时绝对不要使用内联样式</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>内部样式表：将样式编写到head中的style标签里然后通过CSS选择器来选中元素并为其设置各种样式，可以同时为多个标签设置样式，并且修改时只需要修改一处即可全部应用</li>
+<li>内部样式更加方便对样式进行复用</li>
+<li><ul>
+<li>问题：内部样式表只能对一个网页起作用，内部样式不能跨页面复用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>外部样式表：将CSS样式编写到外部CSS文件中，然后通过link标签引入外部CSS文件<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;****&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>意味着只要想使用这些样式的网页都可以对其进行引用，使样式可以在不同页面之间进行复用</li>
+<li>将样式编写到外部的CSS文件中，可以使用到浏览器的缓存机制，从而加快网页的加载速度，提高用户的体验</li>
+</ul>
+<h2 id="1-CSS基本语法（P29）"><a href="#1-CSS基本语法（P29）" class="headerlink" title="1.CSS基本语法（P29）"></a>1.CSS基本语法（P29）</h2><p>CSS注释 - /* 注释内容 */<br>CSS的基本语法：<br>  选择器 声明块</p>
+<ul>
+<li>选择器：通过选择器可以选中页面中的指定元素（比如p的作用是选中页面中所有的p元素）</li>
+<li>声明块：通过声明块来指定要为元素设置的样式。</li>
+<li><ul>
+<li>声明块由一个一个的声明组成</li>
+</ul>
+</li>
+<li><ul>
+<li>声明是一个名值对结构,一个样式名对应一个样式值，名和值之间以:连接，以;结尾</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-常用选择器（P30）"><a href="#2-常用选择器（P30）" class="headerlink" title="2.常用选择器（P30）"></a>2.常用选择器（P30）</h2><p>1.元素选择器</p>
+<ul>
+<li>作用：根据标签名来选中指定的元素</li>
+<li>语法：标签名{}</li>
+<li>例子：p{}、 h1{} 、div{}</li>
+</ul>
+<p>2.id选择器</p>
+<ul>
+<li>作用：根据元素的id属性值选中一个元素</li>
+<li>语法：#id属性值{}</li>
+<li>例子：#box{}、#red{}</li>
+</ul>
+<p>3.类选择器<br>class是一个标签属性，它和id类似，不同的是class可以重复使用，通过class属性可以为元素分组,可以同时为一个元素指定多个class属性</p>
+<ul>
+<li>作用：根据元素class属性值选中一组元素</li>
+<li>语法：.class属性值{}</li>
+</ul>
+<p>4.通配选择器</p>
+<ul>
+<li>作用：选中页面中的所有元素</li>
+<li>语法：*{}</li>
+</ul>
+<h2 id="3-复合选择器（P31）"><a href="#3-复合选择器（P31）" class="headerlink" title="3.复合选择器（P31）"></a>3.复合选择器（P31）</h2><p>1.交集选择器</p>
+<ul>
+<li>作用：选中同时符合多个条件的元素</li>
+<li>语法：选择器1选择器2选择器3……选择器n{}</li>
+<li><ul>
+<li>注意点：交集选择器中如果有元素选择器，必须使用元素选择器开头（例如：<strong>div.red{}</strong>不能写成<strong>.reddiv{}</strong>）</li>
+</ul>
+</li>
+</ul>
+<p>2.选择器分组（并集选择器）</p>
+<ul>
+<li>作用：同时选择多个选择器对应的元素</li>
+<li>语法：选择器1,选择器2,选择器3,……,选择器n{}（例如：#b1,.p1,h1,span,div.red{}）</li>
+</ul>
+<h2 id="4-关系选择器（P32）"><a href="#4-关系选择器（P32）" class="headerlink" title="4.关系选择器（P32）"></a>4.关系选择器（P32）</h2><p>父元素–直接包含子元素的元素叫做父元素<br>子元素–直接被父元素包含的元素是子元素<br>祖先元素–直接或间接包含后代元素的元素叫做祖先元素、–一个元素的父元素也是它的祖先元素<br>后代元素–直接或间接被祖先元素包含的元素叫做后代元素<br>兄弟元素–拥有相同父元素的元素是兄弟元素</p>
+<p>1.子元素选择器</p>
+<ul>
+<li>作用：选中指定父元素的指定子元素</li>
+<li>语法：父元素 &gt; 子元素{}</li>
+</ul>
+<p>2.后代元素选择器</p>
+<ul>
+<li>作用：选中指定元素内的指定后代元素</li>
+<li>语法：祖先 &nbsp; 后代{}（例如：div &nbsp; span {}）</li>
+</ul>
+<p>3.兄弟元素选择器</p>
+<ul>
+<li>作用：选择下一个兄弟元素</li>
+<li>语法：前一个+下一个{}(只有两个元素紧挨着才会生效)<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>紧跟着1<span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>非紧挨着2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line">div + span&#123;</span><br><span class="line">  color:red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">&lt;!-- 只有 紧跟着1 颜色是红色 --&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>4.选择下面所有的兄弟元素</p>
+<ul>
+<li>语法：兄 ~ 弟{}</li>
+</ul>
+<h2 id="5-属性选择器（P33）"><a href="#5-属性选择器（P33）" class="headerlink" title="5.属性选择器（P33）"></a>5.属性选择器（P33）</h2><p>[属性名] 选择含有指定属性的元素<br>[属性名=属性值] 选择含有指定属性和属性值的元素<br>[属性名^=属性值] 选择属性值以指定值开头的元素<br>[属性名$=属性值] 选择属性值以指定值结尾的元素<br>[属性名*=属性值] 选择属性值中含有某值的元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-attr">[title]</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-attr">[title=abc]</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-attr">[title^=abc]</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-attr">[title$=abc]</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-attr">[title*$*=abc]</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-伪类选择器"><a href="#6-伪类选择器" class="headerlink" title="6.伪类选择器"></a>6.伪类选择器</h2><ol>
+<li>伪类（不存在的类，特殊的类） （P34）</li>
+</ol>
+<ul>
+<li>伪类用来描述一个元素的特殊状态，比如：第一个子元素、被点击元素、鼠标移入的元素……</li>
+<li>伪类一般情况下都是使用:开头，如 </li>
+<li><ul>
+<li>:first-child 第一个子元素</li>
+</ul>
+</li>
+<li><ul>
+<li>:last-child 最后一个子元素</li>
+</ul>
+</li>
+<li><ul>
+<li>:nth-child(n) 选中第n个子元素(特殊值：<strong>1.</strong> n,第n个，n的范围0到正无穷；<strong>2.</strong>2n或even 表示选中偶数位的元素；<strong>3.</strong>2n+1或odd 表示选中奇数位的元素)</li>
+</ul>
+</li>
+</ul>
+<h2 id="以上这些伪类都是根据所有元素进行排序"><a href="#以上这些伪类都是根据所有元素进行排序" class="headerlink" title="以上这些伪类都是根据所有元素进行排序"></a>以上这些伪类都是根据所有元素进行排序</h2><ul>
+<li><ul>
+<li>:first-of-type</li>
+</ul>
+</li>
+<li><ul>
+<li>:last-of-type</li>
+</ul>
+</li>
+<li><ul>
+<li>:nth-of-type()</li>
+</ul>
+</li>
+</ul>
+<h2 id="这几个伪类的功能和上述的类似，不同点是它们在同类型元素中进行排序"><a href="#这几个伪类的功能和上述的类似，不同点是它们在同类型元素中进行排序" class="headerlink" title="这几个伪类的功能和上述的类似，不同点是它们在同类型元素中进行排序"></a>这几个伪类的功能和上述的类似，不同点是它们在同类型元素中进行排序</h2><ul>
+<li><ul>
+<li>:not() 否定伪类：将符合条件的元素从选择器中去除<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220103175630.png"><br>将所有的p标签背景都换成黄色，除了class为hello的</li>
+</ul>
+</li>
+</ul>
+<p>2.a元素的伪类（P35）</p>
+<ul>
+<li>:link 用于选取未被访问的链接</li>
+<li>:visited 用来表示访问过的链接（由于隐私的原因，所以visited这个伪类只能修改链接的颜色）<br>上述两个伪类只对a元素生效</li>
+<li>:hover 用来表示鼠标移入的状态</li>
+<li>:active 用来表示鼠标点击的状态</li>
+</ul>
+<h2 id="7-伪元素选择器（P36）"><a href="#7-伪元素选择器（P36）" class="headerlink" title="7.伪元素选择器（P36）"></a>7.伪元素选择器（P36）</h2><p>伪元素，表示页面中一些特殊的并不真实存在的元素（特殊位置），伪元素使用::开头</p>
+<ul>
+<li>::first-letter 表示第一个字母</li>
+<li>::first-line 表示第一行</li>
+<li>::selection 表示选中的内容</li>
+</ul>
+<hr>
+<ul>
+<li>::before 元素的开始位置</li>
+<li>::after 元素的最后位置</li>
+</ul>
+<p>注意：before 和 after 必须结合content属性来使用</p>
+<h4 id="练习项目：餐厅选择器"><a href="#练习项目：餐厅选择器" class="headerlink" title="[练习项目：餐厅选择器]"></a>[练习项目：餐厅选择器]</h4><p><a target="_blank" rel="noopener" href="https://github.com/qw-null/CSS-selector-practice/tree/master">餐厅选择器</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211015160542.png"></p>
+<h2 id="8-样式的继承（P38）"><a href="#8-样式的继承（P38）" class="headerlink" title="8.样式的继承（P38）"></a>8.样式的继承（P38）</h2><p>样式的继承，我们为一个元素设置的样式同时也会应用到它的后代元素上</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  我是一个P元素</span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>我是P元素中的span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>我是P元素外的span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211016152351.png"></p>
+<p>注意：并不是所有的样式都会被继承（比如：背景相关的，布局相关等的这些样式都不会被继承）</p>
+<h2 id="9-选择器的权重（P39）"><a href="#9-选择器的权重（P39）" class="headerlink" title="9.选择器的权重（P39）"></a>9.选择器的权重（P39）</h2><p>样式的冲突：</p>
+<ul>
+<li>当我们通过不同的选择器，选中相同的元素，并且为相同的样式设置不同的值，此时就发生了样式的冲突</li>
+</ul>
+<p>发生样式冲突时，应用哪个样式由选择器的权重（优先级）决定<br>选择器权重：</p>
+<ul>
+<li>内联样式–1000</li>
+<li>id选择器–100</li>
+<li>类和伪类选择器–10</li>
+<li>元素选择器–1</li>
+<li>通配选择器–0</li>
+<li>继承的样式–没有优先级</li>
+</ul>
+<p>比较优先级时，需要将所有的选择器的优先级进行相加，最后优先级越高，则越优先显示（分组选择器是单独计算的）<br>选择器的累加不会超过其最大的数量级（类选择器再高也不会超过id选择器）<br>如果优先级计算相同，此时优先使用靠下的样式<br>可以在某一个样式后面添加!important，此时该样式会获得最高的优先级，甚至超过内联样式【注意：在开发中，一定要慎用！】</p>
+<h2 id="10-长度单位"><a href="#10-长度单位" class="headerlink" title="10.长度单位"></a>10.长度单位</h2><h4 id="像素和百分比（P40）"><a href="#像素和百分比（P40）" class="headerlink" title="像素和百分比（P40）"></a>像素和百分比（P40）</h4><ul>
+<li>像素：屏幕（显示器）实际上是由一个个的小点构成的，不同屏幕的像素大小是不同的，像素越小的屏幕显示效果越清晰，所以同样的200px在不同的设备下显示效果不同</li>
+<li>百分比：也可以将属性值设置为相对于其父元素（<em>这种说法不严谨</em>）属性的百分比</li>
+</ul>
+<h4 id="em和rem（P41）"><a href="#em和rem（P41）" class="headerlink" title="em和rem（P41）"></a>em和rem（P41）</h4><ul>
+<li>em：em是相对于元素的字体大小来计算，1em=1font-size,em会根据字体大小的改变而改变、</li>
+<li>rem：rem是相对于根元素的字体大小来计算</li>
+</ul>
+<h2 id="11-文档流（P44）"><a href="#11-文档流（P44）" class="headerlink" title="11.文档流（P44）"></a>11.文档流（P44）</h2><ul>
+<li>网页是一个多层结构，一层摞着一层，通过CSS可以分别为每一层来设置样式，作为用户只能看到最顶层内容，在这些层中，最底下一层称为文档流，文档流是网页的基础</li>
+<li>我们所创建的元素默认都是在文档流中进行排列</li>
+<li>元素主要是有两个状态</li>
+<li><ul>
+<li>在文档流中</li>
+</ul>
+</li>
+<li><ul>
+<li>不在文档流中（脱离文档流）</li>
+</ul>
+</li>
+</ul>
+<h5 id="元素在文档流中的特点："><a href="#元素在文档流中的特点：" class="headerlink" title="元素在文档流中的特点："></a>元素在文档流中的特点：</h5><ul>
+<li>块元素</li>
+<li><ul>
+<li>块元素在文档流中独占一行</li>
+</ul>
+</li>
+<li><ul>
+<li>默认宽度是父元素的全部（会把父元素撑满）</li>
+</ul>
+</li>
+<li><ul>
+<li>默认高度是被内容撑开（子元素）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>行内元素</li>
+<li><ul>
+<li>行内元素不会独占页面的一行，只占自身大小</li>
+</ul>
+</li>
+<li><ul>
+<li>行内元素在页面中由左向右水平排列，如果一行之中不能容纳下所有行内元素，则元素会换到第二行继续自左向右排列</li>
+</ul>
+</li>
+<li><ul>
+<li>行内元素的默认宽度和高度都是被内容撑开</li>
+</ul>
+</li>
+</ul>
+<h2 id="12-盒模型-box-model（P45）"><a href="#12-盒模型-box-model（P45）" class="headerlink" title="12.盒模型 box model（P45）"></a>12.盒模型 box model（P45）</h2><p>CSS将页面中的所有元素都设置为一个矩形的盒子，将元素设置为矩形的盒子后，对页面布局就变成将不同的盒子摆放到不同的位置<br>每一个盒子都由内容区（content）、边框（border）、内边距（padding）、外边距（margin）  组成<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211018114632.png"></p>
+<ul>
+<li>内容区（content）：元素中所有的子元素和文本内容都在内容区中排列。</li>
+<li><ul>
+<li>内容区的大小有width和height两个属性来设置</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>边框（border）：边框属于盒子边缘。<em>边框的大小会影响到整个盒子的大小</em>（P46）</li>
+<li><ul>
+<li>设置边框需要设置三个样式：边框宽度（border-width）、边框颜色（border-color）、边框样式（border-style）</li>
+</ul>
+</li>
+<li> 边框宽度（border-width），默认值一般都是3个像素，可以用来指定四个方向的边框的宽度</li>
+<li><ul>
+<li><b>四个值：</b>上、右、下、左；<b>三个值：</b>上、左右、下；<b>两个值：</b>上下、左右</li>
+</ul>
+</li>
+<li><ul>
+<li>除了border-width还有一组border-xxx-width，其中xxx可以是left、right、top、bottom，用来单独指定某一个边的宽度</li>
+</ul>
+</li>
+<li>border-style指定边框的样式，默认值为none</li>
+<li><ul>
+<li>值：solid 表示实线；dotted表示点状虚线；dashed表示虚线；double表示双线</li>
+</ul>
+</li>
+<li>border简写属性，通过该属性可以同时设置边框所有的相关样式。例如：<br>border:10px red solid;</li>
+</ul>
+<hr>
+<ul>
+<li>内边距（padding）(P47)<br>内容区和边框之间的距离是内边距，一共四个方向的内边距（padding-top、padding-bottom、padding-left、padding-right）</li>
+<li><ul>
+<li>内边距的设置会影响到盒子的大小，背景颜色会延伸到内边距上</li>
+</ul>
+</li>
+<li><ul>
+<li>padding内边距的简写属性，可以同时指定四个方向的内边距，规则和border-width一样 </li>
+</ul>
+</li>
+</ul>
+<p>一个盒子的可见框的大小，由内容区、内边距和边框共同决定，所以在计算盒子大小时，需要将这三个区域加到一起计算</p>
+<hr>
+<ul>
+<li>外边距（margin）(P48)<br>外边距不会影响盒子可见框的大小，但是外边距会影响盒子的位置，一共四个方向的外边距（margin-top、margin-bottom、margin-left、margin-right）</li>
+<li><ul>
+<li>元素在页面中是按照自左向右顺序排列，所以默认设置左和上外边距则会移动元素，而设置下和右外边距会移动其他元素</li>
+</ul>
+</li>
+<li><ul>
+<li>margin也可以设置为负值，如果是负值则元素会向相反的方向移动</li>
+</ul>
+</li>
+<li><ul>
+<li>margin外边距的简写属性，可以同时指定四个方向的外边距，规则和border-width一样</li>
+</ul>
+</li>
+</ul>
+<h2 id="13-盒子模型水平方向的布局（P49）"><a href="#13-盒子模型水平方向的布局（P49）" class="headerlink" title="13.盒子模型水平方向的布局（P49）"></a>13.盒子模型水平方向的布局（P49）</h2><p>元素的水平方向的布局：元素在其父元素中水平方向的位置由以下几个属性共同决定：margin-left、border-left、padding-left、width、padding-right、border-right、margin-right</p>
+<p>一个元素在其父元素中，水平布局必须满足以下等式：<br>子元素的margin-left+border-left+padding-left+width+padding-right+border-right+margin-right=其父元素内容区的宽度（必须满足）</p>
+<ul>
+<li>上述等式必须满足，如果相加结果使等式不成立，则称为过度约束，则等式会自动调整</li>
+<li>调整情况：如果这七个值中没有auto的情况，则浏览器会自动调整margin-right值以使等式满足</li>
+<li>这七个值中有三个值可以设置为auto：width、margin-left、margin-right，如果某个值为auto，则会自动调整为auto的那个值以使得等式成立</li>
+<li>设置元素在其父元素中水平居中<br>width:500px; /* 必须指定宽度值 */<br>margin: 0 auto;  </li>
+</ul>
+<h2 id="14-盒子模型垂直方向的布局（P50）"><a href="#14-盒子模型垂直方向的布局（P50）" class="headerlink" title="14.盒子模型垂直方向的布局（P50）"></a>14.盒子模型垂直方向的布局（P50）</h2><p>子元素是在父元素的内容区中排列的，如果子元素的大小超过了父元素，则子元素会从父元素中溢出，使用<b>overflow属性</b>来设置父元素如何处理溢出的子元素<br>overflow属性可选值：</p>
+<ul>
+<li>visible,默认值，子元素会从父元素中溢出，在父元素外部的位置显示</li>
+<li>hidden，溢出的内容将会被裁剪不会显示</li>
+<li>scroll，生成两个滚动条，通过滚动条来查看完整内容</li>
+<li>auto，根据需要生成滚动条</li>
+</ul>
+<p>overflow-x，overflow-y分别处理水平方向和垂直方向子元素溢出问题，取值和overflow相同。</p>
+<h2 id="15-盒子模型外边距的折叠（P51）"><a href="#15-盒子模型外边距的折叠（P51）" class="headerlink" title="15.盒子模型外边距的折叠（P51）"></a>15.盒子模型外边距的折叠（P51）</h2><p>外边距的重叠（折叠）：</p>
+<ul>
+<li><p>相邻的垂直方向外边距会发生重叠现象</p>
+</li>
+<li><p>兄弟元素</p>
+</li>
+<li><ul>
+<li>兄弟元素间的相邻垂直外边距会取两者之间的较大值（正值），特殊情况：如果相邻的外边距一正一负，则取两者的和；如果相邻的外边距都是负值，则取两者中绝对值较大的</li>
+</ul>
+</li>
+<li><ul>
+<li>兄弟元素之间的外边距的重叠，对于开发是有利的，所以不需要进行处理</li>
+</ul>
+</li>
+<li><p>父子元素</p>
+</li>
+<li><ul>
+<li>父子元素间的相邻外边距，子元素的会传递给父元素（上外边距）</li>
+</ul>
+</li>
+<li><ul>
+<li>父子外边距折叠会影响到页面布局，必须进行处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="16-行内元素的盒模型（P52）"><a href="#16-行内元素的盒模型（P52）" class="headerlink" title="16.行内元素的盒模型（P52）"></a>16.行内元素的盒模型（P52）</h2><p>行内元素的盒模型：</p>
+<ul>
+<li>行内元素不支持设置宽度和高度</li>
+<li>行内元素可以设置padding，但是垂直方向padding不会影响页面的布局</li>
+<li>行内元素可以设置border，垂直方向的border不会影响页面的布局</li>
+<li>行内元素可以设置margin，垂直方向的margin不会影响布局</li>
+</ul>
+<p>display属性，用来设置元素显示类型<br>可选值：</p>
+<ul>
+<li>inline 将元素设置为行内元素</li>
+<li>block 将元素设置为块元素</li>
+<li>inline-block 将元素设置为行内块元素（行内块，既可以设置宽度和高度，又不会独占一行）</li>
+<li>table 将元素设置为一个表格</li>
+<li>none 元素不在页面显示</li>
+</ul>
+<p>visibility 用来设置元素的显示状态<br>可选值：</p>
+<ul>
+<li><b>visible</b> 默认值，元素在页面中正常显示;</li>
+<li><b>hidden</b>元素在页面中隐藏，不显示，但是依然占据页面的位置</li>
+</ul>
+<h2 id="17-浏览器的默认样式"><a href="#17-浏览器的默认样式" class="headerlink" title="17.浏览器的默认样式"></a>17.浏览器的默认样式</h2><p>浏览器的默认样式：</p>
+<ul>
+<li>通常情况下，浏览器都会为元素设置一些默认样式，默认样式的存在会影响到页面的布局，通常情况下编写网页时必须要去除浏览器的默认样式（PC端的页面）</li>
+<li>引入css文件清除默认样式</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://meyerweb.com/eric/tools/css/reset/">CSS Tools: Reset CSS</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/necolas/normalize.css/">normalize.css</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="练习题（P54-P58）"><a href="#练习题（P54-P58）" class="headerlink" title="练习题（P54-P58）"></a>练习题（P54-P58）</h2><p><a target="_blank" rel="noopener" href="https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P54%E5%B8%83%E5%B1%80%E7%BB%83%E4%B9%A0">京东图片列表，京东左侧导航栏，网易新闻列表</a></p>
+<h2 id="18-盒子的大小（P58）"><a href="#18-盒子的大小（P58）" class="headerlink" title="18.盒子的大小（P58）"></a>18.盒子的大小（P58）</h2><p>默认情况下，盒子可见框的大小由内容区、内边距和边框共同决定。<br>box-sizing 用来设置盒子尺寸的计算方式（设置width和height的作用）<br>可选值：</p>
+<ul>
+<li>content-box 默认值，宽度和高度用来设置内容区的大小</li>
+<li>border-box 宽度和高度用来设置整个盒子可见框的大小（width和height指的是内容区、内边距和边框的总大小）</li>
+</ul>
+<h2 id="19-轮廓阴影和圆角（P59）"><a href="#19-轮廓阴影和圆角（P59）" class="headerlink" title="19.轮廓阴影和圆角（P59）"></a>19.轮廓阴影和圆角（P59）</h2><p>outline 用来设置元素的轮廓线，用法和border相同，【outline和border不同点是outline不会影响可见框的大小】</p>
+<p>box-shadow用来设置元素的阴影效果，阴影不会影响页面布局<br>box-shadow:水平偏移量 &nbsp; 垂直偏移量&nbsp;模糊半径&nbsp; 颜色;</p>
+<ul>
+<li>第一个值：水平偏移量，设置阴影的水平位置，正值向右移动，负值向左移动</li>
+<li>第二个值：垂直偏移量，设置阴影的垂直位置，正值向下移动，负值向上移动</li>
+<li>第三个值：阴影的模糊半径</li>
+<li>第四个值：阴影颜色，一般使用rgba保证阴影的透明度</li>
+</ul>
+<p>border-radius设置圆角，还可以单独设置border-top-left-radius、border-top-right-radius、border-bottom-left-radius、border-bottom-right-radius<br>border-radius可以分别指定四个角的圆角</p>
+<ul>
+<li>四个值：左上、右上、右下、左下</li>
+<li>三个值：左上、右上/左下、右下</li>
+<li>两个值：左上/右下、右上/左下</li>
+</ul>
+<h2 id="20-浮动（P60-P61）"><a href="#20-浮动（P60-P61）" class="headerlink" title="20.浮动（P60-P61）"></a>20.浮动（P60-P61）</h2><p>通过浮动可以使一个元素向其父元素的左侧或者右侧移动，通过float属性来设置元素的浮动。<br>float可选值:</p>
+<ul>
+<li>none 默认值，元素不浮动</li>
+<li>left 元素向左浮动</li>
+<li>right 元素向右浮动</li>
+</ul>
+<p>元素设置浮动以后，会完全从文档流中脱离，不再占用文档流中的位置，因此元素下边的还在文档流中的元素会自动向上移动</p>
+<p>浮动的特点：</p>
+<ul>
+<li>1.浮动元素会完全脱离文档流，不再占据文档流中的位置</li>
+<li>2.设置浮动以后元素会向父元素的左侧或右侧移动</li>
+<li>3.浮动元素默认不会从父元素中移出</li>
+<li>4.浮动元素向左或向右移动时，不会超过它前面的其他浮动元素</li>
+<li>5.如果浮动元素的上边是一个没有浮动的块元素，则浮动元素无法上移</li>
+<li>6.浮动元素不会超过它上面的浮动的兄弟元素，最多是和其兄弟元素一样高</li>
+<li>7.浮动元素不会盖住文字，文字会自动环绕在浮动元素的周围，因此可以利用浮动来实现文字环绕图片效果</li>
+<li>8.元素设置浮动以后，将会从文档流中脱离，从文档流中脱离后，元素的一些特点也会发生改变</li>
+</ul>
+<p>简单总结：浮动目前来讲主要作用就是让页面中的元素可以水平排列，通过浮动可以制作一些水平方向的布局</p>
+<p><span style="font-size:20px;font-weight:700;">脱离文档流的特点：</span></p>
+<ul>
+<li>块元素：</li>
+<li><ul>
+<li>1.块元素不再独占页面一行</li>
+</ul>
+</li>
+<li><ul>
+<li>2.脱离文档流之后，默认宽度和高度都是被内容撑开</li>
+</ul>
+</li>
+<li>行内元素：</li>
+<li><ul>
+<li>行内元素脱离文档流之后会变成块元素，特点和块元素一样</li>
+</ul>
+</li>
+</ul>
+<p>脱离文档流之后，不需要再区分块元素和行内元素</p>
+<h2 id="浮动练习–导航条（P62）"><a href="#浮动练习–导航条（P62）" class="headerlink" title="浮动练习–导航条（P62）"></a>浮动练习–导航条（P62）</h2><p><a target="_blank" rel="noopener" href="https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P62%E5%AF%BC%E8%88%AA%E6%9D%A1%E7%BB%83%E4%B9%A0">导航条</a><br>效果：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211026103344.png"></p>
+<h2 id="21-高度塌陷和BFC（P64）"><a href="#21-高度塌陷和BFC（P64）" class="headerlink" title="21.高度塌陷和BFC（P64）"></a>21.高度塌陷和BFC（P64）</h2><p><b>高度塌陷问题：</b><br>在浮动布局中，父元素高度默认是被子元素撑开，当子元素浮动后，其会完全脱离文档流，子元素从文档流中脱离，将会无法撑起父元素的高度，导致父元素的高度丢失。<br>父元素高度丢失以后，其下的元素会自动上移，导致页面的布局混乱，所以高度塌陷是浮动布局中比较常见的一个问题，必须要进行处理。</p>
+<p><b>BFC（Block Formatting Context，块级格式化环境）</b><br>BFC是一个CSS中的一个隐含属性，可以为一个元素开启BFC，开启BFC后，该元素会变成一个独立的布局区域</p>
+<p>元素开启BFC后的特点：</p>
+<ul>
+<li>开启BFC的元素不会被浮动元素所覆盖</li>
+<li>开启BFC的元素子元素和父元素外边距不会重叠</li>
+<li>开启BFC的元素可以包含浮动的子元素</li>
+</ul>
+<p>可以通过一些特殊的方式来开启元素的BFC：</p>
+<ul>
+<li>1.设置元素的浮动<b>【不推荐】</b></li>
+<li>2.将元素设置为行内块元素（inline-block）<b>【不推荐】</b></li>
+<li>3.将元素的overflow设置为一个非visible的值</li>
+<li><ul>
+<li>常用方式：为元素设置overflow:hidden开启其BFC，以使其可以包含浮动元素，<b>overflow:hidden要赋值给不想要被影响的元素</b></li>
+</ul>
+</li>
+</ul>
+<p> 推荐方式：将overflow设置为hidden是副作用最小的开启BFC的方式。</p>
+<h2 id="22-解决高度塌陷问题"><a href="#22-解决高度塌陷问题" class="headerlink" title="22.解决高度塌陷问题"></a>22.解决高度塌陷问题</h2><h4 id="22-1-clear属性（P66）"><a href="#22-1-clear属性（P66）" class="headerlink" title="22.1 clear属性（P66）"></a>22.1 clear属性（P66）</h4><p>例子引入：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box3&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box1</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>:<span class="number">#bfa</span>;</span><br><span class="line">  <span class="attribute">float</span><span class="selector-pseudo">:left</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box3</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>:orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211028105107.png"><br>由于box1的浮动，导致box3位置上移，也就是box3受到了box1浮动的影响，位置发生了改变。<br>如果我们不希望某个元素因为其他元素浮动的影响而改变位置，可以通过clear属性来清除浮动元素对当前元素产生的影响。</p>
+<p>clear属性</p>
+<ul>
+<li>作用：清除浮动元素对当前元素所产生的影响</li>
+<li>可选值：</li>
+<li><ul>
+<li>left 清除左侧浮动元素对当前元素产生的影响</li>
+</ul>
+</li>
+<li><ul>
+<li>right 清除右侧浮动元素对当前元素的影响</li>
+</ul>
+</li>
+<li><ul>
+<li>both 清除两侧中最大影响的那侧（谁的高度大，就清除谁的）</li>
+</ul>
+</li>
+</ul>
+<p>原理：设置清除浮动以后，浏览器会自动为元素添加一个上边距，以使其位置不受其他元素影响</p>
+<p>例子：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211028141359.png"></p>
+<h4 id="22-2-使用after伪类解决高度塌陷问题（P67）"><a href="#22-2-使用after伪类解决高度塌陷问题（P67）" class="headerlink" title="22.2.使用after伪类解决高度塌陷问题（P67）"></a>22.2.使用after伪类解决高度塌陷问题（P67）</h4><p>使用after伪类解决高度塌陷问题是解决高度塌陷的最终解决方案<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211028142356.png"></p>
+<h4 id="补充知识：解决外边距重叠问题（P68）"><a href="#补充知识：解决外边距重叠问题（P68）" class="headerlink" title="补充知识：解决外边距重叠问题（P68）"></a>补充知识：解决外边距重叠问题（P68）</h4><p>问题情景：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211028142844.png"><br>解决方案：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211028143400.png"></p>
+<p>clearfix这个样式可以同时解决高度塌陷和外边距重叠的问题，当遇到这些问题时，可以直接使用clearfix进行解决</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">::before</span>,</span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="attribute">display</span>:table;</span><br><span class="line">  <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="23-position定位"><a href="#23-position定位" class="headerlink" title="23.position定位"></a>23.position定位</h2><p>定位(position)，是一种更加高级的布局手段，通过定位可以将元素摆放在页面的任意位置，使用position属性来设置定位<br>可选值：</p>
+<ul>
+<li>static 默认值，元素是静止的没有开启定位</li>
+<li>relative 开启元素相对定位</li>
+<li>absolute 开启元素绝对定位</li>
+<li>fixed 开启元素的固定定位</li>
+<li>sticky 开启元素的粘滞定位</li>
+</ul>
+<h4 id="23-1-相对定位relative（P69）"><a href="#23-1-相对定位relative（P69）" class="headerlink" title="23.1 相对定位relative（P69）"></a>23.1 相对定位relative（P69）</h4><p>position：relative;开启元素的相对定位。<br>特点：</p>
+<ul>
+<li>1.元素开启相对定位，如果不设置偏移量，元素不会发生任何的变化</li>
+<li><ul>
+<li>偏移量（offset）：当元素开启了定位之后，可以通过偏移量来设置元素的位置。</li>
+</ul>
+</li>
+<li><ul>
+<li>包含的值：</li>
+</ul>
+</li>
+<li><ul>
+<li>top———定位元素和定位位置上边的距离、bottom———定位元素和定位位置下边的距离【定位元素垂直方向的位置由top、bottom两个属性控制，通常情况下只会使用其一】</li>
+</ul>
+</li>
+<li><ul>
+<li>left———定位元素和定位位置左边的距离、right———定位元素和定位位置右边的距离【定位元素水平方向的位置由left、right两个属性控制，通常情况下只会使用其一】</li>
+</ul>
+</li>
+<li>2.相对定位是参照于元素在文档流中的位置进行定位</li>
+<li>3.相对定位会提升元素的层级</li>
+<li>4.相对定位不会使元素脱离文档流</li>
+<li>5.相对定位不会改变的的元素的性质，块元素还是块元素，行内元素还是行内元素</li>
+</ul>
+<h4 id="23-2-绝对定位absolute（P70）"><a href="#23-2-绝对定位absolute（P70）" class="headerlink" title="23.2 绝对定位absolute（P70）"></a>23.2 绝对定位absolute（P70）</h4><p>position：absolute;开启元素的绝对定位。<br>特点：</p>
+<ul>
+<li>1.元素开启绝对定位，如果不设置偏移量，<b><u>元素的位置</u></b>不会发生任何的变化</li>
+<li>2.开启绝对定位后，元素会从文档流中脱离</li>
+<li>3.绝对定位会改变元素的性质，行内变成块，块的高度被内容撑开</li>
+<li>4.绝对定位会使得元素提升一个层级</li>
+<li>5.绝对定位是相对于其包含块进行定位的</li>
+<li><ul>
+<li>包含块（containing block）</li>
+</ul>
+</li>
+<li><ul>
+<li>正常情况下包含块就是离当前元素最近的<b>祖先<u>块元素</u></b></li>
+</ul>
+</li>
+<li><ul>
+<li>绝对定位的包含块：包含块就是离它最近的开启了定位的祖先元素，如果所有祖先元素都没有开启定位，则根元素就是它的包含块</li>
+</ul>
+</li>
+<li><ul>
+<li>html（根元素、初始包含快）</li>
+</ul>
+</li>
+</ul>
+<h4 id="23-3-固定定位fixed（P71）"><a href="#23-3-固定定位fixed（P71）" class="headerlink" title="23.3 固定定位fixed（P71）"></a>23.3 固定定位fixed（P71）</h4><p>position:fixed;开启元素的固定定位。固定定位也是一种绝对定位，因此固定定位的大部分特点和绝对定位一样，唯一不同的是固定定位永远参照于浏览器的视口进行定位。<br>固定定位的元素不会随网页的滚动条滚动。</p>
+<h4 id="23-4-粘滞定位sticky（P72）"><a href="#23-4-粘滞定位sticky（P72）" class="headerlink" title="23.4 粘滞定位sticky（P72）"></a>23.4 粘滞定位sticky（P72）</h4><p>position:sticky;开启元素的粘滞定位。粘滞定位和相对定位的特点基本一致，不同的是粘滞定位可以在元素到达某个位置时将其固定<br><strong>兼容性很差,了解即可</strong></p>
+<h4 id="补充知识：绝对定位（P73）"><a href="#补充知识：绝对定位（P73）" class="headerlink" title="补充知识：绝对定位（P73）"></a>补充知识：绝对定位（P73）</h4><p>当开启绝对定位后：水平方向的布局等式就需要添加left和right两个值。<br>left + margin-left + border-left + padding-left + width + padding-right + border-right + margin-right + right = 包含块内容区的宽度</p>
+<p>开启绝对定位后，水平方向的布局等式就需要添加left和right两个值，此时的规则和之前一样只是多添加了两个值。<br>当发生过度约束，如果9个值中没有auto，则自动调整right的值以使等式成立。<br>可以设置为auto的值：margin、width、left、right</p>
+<p>垂直方向布局的等式也必须要满足：top + margin-top/bottom + padding-top/bottom + border-top/bottom + height = 包含块的高度</p>
+<h5 id="使得元素水平垂直居中："><a href="#使得元素水平垂直居中：" class="headerlink" title="使得元素水平垂直居中："></a>使得元素水平垂直居中：</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box1</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: aqua;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="selector-class">.box2</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: orange;</span><br><span class="line">    <span class="attribute">margin</span>: auto;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>效果：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101104011.png"><br>关键代码：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101104122.png"></p>
+<h2 id="24-元素的层级（P74）"><a href="#24-元素的层级（P74）" class="headerlink" title="24.元素的层级（P74）"></a>24.元素的层级（P74）</h2><p>对于开启了定位的元素，可以通过z-index属性来指定元素的层级，z-index需要一个整数作为参数，值越大元素的层级越高，元素的层级越高越优先显示。<br>如果元素层级一样，则优先显示靠下的元素。<br><strong>祖先元素的层级再高也不会盖住后代元素</strong></p>
+<h2 id="京东轮播图布局练习"><a href="#京东轮播图布局练习" class="headerlink" title="京东轮播图布局练习"></a>京东轮播图布局练习</h2><p><a target="_blank" rel="noopener" href="https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P75%E4%BA%AC%E4%B8%9C%E8%BD%AE%E6%92%AD%E5%9B%BE%E5%B8%83%E5%B1%80">京东轮播图布局</a></p>
+<h2 id="25-字体相关的样式（P76）"><a href="#25-字体相关的样式（P76）" class="headerlink" title="25.字体相关的样式（P76）"></a>25.字体相关的样式（P76）</h2><p>color：用来设置字体颜色<br>font-size:字体大小</p>
+<ul>
+<li>和font-size相关的单位：</li>
+<li>em 相当于当前元素的一个font-size</li>
+<li>rem相当于根元素的一个font-size</li>
+</ul>
+<p>font-family:字体族（字体的格式），可选值：（字体分类）</p>
+<ul>
+<li>serif 衬线字体</li>
+<li>sans-serif 非衬线字体</li>
+<li>monospave 等宽字体</li>
+</ul>
+<p>指定字体类别，浏览器会自动使用该类别下的字体，font-family可以同时指定多个字体，多个字体间使用,隔开，字体生效时优先使用第一个，第一个无法使用则使用第二个，以此类推</p>
+<p>@font-face可以将服务器中的字体直接提供给用户去使用。<br>存在问题：</p>
+<ul>
+<li>1.加载速度</li>
+<li>2.版权</li>
+<li>3.字体格式</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101144230.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span>&#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;myfont&#x27;</span>; <span class="comment">/* 指定字体名字 */</span></span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;&#x27;</span>); <span class="comment">/* 服务器端中的地址 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span>&#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;myfont&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="25-1-图标字体iconfont（P77-P78）"><a href="#25-1-图标字体iconfont（P77-P78）" class="headerlink" title="25.1 图标字体iconfont（P77-P78）"></a>25.1 图标字体iconfont（P77-P78）</h4><p>在网页中经常需要使用一些图标，可以通过图片来引入图标，但是图片大小本身比较大，并且非常不灵活。所以在使用图标时，我们还可以将图标直接设置为字体，然后通过font-face的形式来对字体进行引入，这样我们就可以通过使用字体的形式来使用图标。</p>
+<p>font awesome使用步骤：</p>
+<ul>
+<li>1.<a target="_blank" rel="noopener" href="https://fontawesome.com/">下载</a></li>
+<li>2.解压</li>
+<li>3.将css和webfonts移动到项目中<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101150302.png"></li>
+<li>4.将all.css引入到网页中<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;(项目中的地址)**/css/all.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101150532.png"></li>
+<li>5.使用图标字体</li>
+<li><ul>
+<li>直接通过类名来使用图标字体<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;/your-path-to-fontawesome/css/all.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span> <span class="comment">&lt;!--load all styles --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fa-user&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> <span class="comment">&lt;!-- uses solid style --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;far fa-user&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> <span class="comment">&lt;!-- uses regular style --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fal fa-user&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> <span class="comment">&lt;!-- uses light style --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--brand icon--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fab fa-github-square&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> <span class="comment">&lt;!-- uses brands style --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+通过伪元素来设置图标字体</li>
+</ul>
+</li>
+<li>1.找到要设置图标的 元素通过before或after选中</li>
+<li>2.在content中设置字体编码</li>
+<li>3.设置字体的样式<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 在文件all.css中查找 */</span></span><br><span class="line"><span class="comment">/* fab */</span></span><br><span class="line"><span class="attribute">font-family</span>:<span class="string">&#x27;Font Awesome 5 Brands&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* fas */</span></span><br><span class="line"><span class="attribute">font-family</span>:<span class="string">&#x27;Font Awesome 5 Free&#x27;</span>;</span><br><span class="line"><span class="attribute">font-weight</span>: <span class="number">900</span>; </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="25-2-Iconfont阿里图标库（P79）"><a href="#25-2-Iconfont阿里图标库（P79）" class="headerlink" title="25.2 Iconfont阿里图标库（P79）"></a>25.2 Iconfont阿里图标库（P79）</h4><p>使用：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101155211.png"><br>使用到的下载文件：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101155317.png"><br>通过伪类的方法使用：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211101155445.png"></p>
+<h4 id="25-3-字体的简写属性（P81）"><a href="#25-3-字体的简写属性（P81）" class="headerlink" title="25.3 字体的简写属性（P81）"></a>25.3 字体的简写属性（P81）</h4><p>font可以设置字体相关的所有属性，语法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">font</span>: 字体大小/行高  字体族</span><br><span class="line">行高可以省略不写，如果不写会使用默认值</span><br></pre></td></tr></table></figure>
+<p>font-weight 字重，字体加粗<br>可选值：</p>
+<ul>
+<li>normal 默认值，不加粗</li>
+<li>blod 加粗</li>
+<li>100-900 九个级别（没什么用）</li>
+</ul>
+<p>font-style 字体风格<br>可选值：</p>
+<ul>
+<li>normal 正常的</li>
+<li>italic 斜体</li>
+</ul>
+<h2 id="26-行高（P80）"><a href="#26-行高（P80）" class="headerlink" title="26.行高（P80）"></a>26.行高（P80）</h2><p>行高（line height）: </p>
+<ul>
+<li>指的是文字占有的实际高度</li>
+<li>可以通过line-height来设置行高，可以直接指定一个大小（px,em）,也可以直接为行高设置一个整数【行高为整数的话，将会是字体指定的倍数】</li>
+<li>行高还经常用来设置文字的行间距【行间距 = 行高 - 字体大小】</li>
+</ul>
+<p>字体框：就是字体存在的盒子，设置font-size实际上就是在设置字体框的高度</p>
+<p>行高会在字体框的上下平均分配，可以将line-height和height的值设为一致，使得单行文字在一个元素中垂直居中。</p>
+<h2 id="27-文本的水平和垂直对齐（P82）"><a href="#27-文本的水平和垂直对齐（P82）" class="headerlink" title="27.文本的水平和垂直对齐（P82）"></a>27.文本的水平和垂直对齐（P82）</h2><p>text-align 文本的水平对齐<br>可选值：</p>
+<ul>
+<li>left 左对齐 </li>
+<li>center 居中对齐 </li>
+<li>right 右对齐 </li>
+<li>justify 两端对齐</li>
+</ul>
+<p>vertical-align 设置元素垂直对齐的方式<br>可选值：</p>
+<ul>
+<li>baseline 默认值，基线对齐</li>
+<li>top 顶部对齐</li>
+<li>bottom 底部对齐</li>
+<li>middle 居中对齐</li>
+</ul>
+<p>补充知识点：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/1.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;example&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">  <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="attribute">border</span>:<span class="number">1px</span> red solid;</span></span><br><span class="line"><span class="css">  &#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211104093836.png"><br>解决方法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span>&#123;</span><br><span class="line">  <span class="attribute">vertical-align</span>:bottom;</span><br><span class="line">  <span class="comment">/* vertical-align:top;vertical-align:middle;也可以实现同样的效果 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="28-其他文本样式（P83）"><a href="#28-其他文本样式（P83）" class="headerlink" title="28.其他文本样式（P83）"></a>28.其他文本样式（P83）</h2><p>text-decoration 设置文本修饰<br>可选值：</p>
+<ul>
+<li>none 默认值，什么都没有</li>
+<li>underline 下划线</li>
+<li>line-through 删除线</li>
+<li>overline 上划线</li>
+</ul>
+<p>white-space 设置网页如何处理空白<br>可选值：</p>
+<ul>
+<li>normal 默认值，正常</li>
+<li>nowrap 不换行</li>
+<li>pre 保留空白（源代码中文本格式不做处理，保留）</li>
+</ul>
+<p>超出文本框的文字设置省略号</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span></span><br><span class="line">  Lorem ipsum dolor sit amet consectetuir adipisicim</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.box2</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>:<span class="number">200px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">white-space</span>:nowrap;</span></span><br><span class="line"><span class="css">    <span class="attribute">overflow</span>:hidden;</span></span><br><span class="line"><span class="css">    <span class="attribute">text-overflow</span>:ellipsis;</span></span><br><span class="line"><span class="css">  &#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211104100706.png"></p>
+<h2 id="练习题（P84-P86）"><a href="#练习题（P84-P86）" class="headerlink" title="练习题（P84-P86）"></a>练习题（P84-P86）</h2><p><a target="_blank" rel="noopener" href="https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P84%E4%BA%AC%E4%B8%9C%E9%A1%B6%E9%83%A8%E5%AF%BC%E8%88%AA%E6%9D%A1">京东顶部导航条</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211105154415.png"></p>
+<h2 id="29-背景（P88）"><a href="#29-背景（P88）" class="headerlink" title="29.背景（P88）"></a>29.背景（P88）</h2><p>&hearts; background-color 设置背景颜色<br>&hearts; background-image 设置背景图片</p>
+<ul>
+<li>可以同时设置背景颜色和背景图片，这样背景颜色将会成为图片的背景色</li>
+<li>如果背景的图片小于元素，则背景图片会自动在元素中平铺，将元素铺满</li>
+<li>如果背景的图片大于元素，背景图片将无法完全显示，只显示元素大小</li>
+<li>如果背景的图片和元素一样大，则会直接正常显示</li>
+</ul>
+<p>&hearts; background-repeat 用来设置背景的重复方式<br>可选值：<br>repeat 默认值，背景会沿着x轴 y轴双方向重复<br>repeat-x 沿着x轴方向重复<br>repeat-y 沿着y轴方向重复<br>no-repeat 背景图片不重复 </p>
+<p>&hearts; background-position 用来设置背景图片的位置<br>设置方式：通过top,left,right,bottom,center几个表示方位的词来设置背景图片的位置<br>使用方位词时必须同时指定两个值，如果只写一个值，则第二个值默认是center<br>通过偏移量来指定背景图片的位置，顺序是水平偏移量+垂直偏移量</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-position</span>:top center;</span><br><span class="line"><span class="attribute">background-position</span>:-<span class="number">10px</span> <span class="number">10px</span>;</span><br></pre></td></tr></table></figure>
+
+<p>&hearts; background-clip设置背景的范围，可选值：<br>border-box 默认值，背景会出现在边框的下边<br>padding-box 背景不会出现在边框，只出现在内容区和内边距<br>content-box 背景只会出现在内容区</p>
+<p>&hearts;background-origin 背景图片的偏移量计算的原点<br>可选值：<br>padding-box 默认值，background-position从内边距处开始计算<br>content-box 背景图片的偏移量从内容区处计算<br>border-box 背景图片的偏移量从边框处开始计算</p>
+<p>&hearts;background-size 设置背景图片的大小<br>可选值：</p>
+<ul>
+<li>第一个值表示宽度，第二个值表示高度，如果只写一个值，则第二个值默认是auto【background:100% 100%;】</li>
+<li>cover 图片的比例不变，将元素铺满</li>
+<li>contain 图片比例不变，将图片在元素中完整显示</li>
+</ul>
+<p>&hearts;background 背景相关的简写属性，所有背景相关的样式都可以通过该样式来设置，并且该样式没有顺序要求，也没有哪个属性必须写的<br>&star; 注意：baxkground-size 必须写在background-position的后边，并且使用/隔开；background-origin，background-clip两个样式，background-origin要在background-clip的前边</p>
+<h2 id="背景练习题（P92）"><a href="#背景练习题（P92）" class="headerlink" title="背景练习题（P92）"></a>背景练习题（P92）</h2><p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211110102651.png"><br>&spades;  存在问题：<br>图片属于网页中的外部资源，外部资源都需要浏览器单独发送请求加载，浏览器加载外部资源时是按需加载，用则加载，不用则不加载。<br>上边的练习，link会首先加载，而hover和active会在指定状态时才会加载</p>
+<h2 id="30-雪碧图（P92）"><a href="#30-雪碧图（P92）" class="headerlink" title="30.雪碧图（P92）"></a>30.雪碧图（P92）</h2><p>解决图片显示问题：<br>可以将多个小图片同意保存到一个大图片中，然后通过调整background-position来显示图片，这样图片会同时加载到网页中，就可以有效避免出现闪烁问题，这个技术在网页中应用十分广泛，被称为CSS-Sprite，这种图称为雪碧图。<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211110113539.png"></p>
+<p>&hearts; 雪碧图的使用步骤：</p>
+<ol>
+<li>先确定要使用的图标</li>
+<li>测量图标的大小</li>
+<li>根据测量的结果创建一个元素</li>
+<li>将雪碧图设置为元素的背景图片</li>
+<li>设置一个偏移量以显示正确图片</li>
+</ol>
+<p>雪碧图的特点：<br>一次性将多个图片加载进页面，降低请求的次数，加快访问速度，提升用户体验</p>
+<h2 id="31-线性渐变（P93）"><a href="#31-线性渐变（P93）" class="headerlink" title="31.线性渐变（P93）"></a>31.线性渐变（P93）</h2><h4 id="31-1-linear-gradient"><a href="#31-1-linear-gradient" class="headerlink" title="31.1 linear-gradient()"></a>31.1 linear-gradient()</h4><p>通过渐变可以设置一些复杂的背景颜色，可以实现从一个颜色向其他颜色过渡的效果<br>！！渐变是图片，需要通过 <b>background-image</b> 来设置<br>线性渐变：颜色沿着一条直线发生变化 </p>
+<ul>
+<li>linear-gradient(red,yellow) 红色在开头，黄色在结尾，中间是过渡区域</li>
+<li>线性渐变的开头，我们可以指定一个渐变的方向</li>
+<li>linear-gradient(to top , red , yellow)</li>
+<li><ul>
+<li>to left / to right / to bottom / to top</li>
+</ul>
+</li>
+<li>linear-gradient(45deg , red , yellow)</li>
+<li><ul>
+<li>deg表示度数</li>
+</ul>
+</li>
+<li><ul>
+<li>turn 表示圈</li>
+</ul>
+</li>
+</ul>
+<p>渐变可以同时指定多个颜色，多个颜色默认情况下平均分布，<br>也可以手动指定渐变的分布情况，例如：<b>linear-gradient(red 100px , yellow 50px)</b></p>
+<h4 id="31-2-repeating-linear-gradient"><a href="#31-2-repeating-linear-gradient" class="headerlink" title="31.2 repeating-linear-gradient()"></a>31.2 repeating-linear-gradient()</h4><p>repeating-linear-gradient() 可以平铺的线性渐变</p>
+<p>background-image:repeating-linear-gradient(red 50px , yellow 100px)<br>效果：（元素高度200px）<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211110142040.png"></p>
+<h4 id="31-2-径向渐变（P94）"><a href="#31-2-径向渐变（P94）" class="headerlink" title="31.2 径向渐变（P94）"></a>31.2 径向渐变（P94）</h4><p>radial-gradient() 径向渐变(放射性的效果)</p>
+<ul>
+<li>默认情况下，径向渐变的形状是根据元素的形状来计算的</li>
+<li><ul>
+<li>正方形 —&gt; 圆形</li>
+</ul>
+</li>
+<li><ul>
+<li>长方形 —&gt; 椭圆形</li>
+</ul>
+</li>
+<li>也可以手动指定径向渐变的大小</li>
+<li><ul>
+<li>circle - 圆形 / ellipse - 椭圆形</li>
+</ul>
+</li>
+<li>也可以指定渐变的位置</li>
+</ul>
+<p>radial-gradient(大小 at 位置 , 颜色 位置 , 颜色 位置 , ……)</p>
+<ul>
+<li>大小：</li>
+<li><ul>
+<li>circle 圆形</li>
+</ul>
+</li>
+<li><ul>
+<li>ellipse 椭圆形</li>
+</ul>
+</li>
+<li><ul>
+<li>closest-side 近边</li>
+</ul>
+</li>
+<li><ul>
+<li>closest-corner 近角</li>
+</ul>
+</li>
+<li><ul>
+<li>farthest-side 远边</li>
+</ul>
+</li>
+<li><ul>
+<li>farthest-corner 远角</li>
+</ul>
+</li>
+<li>位置：top / right / left / center / bottom</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(circle , red , yellow)</span><br><span class="line"></span><br><span class="line">background-image: <span class="built_in">radial-gradient</span>(<span class="number">100px</span> <span class="number">50px</span> at top left , red , yellow)  </span><br><span class="line">//<span class="number">100px</span> <span class="number">50px</span>指定大小；at top left指定位置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="练习项目：小米商城"><a href="#练习项目：小米商城" class="headerlink" title="练习项目：小米商城"></a>练习项目：小米商城</h2><p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211224104600.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211224104907.png"><br><a target="_blank" rel="noopener" href="https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P101%E5%B0%8F%E7%B1%B3%E5%95%86%E5%9F%8E-%E9%A1%B9%E7%9B%AE%E7%BB%83%E4%B9%A0">项目地址</a></p>
+<hr>
+<h2 id="32-动画效果"><a href="#32-动画效果" class="headerlink" title="32.动画效果"></a>32.动画效果</h2><h4 id="32-1-过渡效果（P115）"><a href="#32-1-过渡效果（P115）" class="headerlink" title="32.1 过渡效果（P115）"></a>32.1 过渡效果（P115）</h4><p>过渡（transition）：</p>
+<ul>
+<li><p>通过过渡可以指定一个属性发生变化时的切换方式</p>
+</li>
+<li><p>通过过渡可以创建一些非常好的效果，提升用户体验</p>
+</li>
+<li><p>transition-property<br>指定要执行过渡的属性,多个属性之间使用,隔开；<br>如果所有属性都需要过渡，则使用all关键字；<br>大部分属性都支持过渡效果，注意过渡时必须是从一个有效值向另一个有效值进行过渡；</p>
+</li>
+<li><p>transition-duration<br>指定过渡效果持续的时间<br>时间单位：s和ms，1s = 1000ms</p>
+</li>
+<li><p>transition-timing-function<br>过渡的时序函数<br>可选值：<br> ease 默认值，慢速开始，先加速，再减速<br> linear 匀速运动<br> ease-in 加速运动<br> ease-out 减速运动<br> ease-in-out 先加速，后减速<br> cubic-bezier() 来指定时序函数 <a target="_blank" rel="noopener" href="https://cubic-bezier.com/">cubic-bezier网址</a><br> steps() 分步执行过渡效果，可以设置第二个数值【end-在时间结束时执行过渡（默认值）；start-在时间开始时执行过渡,示例：steps(2,end)】</p>
+</li>
+<li><p>transition-delay<br>过渡效果的延迟，等待一段时间后再执行过渡</p>
+</li>
+</ul>
+<p>使用transition可以同时设置过渡相关的所有属性的，只有一个要求，如果要写延迟，则两个时间中第一个是持续时间，第二个是延迟时间</p>
+<h4 id="32-2-过渡练习：米兔（P116）"><a href="#32-2-过渡练习：米兔（P116）" class="headerlink" title="32.2 过渡练习：米兔（P116）"></a>32.2 过渡练习：米兔（P116）</h4><p>动画：动画和过渡类似，都是可以实现一些动态的效果，不同的是过渡需要在某个属性发生变化时才会触发，动画可以自动触发动态效果</p>
+<ul>
+<li><p>设置动画效果，必须设置一个关键帧，关键帧设置了动画执行每一个步骤</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 关键帧 */</span></span><br><span class="line"><span class="keyword">@keyframes</span> test &#123;</span><br><span class="line">  <span class="comment">/* from表示动画的开始位置,也可以使用0% */</span></span><br><span class="line">  <span class="selector-tag">from</span>&#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* to表示动画的结束位置,也可以使用100% */</span></span><br><span class="line">  <span class="selector-tag">to</span>&#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">700px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>animation-name:指定当前元素生效的关键帧的名字</p>
+</li>
+<li><p>animation-duration:指定动画的执行时间</p>
+</li>
+<li><p>animation-delay:指定动画的延迟时间</p>
+</li>
+<li><p>animation-iteration-count:指定动画执行的次数<br>可选值：数字（次数）、infinite 无限次</p>
+</li>
+<li><p>animation-direction:指定动画的运行方向<br>可选值：<br>normal - 默认值，从from向to运行<br>reverse - 从to向from运行<br>alternate - 从from到to，再从to到from，再从from到to …… 运行<br>alternate-reverse - 从to到from，再从from到to，再从to到from…… 运行</p>
+</li>
+<li><p>animation-play-state:设置动画的执行状态<br>可选值：<br>running 默认值，动画执行<br>paused 动画暂停</p>
+</li>
+<li><p>animation-fill-mode:设置动画的填充模式<br>可选值：<br>none 默认值，动画执行完毕元素回到原来位置<br>forwards 动画执行完毕，元素会停止在动画结束位置<br>backwards 动画延时等待时，元素就会处于开始位置<br>both 结合了forwards和backwards</p>
+</li>
+</ul>
+<h2 id="33-变形（P120-P121）"><a href="#33-变形（P120-P121）" class="headerlink" title="33.变形（P120-P121）"></a>33.变形（P120-P121）</h2><p>变形就是通过css来改变元素的形状或者位置，变形不会影响到页面的布局。<br>transform： 用来设置元素的变形效果<br>平移：<br>translateX() - 沿着X轴方向平移<br>translateY() - 沿着Y轴方向平移<br>translateZ() - 沿着Z轴方向平移<br>平移元素时，百分比是相对于自身计算的</p>
+<h4 id="★元素居中显示★"><a href="#★元素居中显示★" class="headerlink" title="★元素居中显示★"></a>★元素居中显示★</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 1.已知元素大小情况： */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 2.不知元素大小情况 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://qw-null.github.io/2021/09/13/%E5%AE%9E%E7%8E%B0%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD/">实现水平垂直居中[不知自身宽高情况]</a></p>
+<p>变形不会影响到页面的布局,不会导致元素脱离文档流，因此可以用于实现选中元素的浮动效果。<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211224172635.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211224172708.png"></p>
+<p>translateZ():Z轴平移，调整元素在z轴的位置，正常情况就是调整元素和人眼之间的距离，距离越大，元素离人越近<br>z轴平移属于立体效果（近大远小），默认情况下网页是不支持透视，如果需要看见效果，必须要设置网页的视距</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">  <span class="comment">/* 设置当前网页的视距为800px,人眼距离网页的距离 */</span></span><br><span class="line">  <span class="attribute">perspective</span>: <span class="number">800px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box1</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="comment">/* 此时translateZ效果才会生效 */</span></span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateZ</span>(<span class="number">800px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="34-旋转（P122）"><a href="#34-旋转（P122）" class="headerlink" title="34.旋转（P122）"></a>34.旋转（P122）</h2><p>通过旋转可以使元素沿着x、y或z旋转指定的角度<br>rotateX()<br>rotateY()<br>rotateZ()</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotateX</span>(<span class="number">45deg</span>);</span><br><span class="line">  <span class="comment">/* 45deg-&gt;45° ；1turn-&gt;旋转一圈 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>backface-visibility：是否显示元素的背面<br>可选值：visible - 默认值，可以看到背面；hidden - 无法看到背面</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P123%E9%92%9F%E8%A1%A8">旋转练习 - 钟表</a><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211225172211.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/qw-null/Web-HTML5-CSS3-/tree/master/P124%E5%A4%8D%E4%BB%87%E8%80%85%E8%81%94%E7%9B%9F">旋转练习 - 立方体</a><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211225171609.png"></p>
+<h2 id="35-缩放（P125）"><a href="#35-缩放（P125）" class="headerlink" title="35.缩放（P125）"></a>35.缩放（P125）</h2><p>对元素进行缩放,当数值&gt;1表示对元素进行放大，当数值&lt;1表示对元素进行缩小。<br>scaleX() - 对元素的水平方向进行放大或者缩小<br>scaleY() - 对元素的垂直方向进行放大或者缩小<br>scale() - 对元素进行放大或缩小 </p>
+<p>transform-origin 设置元素变形的远点<br>可选值：<br>center - 默认值，元素中间<br>0，0 - 元素最左上角</p>
+<h2 id="36-less-P126"><a href="#36-less-P126" class="headerlink" title="36.less (P126)"></a>36.less (P126)</h2><p>less是一门css的预处理语言，通过less可以编写更少的代码实现更强大的样式<br>在less中添加了许多新特性，像对变量的支持、对mixin的支持……，less的语法大体上和css语法一致，但是less中增添了许多对css的拓展，所以浏览器无法直接执行less代码，要执行就必须将less转换为css</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">1</span>.注释</span><br><span class="line"><span class="comment">// less中的单行注释，注释中的内容不会被解析到css中</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  css中的注释，内容会被解析到css文件中</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">2</span>.变量</span><br><span class="line">变量中可以存储一个任意值，并且在需要时可任意的修改变量的值</span><br><span class="line">变量的语法： @变量名</span><br><span class="line">使用变量时，如果是直接使用则以 @变量名 的形式使用即可</span><br><span class="line">作为类名，或者一部分值使用时必须以 @&#123;变量名&#125; 的形式使用</span><br><span class="line"><span class="variable">@length:</span><span class="number">100px</span></span><br><span class="line"><span class="variable">@c</span>:box3;</span><br><span class="line"><span class="selector-class">.@&#123;c&#125;</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="variable">@length</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: url(<span class="string">&quot;@&#123;c&#125;/1.jpg&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">变量重名时，会优先使用比较近的变量</span><br><span class="line">可在声明变量前就使用变量</span><br><span class="line"><span class="selector-tag">---</span></span><br><span class="line"><span class="selector-tag">&amp;</span> 表示外层的父元素</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.entend</span>() 对当前选择器扩展指定选择器的样式（选择器分组）</span><br><span class="line">示例：<span class="selector-class">.p2</span><span class="selector-class">.extend</span>(.p1)&#123;</span><br><span class="line">        <span class="attribute">color</span>:red;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">mixin</span> 混合</span><br><span class="line"><span class="selector-class">.p3</span>&#123;</span><br><span class="line">  <span class="comment">// 直接对指定的样式进行引用，这里就相当于将p1的样式在这里进行了复制</span></span><br><span class="line">  <span class="selector-class">.p1</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">使用类选择器时可以在选择器后边添加一个括号，这时实际上就创建了一个<span class="selector-tag">mixins</span></span><br><span class="line"><span class="selector-class">.p4</span>()&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">混合函数 在混合函数中可以直接设置变量,使用时按照顺序传递参数</span><br><span class="line"><span class="selector-class">.test</span>(<span class="variable">@w</span>)&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="variable">@w</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">border-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="selector-class">.test</span>(<span class="number">100px</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">在<span class="selector-tag">less</span>中所有数值都可以直接进行运算</span><br><span class="line"><span class="selector-tag">width</span>: <span class="selector-tag">100px</span> + <span class="selector-tag">200px</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">import</span>用于将其他<span class="selector-tag">less</span>文件引入当前<span class="selector-tag">less</span>文件中</span><br><span class="line">@<span class="selector-tag">import</span> &quot;<span class="selector-tag">color</span><span class="selector-class">.less</span>&quot;</span><br></pre></td></tr></table></figure>
+<p>★less中的除法计算要放在括号中，不然会失效</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">box</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: (<span class="number">100</span> / <span class="number">4</span> rem);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="37-弹性盒（P131）"><a href="#37-弹性盒（P131）" class="headerlink" title="37.弹性盒（P131）"></a>37.弹性盒（P131）</h2><p>flex(弹性盒、伸缩盒)：是css中的又一种布局手段，它主要用来代替浮动来完成页面。<br>flex可以使元素具有弹性，让元素可以跟随页面得到大小的改变而改变</p>
+<ul>
+<li>弹性容器<br>要使用弹性盒，必须先将一个元素设置为弹性容器，通过display来设置弹性容器<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">display</span>:flex; //设置为块级弹性容器</span><br><span class="line"><span class="attribute">display</span>:inline-flex; //设置为行内的弹性容器</span><br></pre></td></tr></table></figure></li>
+<li>弹性元素<br>弹性容器的子元素是弹元素（弹性项），一个元素可以同时是弹性容器和弹性元素</li>
+</ul>
+<p>主轴：弹性元素的排列方向称为主轴<br>侧轴：与主轴垂直方向的称为侧轴</p>
+<p><i style="color:green;font-size:18px;">☻</i> 弹性容器的样式：</p>
+<ol>
+<li><p>flex-direction 指定容器中弹性元素的排列方式（主轴方向）<br>可选值：<br> row 默认值，弹性元素在容器中水平排列（自左向右）<br> row-reverse 弹性元素在容器中反向水平排列（自右向左）<br> column 弹性元素纵向排列（自上向下）<br> column-reverse 弹性元素反向纵向排列（自下向上）<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220117114131.png"></p>
+</li>
+<li><p>flex-grow 指定弹性元素的伸展系数<br>当父元素有多余空间时，子元素如何伸展</p>
+</li>
+<li><p>flex-shrink 指定弹性元素的收缩系数<br>当父元素中的空间不足以容纳所有子元素时，如何对子元素进行收缩</p>
+</li>
+<li><p>flex-wrap 设置弹性元素是否在弹性容器中自动换行<br>可选值：<br>nowrap 默认值，元素不会自动换行<br>wrap 元素沿着辅轴方向自动换行<br>wrap-reverse 元素沿着辅轴反方向换行</p>
+</li>
+</ol>
+<p>★flex-flow 是 flex-wrap和flex-direction的简写属性,例如：flex-flow: row wrap;</p>
+<ol start="5">
+<li><p>justify-content 如何分配主轴上的空白空间（主轴上的元素如何排列）<br>可选值：<br>flex-start 元素沿着主轴的起边排列<br>flex-end 元素沿着主轴的终边排列<br>center 元素居中排列<br>space-around 空白分布到元素的两个<br>space-between 空白均匀分布到元素间<br>space-evenly 空白分布到元素的单侧<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220117135730.png"></p>
+</li>
+<li><p>align-items 定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式（元素间关系）<br>可选值：<br>stretch 默认值，将元素的长度设置为相同的值<br>flex-start 元素不会拉伸，沿着辅轴起边对齐<br>flex-end 元素不会拉伸，沿着辅轴终边对齐<br>center 居中对齐<br>baseline 基线对齐</p>
+</li>
+</ol>
+<p>  ** align-self 用来覆盖当前弹性元素上的align-items<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220117135907.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220117140115.png"></p>
+<p><i style="color:green;font-size:18px;">☻</i> 弹性元素的样式：</p>
+<ol>
+<li>弹性元素的缩减系数：<br>缩减系数的计算方式比较复杂，缩减多少是根据缩减系数和元素大小来计算（flex-grow和flex-shrink）。</li>
+<li>元素基础长度<br>flex-basis 指定的是元素在主轴上的基础长度。如果主轴是横向的，则该值指定的就是元素的宽度，如果主轴是纵向的，则该值指定的就是元素的高度。<br>默认值是auto，表示参考元素自身的高度或宽度。如果传递了一个具体的数值，则以该值为准。</li>
+</ol>
+<p>★flex可以设置弹性元素所有的三个样式。<br>格式：flex: 增长 缩减 基础；（例如：flex: 1 1 auto;）</p>
+<ol start="3">
+<li>order 决定弹性元素的排列顺序（依据order指定的数值）。<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220117140405.png"></li>
+</ol>
+<h2 id="38-像素（P136-P138）"><a href="#38-像素（P136-P138）" class="headerlink" title="38.像素（P136 - P138）"></a>38.像素（P136 - P138）</h2><p>像素：屏幕是由一个一个发光的小点构成，这一个个的小点就是像素。前端开发中像素要分为两种情况讨论：css像素 和 物理像素。</p>
+<ul>
+<li>物理像素：上述所说的小点就是物理像素。</li>
+<li>css像素：编写网页时所用的像素是css像素。浏览器在显示网页时，需要将css像素转换为物理像素，然后再呈现。</li>
+</ul>
+<p>一个css像素最终由几个物理像素显示，由浏览器决定。默认情况下，在PC端 一个css像素 = 一个物理像素</p>
+<p>视口（viewport）:屏幕中用来显示网页的区域。<br>可以通过查看视口的大小来观察css像素和物理像素的比值</p>
+<p>在不同的屏幕，单位像素的大小是不同的，像素越小屏幕会越清晰</p>
+<p>可以通过meta标签来设置视口大小</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 设置视口大小 device-width表示设备的宽度（完美视口） --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width,initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 将网页的视口设置为完美视口</span></span><br><span class="line"><span class="comment">结论：书写移动端的页面，就把上边这段代码加上 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>完美视口：<br>每一款移动设备设计时，都会有一个最佳的像素比，一般只需要将像素比设置为该值即可得到一个最佳效果。将像素比设置为最佳像素比的视口大小成为完美视口。</p>
+<p>vw表示的是视口的宽度（viewport width）<br>100vw = 一个视口的宽度<br>1vw = 1%视口宽度</p>
+<p>☻ 网页中字体大小最小是12px，不能设置一个比12px还小的字体，如果设置一个小于12px的字体，则字体自动设置为12px。</p>
+<h2 id="39-媒体查询（P143）"><a href="#39-媒体查询（P143）" class="headerlink" title="39.媒体查询（P143）"></a>39.媒体查询（P143）</h2><p>响应式布局：网页可以根据不同设备或窗口大小呈现出不同的效果，使用响应式布局可以使一个网页适用于所有设备<br>响应式布局的关键是媒体查询。<br>媒体查询：通过媒体查询可以为不同的设备或设备不同的状态来分别设置样式。<br>语法：@media 查询规则{}</p>
+<p>媒体类型：<br>all - 所有设备<br>print - 打印设备<br>screen - 带屏幕的设备<br>speech - 屏幕阅读器<br>可以使用逗号连接多个媒体类型，这样它们之间就是一个或的关系；<br>可以在媒体类型前添加一个only，表示只有。only的使用主要是为了兼容一些老版本的浏览器。</p>
+<p>媒体特性：<br>width - 视口的宽度<br>height - 视口的高度<br>min-width - 视口的最小宽度（视口大于指定宽度时生效）<br>max-width - 视口的最大宽度（视口小于指定宽度时生效）</p>
+<p>样式切换的分界点，我们称其为断点，也就是网页的样式在这个点会发生变化。 </p>
+<p>小于768px - 超小屏幕 [max-width = 768px]<br>大于768px - 小屏幕 [min-width = 768px]<br>大于992px - 中型屏幕 [min-width = 992px]<br>大于1200px - 大屏幕 [min-width = 1200px]</p>
+<p>响应式设计原则：<br>  1.移动端优先<br>  2.渐进增强（由移动端逐渐向网页过渡）</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">qinwei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qw-null.github.io/2021/07/18/HTML-CSS/">https://qw-null.github.io/2021/07/18/HTML-CSS/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qw-null.github.io">QW's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CSS/">CSS</a><a class="post-meta__tags" href="/tags/HTML/">HTML</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/07/20/%E9%98%BF%E9%87%8Ciconfont%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"><i class="fa fa-chevron-left">  </i><span>阿里iconfont使用方法</span></a></div><div class="next-post pull-right"><a href="/2021/07/13/Grid%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E7%AC%94%E8%AE%B0/"><span>Grid网格布局笔记</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '44447f6848cb1055dfc7',
+  clientSecret: 'a0ce0faa730cdc822d2e20342d98f605099f3797',
+  repo: 'CommentData',
+  owner: 'qw-null',
+  admin: 'qw-null',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By qinwei</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
