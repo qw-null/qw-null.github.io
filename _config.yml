@@ -103,7 +103,7 @@ theme: melody
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/qw-null/qw-null.github.io
+  repo: git@github.com:qw-null/qw-null.github.io.git
   branch: master
 
 # 搜索功能
