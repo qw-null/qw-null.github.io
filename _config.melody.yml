@@ -232,7 +232,7 @@ addThis:
 gitalk:
   enable: true
   client_id: '44447f6848cb1055dfc7'
-  client_secret: 'a0ce0faa730cdc822d2e20342d98f605099f3797'
+  client_secret: '62722601a7b62e7a2f93add8216a30d9f047a2eb'
   repo: 'CommentData'
   owner: 'qw-null'
   admin: ['qw-null']
