@@ -123,6 +123,9 @@ define(function(require){
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220623152406.png)
 
 #### 4.4 ES6 Module（⭐ 重要）
+
+ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。
+
 <b>✨ 规范：</b>
 1. 每个文件都是一个模块
 2. 要借助Babel和Browserify依次编译代码，才能在浏览器运行
@@ -132,8 +135,8 @@ define(function(require){
 
 
 <b>✨ 语法：</b>
-+ 暴露模块：```export```
-+ 引入模块：```import```
++ 暴露模块：```export```:```export```命令用于规定模块的对外接口
++ 引入模块：```import```:```import```命令用于输入其他模块提供的功能
 
 
 
@@ -166,7 +169,12 @@ import {Emp, person} from './myModule'
 import * as allFromModule from './myModule'
 ```
 
+**➡️ ES6 模块与 CommonJS 模块的差异**
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220627001731.png)
 
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220627002132.png)
+
+第二个差异是因为 CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
 
 ### 总结：
 + CommonJS规范主要用于服务端编程，加载模块是同步的，这并不适合在浏览器环境，因为同步意味着阻塞加载，浏览器资源是异步加载的，因此有了AMD CMD解决方案。
