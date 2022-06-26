@@ -4,33 +4,39 @@ date: 2022-06-15 16:00:57
 tags:
 - JavaScript
 ---
+> 在JS发展初期，主要是为了实现简单的页面逻辑交互。如今CPU、浏览器性能得到了极大的提升，很多页面逻辑迁移到了客户端（表单验证等），随着web2.0时代的到来，Ajax技术得到广泛应用，jQuery等前端库层出不穷，前端代码日益膨胀。在最开始将所有的JS代码都封装在同一个JS文件中的做法不再合适，这样做带来了一定的问题：1.耦合度高，不方便后期维护；2. 功能点不明确；3.容易污染全局环境。于是提出了模块化的概念。
 
-### 1.什么是模块化？
-在最开始将所有的JS代码都封装在同一个JS文件中，这样做带来了一定的问题：1.耦合度高，不方便后期维护；2. 功能点不明确；3.容易污染全局环境
+### 1.什么是模块？
++ 将一个复杂的程序依据一定的规则（规范）封装成几个块（文件），并进行组合在一起
++ 块的内部数据/实现是私有的，只是向外暴露一些接口（方法）与外部其他模块通信
 
-将一个复杂的程序依据一定的规则（规范）封装成几个块（文件），并进行组合在一起，块的内部数据/实现是私有的，只是向外暴露一些接口（方法）与外部其他模块通信
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220615171844.png)
 （*上述两种方式： 对象可以随时修改，一点不安全*）
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220615172030.png)
 
-### 2.为什么要模块化？
-1.降低复杂度、2.低耦合性、3.部署方便
-
-### 3.模块化的好处？
-1. 避免命名冲突
+### 2.模块化的好处？
+1. 避免命名冲突（减少命名空间的污染）
 2. 更好的分离，按需加载
 3. 更高复用性
 4. 高可维护性
 
-### 4.页面引载script
+### 3.页面引入多个\<script>
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220622235645.png)
-引入模块化随之带来的问题是 1.请求过多、2.依赖模糊、3.难以维护  
+引入模块化随之带来的问题是 
+1. 请求过多：首先我们要依赖多个模块，那样就会发送多个请求，导致请求过多
+
+2. 依赖模糊：我们不知道他们的具体依赖关系是什么，也就是说很容易因为不了解他们之间的依赖关系导致加载先后顺序出错。
+
+3. 难以维护
 
 因为模块化过程中可能会出现上述的问题，因此，提出了模块化规范的概念。
 
-### 5.模块化规范
-#### 5.1 CommonJS
+### 4.模块化规范
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/模块化规范.png)
+
+#### 4.1 CommonJS
 最开始出现的CommonJS仅仅针对服务器端，后来才逐步支持浏览器端。
 > 每个文件都可当作一个模块（JS文件）
 > 在服务器端：模块的加载运行是同步的
@@ -48,7 +54,7 @@ tags:
 
 说明：浏览器是无法识别CommonJs的，所以需要引进Browserify打包成为浏览器可以识别的js文件
 
-#### 5.2 AMD (Asynchronous Module Definition)
+#### 4.2 AMD (Asynchronous Module Definition)
 专门用于浏览器端，模块加载是异步的。
 AMD依赖于一个库 ``` require.js ```
 
@@ -76,7 +82,7 @@ AMD的规范是依赖于```require.js```这个库的
 
 第三方库jQuery默认支持AMD，在AMD中引入使用时，名字应该使用``` jquery ```
 
-#### 5.3 CMD (了解即可，由阿里大佬提出)
+#### 4.3 CMD (了解即可，由阿里大佬提出)
 专门用于浏览器端，模块的加载是异步的
 模块使用时才会加载执行
 
@@ -116,43 +122,57 @@ define(function(require){
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220623152406.png)
 
-#### 5.4 ES6规范（⭐ 重要）
-依赖模块需要编译打包处理（ES6的语法现在还有浏览器不支持，需要将ES6通过工具转换为ES5）
-
-语法：
-+ 导出模块：```export```
-+ 引入模块：```import```
+#### 4.4 ES6 Module（⭐ 重要）
+<b>✨ 规范：</b>
+1. 每个文件都是一个模块
+2. 要借助Babel和Browserify依次编译代码，才能在浏览器运行
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220623164111.png)
+（*浅谈一嘴 ➡️ Babel的两个重要功能：1.将ES6转化为ES5； 2.将JSX转化为JS（React中）*）
+
+
+<b>✨ 语法：</b>
++ 暴露模块：```export```
++ 引入模块：```import```
+
+
 
 <b>暴露模块：</b>
 
 ```javascript
-// 1.分多次导出模块的多个部分
-export class Emp{ }
-export function fun(){ }
-export var person = {};
-
-// 2.一次导出模块的多个部分
-class Emp{  }
-function fun(){  }
-var person = {};
-export {Emp, fun, person}
-
-//3.default 导出只能有一个
-export default { }
+1.分别暴露： export 暴露内容
+2.统一暴露： export {暴露内容1，暴露内容2}
+3.默认暴露： export default 暴露内容
 ```
-<b>导入模块：</b>
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220624150216.png)
+（说明：想暴露谁就暴露谁，必须在 **正常代码** 的前面加export）
+
+
+<b>引入模块：</b>
 
 ```javascript
+1.方法1:  import {xxx,yyy} from './module1'
+2.方法2:  import module3 from './module3'
+
 // 1. 导入默认
-import defaultModule from './myModule'; 
+import defaultModule from './myModule'
 
 // 2. 导入指定的一个
-import {Emp} from './myModule';
+import {Emp} from './myModule'
 // 导入指定的多个
-import {Emp, person} from './myModule';
+import {Emp, person} from './myModule'
 
 // 3. 导入所有
-import * as allFromModule from './myModule'; 
+import * as allFromModule from './myModule'
 ```
+
+
+
+### 总结：
++ CommonJS规范主要用于服务端编程，加载模块是同步的，这并不适合在浏览器环境，因为同步意味着阻塞加载，浏览器资源是异步加载的，因此有了AMD CMD解决方案。
+
++ AMD规范在浏览器环境中异步加载模块，而且可以并行加载多个模块。不过，AMD规范开发成本高，代码的阅读和书写比较困难，模块定义方式的语义不顺畅。
+
++ CMD规范与AMD规范很相似，都用于浏览器编程，依赖就近，延迟执行，可以很容易在Node.js中运行。不过，依赖SPM 打包，模块的加载逻辑偏重
+
++ **ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，完全可以取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案。**
