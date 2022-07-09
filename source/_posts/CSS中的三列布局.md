@@ -40,6 +40,7 @@ tags:
 🌟 接下来与圣杯布局不一样的地方：
 5. ```left```设置 ```margin-left: -100%```, ```right```设置 ```right: -rightWidth```
 6. ```container```不再设置```padding```
+7. ```main-content```设置```margin: 0 rightWidth 0 leftWidth```
 
 <iframe width="100%" height="400" src="//jsrun.net/YRzKp/embedded/all/dark" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
