@@ -8,6 +8,7 @@ tags:
 ---
 视频地址：[尚硅谷2022版Webpack5入门到原理（面试开发一条龙）](https://www.bilibili.com/video/BV14T4y1z7sw?p=3&share_source=copy_web)
 
+# 上篇：基础
 # 0. 前言
 ### 为什么需要打包工具？
 开发时，我们会使用框架（React、Vue），ES6模块化语法，Less/Sass 等css预处理器等语法进行开发。
@@ -203,7 +204,7 @@ type: "asset/resource" 和 type: "asset"的区别：
 [Eslint 官方的规则：eslint:recommended](https://eslint.bootcss.com/docs/rules/)
 [Vue Cli 官方的规则：plugin:vue/essential](https://github.com/vuejs/vue-cli/tree/dev/packages/@vue/cli-plugin-eslint)
 [React Cli 官方的规则：react-app](https://github.com/facebook/create-react-app/tree/main/packages/eslint-config-react-app)
-3. 在Webpack中使用
+3. 在Webpack中使用（使用的是plugins）
 + 下载包  ```npm i eslint-webpack-plugin eslint -D```
 + 定义Eslint配置文件
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703200759.png)
@@ -212,3 +213,63 @@ type: "asset/resource" 和 type: "asset"的区别：
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703201117.png)
 
 ### Babel
+1. 下载包 ```npm i babel-loader @babel/core @babel/preset-env -D ```
+2. 定义Babel配置文件
++ babel.config.js
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703215954.png)
+3. 配置
++ webpack.config.js（在module - rules）
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703220101.png)
+
+# 11.处理HTML资源
+1. 下载包 ``` npm i html-webpack-plugin -D```
+2. 配置（使用的是plugins）
++ webpack.config.js
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703221528.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703221611.png)
+3. 修改index.html
+去掉引入的 js 文件，因为 HtmlWebpackPlugin 会自动引入
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703221757.png)
+
+# 12.开发服务器 & 自动化
+1. 下载包 ```npm i webpack-dev-server -D```
+2. 配置
++ webpack.config.js（单独开一项 devServer ）
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703222431.png)
+3. 运行指令 ```npx webpack serve```
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703222642.png)
+日常开发中使用的就是这种形式
+
+# 13.生产模式介绍
+生产模式是开发完成代码后，我们需要得到代码将来部署上线。
+这个模式下我们主要对代码进行优化，让其运行性能更好。
+
+优化主要从两个角度出发:
++ 优化代码运行性能
++ 优化代码打包速度
+
+### 生产模式准备
+1. 文件目录
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223601.png)
+2. 修改 webpack.dev.js
+因为文件目录变了，所以所有绝对路径需要回退一层目录才能找到对应的文件
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223718.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223853.png)
+3. 修改 webpack.prod.js
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223821.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223930.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703224542.png)
+4. 配置运行指令
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703224542.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703224634.png)
+以后启动指令：
++ 开发模式：```npm start``` 或 ```npm run dev```
++ 生产模式：```npm run build```
+
+# 中篇：Webpack高级配置
+所谓的高级配置其实就是进行Webpack优化，让代码在编译/运行时性能更好
+将会从以下角度进行优化：
++ 提升开发体验
++ 提升打包构建速度
++ 减少代码体积
++ 优化代码运行性能
