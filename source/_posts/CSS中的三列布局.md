@@ -7,9 +7,13 @@ tags:
 - CSS
 ---
 
-![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220709180308.png)
+三列布局的要求一般为：
+1. 左右两边宽度固定，中间宽度自适应。
+2. 中间列的内容可以完整显示。
 
-## 1. float + overflow 方式
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220712100505.png)
+
+## 1. 定位方式
 
 <iframe width="100%" height="300" src="//jsrun.net/SBzKp/embedded/all/dark" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
