@@ -39,7 +39,7 @@ tags:
 2. 给```container```设置上```overflow: hidden``` 可以形成BFC撑开文档
 3. ```left```、```right```设置上各自的宽度，```main```设置```width: 100%```
 🌟 接下来与圣杯布局不一样的地方：
-4. ```left```设置 ```margin-left: -100%```, ```right```设置 ```right: -rightWidth```,```container```不再设置```padding```
+4. ```left```设置 ```margin-left: -100%```, ```right```设置 ```margin-left: -rightWidth```,```container```不再设置```padding```
 5. ```main-content```设置```margin: 0 rightWidth 0 leftWidth```
 
 <iframe width="100%" height="400" src="//jsrun.net/YRzKp/embedded/all/dark" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
