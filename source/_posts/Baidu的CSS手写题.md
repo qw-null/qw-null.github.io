@@ -17,7 +17,7 @@ tags:
 
 代码：
 
-```javascript
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
