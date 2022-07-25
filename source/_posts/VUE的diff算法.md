@@ -183,4 +183,6 @@ patchVnode主要做以下4个判断：
 + + 设置新旧VNode的头尾指针
 + + 新旧头尾指针进行比较，循环向中间靠拢，根据情况调用patchVnode进行patch工作、调用createElm创建新节点等
 
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220725125732.png)
+
 
