@@ -13,7 +13,7 @@ tags:
 题目难点在于：中间部分（aside和section的高度未指定，但仍需要占满整个空白区域）
 解决办法：```position:fixed```确定中间部分在页面的位置，aside指定宽高，section指定```align-self:stretch;```
 
-<iframe width="100%" height="450" src="//jsrun.net/pgPKp/embedded/all/dark" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="700" src="//jsrun.net/pgPKp/embedded/all/dark" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 代码：
 
