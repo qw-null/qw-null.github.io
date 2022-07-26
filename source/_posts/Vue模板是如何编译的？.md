@@ -13,9 +13,9 @@ render函数的来源有两种方式：
 + 第二种是我们自己定义在组件里的render函数，这种会跳过模板编译的过程
 
 ### 认识模板编译
-在Vue文件中使用\<template>\</template>表示模板，其内部包裹的代码并不是原生的HTML，因此浏览器是不认识模板的。所以我们要做的工作就是把\<template>\</template>内部的代码编译成浏览器认识的原生HTML，这就是模板编译。
+在Vue文件中使用```<template></template> ```表示模板，其内部包裹的代码并不是原生的HTML，因此浏览器是不认识模板的。所以我们要做的工作就是把```<template></template>```内部的代码编译成浏览器认识的原生HTML，这就是模板编译。
 
-页面从\<template>\</template>包裹的代码到视图最终展示的主要流程是
+页面从```<template></template>```包裹的代码到视图最终展示的主要流程是
 1. 提取出模板中的原生HTML和非原生HTML（比如绑定的属性、事件、指令等）
 2. 经过一些处理生成render函数
 3. render函数再将模板内容生成对应的VNode
@@ -426,6 +426,14 @@ Vue的生命周期中关于模板编译的部分，如下
   }
 </script>
 ```
+
+## 小结
+
+![何为模板编译？](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220726154204.png)
+
+![模板编译源码分析](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220726204208.png)
+
+
 
 
 
