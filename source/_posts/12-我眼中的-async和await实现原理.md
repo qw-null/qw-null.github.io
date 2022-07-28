@@ -1,5 +1,5 @@
 ---
-title:【我眼中的】 - 【12】async和await实现原理
+title: 【我眼中的】 - 【12】async和await实现原理
 date: 2022-07-27 21:42:12
 categories:
 - 我眼中的系列
