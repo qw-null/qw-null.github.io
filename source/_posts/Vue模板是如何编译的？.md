@@ -113,7 +113,7 @@ export const createCompiler = createCompilerCreator(function baseCompile (
 
 parse()接收两个参数：
 + template：就是要转换的模板字符串
-+ options：就是转换时需要的参数。它包含有四个钩子函数，就会死用来把parseHTML解析出来的字符串提取出来，并生成对应的AST
++ options：就是转换时需要的参数。它包含有四个钩子函数，就是用来把parseHTML解析出来的字符串提取出来，并生成对应的AST
 
 核心步骤如下：
 调用```parseHTML```函数对模板字符串进行解析：
