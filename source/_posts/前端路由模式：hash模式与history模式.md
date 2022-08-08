@@ -1,5 +1,5 @@
 ---
-title: vue-router的两种模式：hash与history
+title: 前端路由模式：hash模式与history模式
 date: 2022-07-27 20:26:00
 categories:
 - JavaScript
