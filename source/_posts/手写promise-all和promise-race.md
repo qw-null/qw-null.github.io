@@ -35,7 +35,7 @@ function promiseAll(iterator) {
 }
 ```
 
-### 2.promise.race
+## 2.promise.race
 ```javascript
 function promiseRace(promises) {
   return new Promise((resolve, reject) => {
