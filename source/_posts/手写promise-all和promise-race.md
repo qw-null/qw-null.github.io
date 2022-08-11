@@ -37,7 +37,7 @@ function promiseAll(iterator) {
 
 ### 2.promise.race
 ```javascript
-Promise.race = function (promises) {
+function promiseRace(promises) {
   return new Promise((resolve, reject) => {
     for (let i = 0; i < promises.length; i++) {
       promises[i].then(v => {
