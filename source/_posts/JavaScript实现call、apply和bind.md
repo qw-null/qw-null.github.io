@@ -102,33 +102,68 @@ call、apply、bind三者的区别在于：
 + 三者都可以传参，但是```apply```是数组，而```call```是参数列表，且```apply```和```call```是一次性传入参数，而```bind```可以分为多次传入
 + ```bind```是返回绑定```this```之后的函数，```apply```、```call```则是立即执行
 
-### 3.实现bind
+### 3.手写实现
+
+#### 3.1 call
+```javascript
+Function.prototype._call = function(ctx, ...args) {
+  // 判断上下文类型 如果是undefined或者 null 指向window；否则使用 Object() 将上下文包装成对象
+  const o = (!ctx) ? window : Object(ctx);
+  // 如何把函数foo的this 指向 ctx这个上下文呢
+  // 把函数foo赋值给对象o的一个属性  用这个对象o去调用foo  this就指向了这个对象o
+  // 下面的this就是调用_call的函数foo  我们把this给对象o的属性fn 就是把函数foo赋值给了o.fn
+  //给context新增一个独一无二的属性以免覆盖原有属性
+  const key = Symbol();
+  o[key] = this;
+  // 立即执行一次
+  const result = o[key](...args);
+  // 删除这个属性
+  delete o[key];
+  // 把函数的返回值赋值给_call的返回值
+  return result;
+}
+```
+
+#### 3.2 apply
+```javascript
+// 只需要把第二个参数改成数组形式就可以了。
+Function.prototype._apply = function(ctx, array = []) {
+  const o = (!ctx) ? window : Object(ctx);
+  //给context新增一个独一无二的属性以免覆盖原有属性
+  const key = Symbol();
+  o[key] = this;
+  const result = o[key](...array);
+  delete o[key];
+  return result;
+}
+```
+
+#### 3.3 bind
 实现bind的步骤，我们可以分解成为三部分：
 + 修改```this```指向
 + 动态传递参数
 ```javascript
 // 方式一：只在bind中传递函数参数
 fn.bind(obj,1,2)()
-
 // 方式二：在bind中传递函数参数，也在返回函数中传递参数
 fn.bind(obj,1)(2)
 ```
 + 兼容```new```关键字
 
 ```javascript
-Function.prototype.myBind = function (context) {
-    // 判断调用对象是否为函数
-    if (typeof this !== "function") {
-        throw new TypeError("Error");
-    }
-
-    // 获取参数
-    const args = [...arguments].slice(1),fn = this;
-
-    return function Fn() {
-      // 根据调用方式，传入不同绑定值
-      return fn.apply(this instanceof Fn ? new fn(...arguments) : context, args.concat(...arguments)); 
-    }
+fFunction.prototype._bind = function(ctx, ...args) {
+  // 下面的this就是调用_bind的函数,保存给_self
+  const _self = this;
+  // bind 要返回一个函数, 就不会立即执行了
+  const newFn = function(...rest) {
+    // 调用 call 修改 this 指向
+    return _self.call(ctx, ...args, ...rest);
+  }
+  if (_self.prototype) {
+    // 复制源函数的prototype给newFn 一些情况下函数没有prototype，比如箭头函数
+    newFn.prototype = Object.create(_self.prototype);
+  }
+  return newFn;
 }
 ```
 
