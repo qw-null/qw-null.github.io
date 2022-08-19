@@ -4,14 +4,6 @@ date: 2022-07-26 14:02:18
 tags:
 - 理解Vue
 ---
-
-在Vue项目的```main.js```文件中，存在以下代码：![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220725164129.png)
-调用render函数会得到传入的模板（```.vue```文件）对应的虚拟DOM，那么这个render函数是从哪里来的？它是如何将```.vue```文件转换成浏览器可识别的代码的呢？
-
-render函数的来源有两种方式：
-+ 第一种就是经过模板编译生成render函数
-+ 第二种是我们自己定义在组件里的render函数，这种会跳过模板编译的过程
-
 ### 认识模板编译
 在Vue文件中使用```<template></template> ```表示模板，其内部包裹的代码并不是原生的HTML，因此浏览器是不认识模板的。所以我们要做的工作就是把```<template></template>```内部的代码编译成浏览器认识的原生HTML，这就是模板编译。
 
@@ -314,8 +306,15 @@ export function genElement (el: ASTElement, state: CodegenState): string {
 ```
 > 在这里还可以发现v-for的优先级高于v-if
 
+### render 函数
+在Vue项目的```main.js```文件中，存在以下代码：![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220725164129.png)
+调用render函数会得到传入的模板（```.vue```文件）对应的虚拟DOM，那么这个render函数是从哪里来的？它是如何将```.vue```文件转换成浏览器可识别的代码的呢？
 
-### 自定义的render
+render函数的来源有两种方式：
++ 第一种就是经过模板编译生成render函数
++ 第二种是我们自己定义在组件里的render函数，这种会跳过模板编译的过程
+
+#### 自定义的render
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220726131746.png)
 上面三种情况最后编译出的内容完全一样。
 那么，你一定会有一个疑问，既然模板能自己编译自动生成，为什么还要提出自定义render？
@@ -325,7 +324,7 @@ export function genElement (el: ASTElement, state: CodegenState): string {
 
 *（在Element-UI的组建源码中就有大量的重写render函数）*
 
-#### 1.渲染优先级
+##### 1.渲染优先级
 Vue的生命周期中关于模板编译的部分，如下
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220726142359.png)
 从图中可以知道，如果有```template```，就不会管```el```，所以**template比el的优先级更高**。
@@ -377,7 +376,7 @@ Vue的生命周期中关于模板编译的部分，如下
   };
 ```
 
-#### 2.更灵活的写法
+##### 2.更灵活的写法
 以如下代码为例：
 ```javascript
 <template>
