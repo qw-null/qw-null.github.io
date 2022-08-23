@@ -151,19 +151,20 @@ fn.bind(obj,1)(2)
 + 兼容```new```关键字
 
 ```javascript
-fFunction.prototype._bind = function(ctx, ...args) {
-  // 下面的this就是调用_bind的函数,保存给_self
-  const _self = this;
-  // bind 要返回一个函数, 就不会立即执行了
-  const newFn = function(...rest) {
-    // 调用 call 修改 this 指向
-    return _self.call(ctx, ...args, ...rest);
-  }
-  if (_self.prototype) {
-    // 复制源函数的prototype给newFn 一些情况下函数没有prototype，比如箭头函数
-    newFn.prototype = Object.create(_self.prototype);
-  }
-  return newFn;
+function _bind(context) {
+    // 判断调用对象是否为函数
+    if (typeof this !== "function") {
+        throw new TypeError("Error");
+    }
+
+    // 获取参数
+    const args = [...arguments].slice(1),
+          fn = this;
+
+    return function Fn() {
+        // 根据调用方式，传入不同绑定值
+        return fn.apply(this instanceof Fn ? new fn(...arguments) : context, args.concat(...arguments)); 
+    }
 }
 ```
 
