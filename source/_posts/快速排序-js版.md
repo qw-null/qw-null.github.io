@@ -5,10 +5,12 @@ categories:
 - 算法基础
 ---
 
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829150312.png)
+
 ## 1.快速排序
 快速排序（Quicksort），简称快排。在平均状况下，排序n个项目要 O(nlogn) 次比较。在最坏状况下则需要O(n<sup>2</sup>)次比较，但这种状况并不常见。
 
-快速排序使用分治法策略来把一个序列（list）分为较小和较大的2个子序列，然后递归地排序两个子序列。
+快速排序使用分治法策略来把一个序列（arr）分为较小和较大的2个子序列，然后递归地排序两个子序列。
 
 快速排序步骤为：
 + 1.挑选基准值：从数列中挑出一个元素，称为“基准”
@@ -21,21 +23,21 @@ categories:
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20210906102722.jpg)
 
 ```javascript
-function quickSort(arr {
+function quickSort(arr) {
     //递归终止条件：数组长度为0或1
-    if (arr.length<=1) return list;
+    if (arr.length<=1) return arr;
     // 取数组中间位置索引以及元素
     let index = Math.floor(arr.length / 2);
-    let pivot = arr.splice(index, 1);
+    let pivot = arr[index]; //  直接取数据即可，没必要采用该方式let pivot = arr.splice(index, 1)
     // left：存储小于中间元素的元素集合
     // right：存储大于等于中间元素的元素集合
     let left = [];
     let right = [];
     for(let i=0;i<arr.length;++i){
         if(arr[i]<pivot) left.push(arr[i]);
-        else right.push(arr[i]);
+        else if(arr[i]>pivot) right.push(arr[i]);
     }
-    return quickSort(left).concat(currentItem,quickSort(right));
+    return quickSort(left).concat(pivot,quickSort(right));
 }
 ```
 
