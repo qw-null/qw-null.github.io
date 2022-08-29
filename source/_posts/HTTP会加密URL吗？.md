@@ -21,8 +21,8 @@ tags:
 `HTTP/1.1`请求的第一行包含请求方法和请求路径。`HTTP/2`用一系列伪头部（pseudo-header）替换了请求行，这五个伪头部很容易识别，因为他们在名称的开头用了一个冒号来表示。
 
 比如请求方法和路径伪头字段如下：
-+ ':method'伪头字段包含HTTP方法
-+ ':path'伪头字段包含目标URL的路径和查询部分
++ ```:method```伪头字段包含HTTP方法
++ ```:path```伪头字段包含目标URL的路径和查询部分
 
 如下图：
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829114347.png)
