@@ -43,3 +43,7 @@ tags:
 **步骤10**： 服务器和客户端的Finished报文交换完毕之后，SSL连接就算建立完成。当然，通信会受到SSL的保护。从此处开始进行应用层协议的通信，即发送HTTP请求。
 **步骤11**： 应用层协议通信，即发送HTTP响应。
 **步骤12**： 最后由客户端断开连接。断开连接时，发送close_notify报文。上图做了一些省略，这步之后再发送TCP FIN报文来关闭与TCP的通信。
+
+
+<mark>https的详细握手过程</mark>
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829230757.png)
