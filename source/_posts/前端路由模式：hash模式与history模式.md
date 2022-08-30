@@ -6,6 +6,9 @@ categories:
 tags:
 - JavaScript
 ---
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220830184521.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220830184721.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220830184805.png)
 前端会通过使用不同的URL向用户展示不同的页面，使得当我们想要访问一个页面时只要知道其URL地址，再浏览器地址栏中输入便会看到这个页面。但是在平时也会存在输入确定的URL地址却无法访问到页面的情况（出现404页面）。这实际上与前端的路由模式息息相关。
 ### 0.为什么使用路由？
 Ajax异步请求可以实现页面的无缝刷新，导致浏览器地址栏的URL不会发生任何变化，破坏了用户的浏览体验。同时本次浏览的页面内容使用URL访问无法重新复现。
