@@ -14,4 +14,4 @@ Data通过```Observer```转换成```getter/setter```的形式来追踪变化。
 当外界通过```watcher```读取数据时，会触发```getter```，从而将```watcher```添加到依赖中。
 当数据发生变化时会触发```setter```，从而向```Dep```中的依赖（```watcher```）发送通知。```watcher```接收到通知之后，会向外界发送通知，变化通知到外界可能会触发视图更新，也可能触发用户的某个回调函数。
 
-> 3.x与2.x的核心思想是一致的，只不过是数据劫持使用```proxy```而不是```Object.defineProperty```，只不过```proxy```相比```Object.defineProperty```在处理数组和新增删除属性响应式的处理上更加方便。
+> 3.x与2.x的核心思想是一致的，只不过是数据劫持使用```proxy```而不是```Object.defineProperty```，```proxy```相比```Object.defineProperty```在处理数组和新增删除属性响应式的处理上更加方便。
