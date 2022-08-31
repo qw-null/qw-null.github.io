@@ -142,7 +142,6 @@ export default {
     }
 }
 ```
-
 ### 三、非兼容变更
 **Global API**
 + 全局```vue API```已更改为使用应用程序实例
