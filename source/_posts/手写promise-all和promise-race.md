@@ -53,9 +53,11 @@ function promiseRace(promises) {
 ```
 
 ## 3.Promise.prototype.finally
-和`.all`不同的是，`.finally` 是真的挂载在原型对象上的，是一个实例方法，是一个函数接收一个回调方法。
+`finally()`方法用于指定不管 `Promise` 对象最后状态如何，都会执行的操作(无论`promise`被`reslove`或者`reject`，都会执行到`finally`里面去)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220901115757.png)
+`finally`方法的回调函数不接受任何参数，这意味着没有办法知道，前面的 `Promise`状态到底是`fulfilled`还是`rejected`。这表明，`finally`方法里面的操作，应该是与状态无关的，不依赖于 `Promise` 的执行结果。
 
-+ 特性：无论`promise`被`reslove`或者`reject`，都会执行到`finally`里面去
+
 
 ```javascript
 Promise.prototype.finally = (callback) => {
