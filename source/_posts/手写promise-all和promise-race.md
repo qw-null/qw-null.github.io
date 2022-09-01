@@ -52,5 +52,20 @@ function promiseRace(promises) {
 }
 ```
 
+## 3.Promise.prototype.finally
+和`.all`不同的是，`.finally` 是真的挂载在原型对象上的，是一个实例方法，是一个函数接收一个回调方法。
 
++ 特性：无论`promise`被`reslove`或者`reject`，都会执行到`finally`里面去
 
+```javascript
+Promise.prototype.finally = (callback) => {
+    return this.then(
+        (value) => {
+            return Promise.resolve(callback()).then(() => value)
+        },
+        (error) => {
+            return Promise.reject(callback()).then(() => { throw error })
+        }
+    )
+}
+```
