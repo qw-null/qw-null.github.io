@@ -7,6 +7,7 @@ tags:
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829193338.png)
 
 `HTTPS`是在`HTTP`的基础上加入`SSL`协议，`SSL`依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密（在传输层）
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220904205651.png)
 
 <mark>**HTTP + 加密 + 认证 + 完整性保护 = HTTPS**</mark>
 
@@ -30,7 +31,8 @@ tags:
 4. 使用 `SSL/TLS` 进行通信的双方需要使用非对称加密方案来通信，但是非对称加密设计了较为复杂的数学算法，在实际通信过程中，计算的代价较高，效率太低，因此，`SSL/TLS` 实际对消息的加密使用的是对称加密。
 5. TLS握手过程
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829202914.png)
-![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829214411.png)
+<img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829214411.png" width="50%" />
+
 **步骤1**： 客户端通过发送Client Hello报文开始SSL通信。报文中包含客户端支持的SSL的指定版本、加密组件（Cipher Suite）列表（所使用的加密算法及密钥长度等）。
 **步骤2**： 服务器可进行SSL通信时，会以Server Hello报文作为应答。和客户端一样，在报文中包含SSL版本以及加密组件。服务器的加密组件内容是从接收到的客户端加密组件内筛选出来的。
 **步骤3**： 之后服务器发送Certificate报文。报文中包含公开密钥证书。
