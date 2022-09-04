@@ -42,3 +42,12 @@ tags:
 
 **如何调用：**
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220904222504.png)
+
+### jsonp的原理
+利用 `<script>` 标签没有跨域限制的漏洞，网页可以得到从其他来源动态产生的 JSON 数据。JSONP请求一定需要对方的服务器做支持才可以。
+#### jsonp的优缺点
++ **优点**是简单兼容性好，可用于解决主流浏览器的跨域数据访问的问题。
++ **缺点**是仅支持get方法具有局限性，不安全可能会遭受XSS攻击。
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220904223501.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220904223531.png)
