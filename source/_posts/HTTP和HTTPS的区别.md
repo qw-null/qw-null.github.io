@@ -31,6 +31,8 @@ tags:
 4. 使用 `SSL/TLS` 进行通信的双方需要使用非对称加密方案来通信，但是非对称加密设计了较为复杂的数学算法，在实际通信过程中，计算的代价较高，效率太低，因此，`SSL/TLS` 实际对消息的加密使用的是对称加密。
 5. TLS握手过程
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829202914.png)
+*（**第1随机数**：由客户端产生，随Client Hello过程发送给服务器端；**第2随机数**：由服务器端产生，随Server Hello过程发送给客户端；**第3随机数（预主密钥）**：由客户端产生，使用公钥加密后传递给服务器端，服务器端接收后使用自己的私钥解密得到预主密钥）*
+
 <img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220829214411.png" width="50%" />
 
 **步骤1**： 客户端通过发送Client Hello报文开始SSL通信。报文中包含客户端支持的SSL的指定版本、加密组件（Cipher Suite）列表（所使用的加密算法及密钥长度等）。
