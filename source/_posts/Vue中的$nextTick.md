@@ -2,7 +2,7 @@
 title: Vue中的$nextTick
 date: 2022-08-11 12:02:01
 tags:
-- 理解Vue
+- VUE
 ---
 ### 1.nextTick 是什么？
 nextTick本质上就是执行延迟回调的钩子函数，接收一个回调函数作为参数，在下次DOM更新循环结束之后，执行延迟回调。
