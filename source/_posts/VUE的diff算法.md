@@ -2,7 +2,7 @@
 title: 说一说Vue的diff算法
 date: 2022-07-25 10:24:02
 tags:
-- 理解Vue
+- Vue
 ---
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220725102930.png)
