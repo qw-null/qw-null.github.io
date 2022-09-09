@@ -1,6 +1,5 @@
 ---
-layout: JS手写:利用 XMLHttpRequest 手写 AJAX 实现
-title: 实现
+title: JS手写:利用 XMLHttpRequest 手写 AJAX 实现
 date: 2022-09-06 09:54:34
 tags:
 - 各种无厘头手写
