@@ -2,7 +2,7 @@
 title: Vue中computed和watch的区别
 date: 2022-08-09 11:40:23
 tags:
-- 理解Vue
+- Vue
 ---
 computed和watch都能实现对数据的监听，但是二者还是存在区别：
 + 功能上：```computed```是计算属性，```watch```用来监听一个值的变化

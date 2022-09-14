@@ -4,7 +4,7 @@ date: 2022-04-11 23:02:14
 categories:
 - Vue学习
 tags:
-- VUE
+- Vue
 ---
 视频链接：[【黑马程序员】vue双向数据绑定原理](https://www.bilibili.com/video/BV1Dr4y1c7xS?share_source=copy_web)
 

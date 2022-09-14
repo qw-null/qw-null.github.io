@@ -4,7 +4,7 @@ date: 2022-02-13 14:54:13
 categories:
 - Vue实战项目
 tags:
-- VUE
+- Vue
 ---
 
 [尚硅谷VUE项目实战-尚品汇(大型\重磅)](https://www.bilibili.com/video/BV1Vf4y1T7bw?share_source=copy_web)

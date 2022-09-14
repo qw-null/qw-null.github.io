@@ -1,10 +1,8 @@
 ---
 title: Promise学习
 date: 2022-01-18 17:13:57
-categories:
-- Vue学习
 tags:
-- Promise
+- JavaScript
 ---
 [尚硅谷Web前端Promise教程从入门到精通（2021抢先版）](https://www.bilibili.com/video/BV1GA411x7z1?share_source=copy_web)
 

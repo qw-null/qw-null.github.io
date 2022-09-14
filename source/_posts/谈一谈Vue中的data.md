@@ -4,7 +4,7 @@ date: 2022-08-04 23:17:42
 categories:
 - Vue学习
 tags:
-- VUE
+- Vue
 ---
 **问题：为什么data属性是一个函数而不是一个对象？**
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220805200207.png)

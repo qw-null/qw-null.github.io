@@ -2,7 +2,7 @@
 title: vue项目中对Axios的封装
 date: 2022-08-30 23:07:07
 tags:
-- 理解Vue
+- Vue
 ---
 ### 一、axios是什么？
 `axios`是一个轻量的`HTTP`客户端，基于`XMLHttpRequest`服务来执行`HTTP`请求，支持丰富的配置，支持`Promise`，支持浏览器端和`Node.js`端。自`Vue 2.0`起，尤大大宣布取消对`vue-resource`的官方推荐，转而推荐`axios`。现在`axios`已经成为大部分`Vue`开发者的首选

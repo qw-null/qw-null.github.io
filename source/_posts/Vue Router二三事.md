@@ -5,7 +5,7 @@ date: 2021-07-08 11:12:19
 categories:
 - Vue学习
 tags:
-- VUE
+- Vue
 ---
 ## 1.初步使用
 安装命令：```npm install vue-router ```

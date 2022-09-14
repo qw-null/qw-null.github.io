@@ -2,6 +2,7 @@
 title: 对vue中mixin的理解
 date: 2022-09-13 15:13:44
 tags:
+- Vue
 ---
 ## Q：说一说你对vue中mixin的理解，以及有哪些应用场景？
 

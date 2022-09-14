@@ -4,7 +4,7 @@ date: 2021-06-01
 categories:
 - Vue学习
 tags: 
-- vuex
+- vue
 ---
 
 ## 1.Vuex概述

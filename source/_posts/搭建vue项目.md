@@ -2,7 +2,7 @@
 title: 搭建vue项目
 date: 2021-10-25 15:50:32
 categories:
-- Vue学习
+- Vue
 ---
 
 ## 1.搭建项目
