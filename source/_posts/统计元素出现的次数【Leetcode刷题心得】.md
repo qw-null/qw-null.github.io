@@ -32,7 +32,8 @@ console.log('统计结果：', obj);
 ```
 统计结果： { a: 4, b: 2, c: 4, d: 1, e: 1 }
 
-#### 1.2 遍历统计对象(键->值)
+
+#### 1.3 遍历统计对象(键->值)
 
 ```javascript
 for (let i in obj) {
@@ -45,22 +46,32 @@ for (let i in obj) {
 键： d  -> 值： 1
 键： e  -> 值： 1
 
-#### 1.3 对元素出现的次数进行排序
+#### 1.3 基于元素出现的次数进行排序
 ```javascript
-let arrObj = [];
-for (let i in obj) {
-  arrObj.push([i, obj[i]]);
-}
-console.log('obj转arrObj:', arrObj)
-
-arrObj.sort((a, b) => {
-  return a[1] - b[1];
+// 获取属性值并按从小到大排序
+let result = Object.values(obj).sort((a, b) => {
+  return a - b
 });
-console.log('排序后的结果：', arrObj);
+var new_obj = new Map();
+result.forEach((items, i) => {
+  // 将原对象中的键值对按照属性值的排序顺序写入新对象
+  Object.keys(obj).map((item, index) => {
+    if (obj[item] === items) {
+      new_obj.set(item, items);
+    }
+  });
+});
+console.log(new_obj);
 ```
 
-obj转arrObj: [ [ 'a', 4 ], [ 'b', 2 ], [ 'c', 4 ], [ 'd', 1 ], [ 'e', 1 ] ]
-排序后的结果： [ [ 'd', 1 ], [ 'e', 1 ], [ 'b', 2 ], [ 'a', 4 ], [ 'c', 4 ] ]
+排序后的结果：Map(5) { 'd' => 1, 'e' => 1, 'b' => 2, 'a' => 4, 'c' => 4 }
+
+遍历map值：
+```javascript
+for (let i of new_obj.values()) {
+  console.log(i)
+}
+```
 
 
 
