@@ -295,4 +295,41 @@ scheduler.taskStart()
 // 1
 // 4
 ```
+## 6.promisify
+🌰 适用场景：
++ 原生回调函数 callBack：存在回调地狱问题
++ 函数加上返回 Promise 对象构造成异步函数：每次都需要重新构造，重复工作
++ 使用 Promisify 做 Promise 的封装：减少构造 Promise 的重复工作
+
+```javascript
+function promisify(func) {
+  return function (...args) {
+    return new Promise( (resolve, reject) => {
+      let callback = function(...args) {
+        resolve(args)
+      }
+      // 给func函数主动塞入一个callback，这样在func中调用callback的时候实际执行的时候就是
+      // 我们这里定义的callback函数，然后在我们的callback中调用resolve,
+      // 这样一来，本来想要通过回调执行的操作就可以放在then函数中进行执行了
+      func.apply(null, [...args, callback])
+    })
+  }
+}
+```
+验证：
+```javascript
+function hello(v){
+    setTimeout(()=>{
+        console.log(v+1)
+    },1000)
+}
+//一般调用方式
+hello(2)
+
+//实现一个promisefy函数，使得能使用以下方式调用
+var newFn = new promisify(hello)
+newFn(2).then((v)=>console.log(v))
+```
+结果：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220921125332.png)
 
