@@ -160,5 +160,71 @@ Node.js中根据模块来源不同，将模块分为3类：
 ### 4 exports对象
 由于`module.exports`写起来比较复杂，为了简化向外共享成员的代码，`Node`提供了`exports`对象。默认情况下，`exports`和`module.exports`指向同一个对象。最终共享的结果，还是以`module.exports`指向的对象为准。
 
- 
+**时刻谨记，`require()`模块时，得到的永远是`module.exports`指向的对象**
 
+### 5 Node.js中的模块化规范
+Node.js遵循了`CommonJS`模块化规范，`CommonJS`规定了模块的特性和各模块之间如何相互依赖。
+
+**CommonJS规定：**
+1. 每个模块内部，module变量代表当前模块
+2. module变量是一个对象，它的exports属性（即module.exports）是对外接口
+3. 加载某个模块，其实是加载该模块的`module.exports`属性。`require()`方法用于加载模块
+
+
+### 6 npm与包
+
+#### 6.1 什么是包？
+Node.js中的第三方模块又叫做包。
+#### 6.2 包的来源
+不同于Node.js中的内置模块与自定义模块，包是由第三方个人或者团队开发出来的，免费供所有人使用。
+**注意：**Node.js中的包都是免费且开源的，不需要付费即可免费下载使用。 
+#### 6.3 为什么需要包？
+由于Node.js的内置模块仅提供了一些底层的API，导致在基于内置模块进行项目开发的时候，效率很低，保湿基于内置模块封装出来的，提供了更高级、更方便的API，极大的提高了开发效率。
+#### 6.4 从哪里下载包？
+全球最大的包共享平台[npm](https://www.npmjs.com/)
+
+
+## 五、Express
+
+### 1 什么是Express
+Express是基于Node.js平台，快速、开放、极简的Web开发框架。
+Express的本质就是一个npm上的第三方包，提供了快速创建Web服务器的便捷方法。
+
+### 2 使用Express
+
+1. 安装：`npm i express`
+2. 创建基本web服务器：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202211291556805.png)
+3. 监听GET请求
+通过app.get()方法，可以监听客户端的GET请求，具体的语法格式如下：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202211291617985.png)
+4. 监听POST请求
+通过app.post()方法，可以监听客户端的POST请求，具体语法格式如下：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202211291619970.png)
+5. 把内容响应给客户端
+通过res.send()方法，可以把处理好的内容，发送给客户端：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202211292048453.png)
+6. 获取url中携带的查询参数
+通过req.query对象，可以访问到客户端通过查询字符串形式，发送到服务器的参数：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202211301140020.png)
+7. 获取URL中的动态参数
+通过req.params对象，可以访问到URL中，通过:匹配到的动态参数：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202212011435073.png)
+8. 托管静态资源
+express提供了一个非常好用的函数，叫做`express.static()`，通过它可以非常方便地创建一个静态资源服务器。
+例如，通过如下代码就可以将public目录下的图片、CSS文件、JavaScript文件对外开放访问：
+`app.use(express.static('public'))`
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202212011452558.png)
+如果要托管多个静态资源目录，请多次调用express.static()函数：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202212011510078.png)
+**挂在路径前缀**
+如果希望在托管的静态资源访问路径之前，挂载路径前缀，可使用如下方式：
+`app.use('/public',express.static('public'))`
+
+9. 使用`nodemon`
+安装命令：`npm install -g nodemon`
+作用：修改代码后无需手动重启node服务器，可自动实现热更新
+
+### 3 Express路由
+在Express中，路由指的是客户端的请求与服务器处理函数之间的映射关系。
+Express中路由分为3部分，分别是<span style="color:red">请求类型、请求的URL地址、处理函数</span>
