@@ -218,5 +218,5 @@ git log 命令用于查看 git commit 记录
 
 ```
 git log // 查看所有 commit 记录
-git  log  --grep  瀑布流 // 搜索 commit msg 有瀑布流关键字的 记录
+git log --grep  瀑布流 // 搜索 commit msg 有瀑布流关键字的 记录
 ```
