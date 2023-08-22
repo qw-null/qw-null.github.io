@@ -126,3 +126,22 @@ System.out.println(userService);
   - 静态工厂方法实例化 Bean
   - 实例工厂方法实例化 Bean
   - 实现 FactoryBean 规范延迟实例化 Bean
+
+  （7）Bean 的依赖注入配置
+  Bean 的依赖注入有两种方式：
+  ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308181446926.png)
+  依赖注入的数据类型有三种：
+
+1. 普通数据类型，例如：`String、int、boolean`等，通过`value`属性指定
+2. 引用数据类型，例如：`UserDaoImpl、DataSource`等，通过`ref`属性指定
+3. 集合数据，例如：`List、Map、Properties`等
+
+自动装配方式：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308181512280.png)
+（8）Spring 的其他配置标签
+`Spring`的`xml`标签大体上分为两类，一种是默认标签，一种是自定义标签
+
+- 默认标签：就是不用额外导入其他命名空间约束的标签，例如`<bean>`标签
+- 自定义标签：就是需要额外引入其他命名空间的约束，并通过前缀引用标签，例如`<context:property-placeholder />`标签
+  ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308181635284.png)
+  ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308181650470.png)
