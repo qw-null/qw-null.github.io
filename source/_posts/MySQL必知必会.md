@@ -432,4 +432,226 @@ ORDER BY prod_name;
 
 ## 8.1 LIKE 操作符
 
-**通配符：**
+**通配符：** 用来匹配值的一部分的特殊字符。
+
+为了搜索子句中使用通配符，必须使用`LIKE`操作符。`LIKE`指示`MySQL`，后跟的搜索模式利用通配符匹配而不是直接相等匹配进行比较。
+
+### 8.1.1 百分号（%）通配符
+
+在搜索串中，`%`表示任何字符出现任意次数。例如，为了找出所有以词`jet`起头的产品，可以使用以下`SELECT`语句：
+输入：
+
+```sql
+SELECT prod_id,prod_name
+FROM products
+WHERE prod_name LIKE 'jet%';
+```
+
+分析：此例子使用了搜索模式`jet%`。在执行这条子句时，将检索任意以`jet`起头的单词。`%`告诉 MySQL 接受 jet 之后的任意字符，不管它有多少字符。
+
+通配符可在搜索模式中任意位置使用，并且可以使用多个通配符。
+
+输入：
+
+```SQL
+SELECT prod_id,prod_name
+FROM products
+WHERE prod_name LIKE '%anvil%';
+```
+
+分析：搜索模式`'%anvil%'`表示匹配任何位置包含文本`anvil`的值，而不论它之前或之后出现什么字符。
+
+---
+
+输入:
+
+```SQL
+SELECT prod_name
+FROM products
+WHERE prod_name LIKE 's%e';
+```
+
+分析：上述例子是找出以`s`起头以`e`结尾的所有产品。
+
+**<span style="background:yellow;">`%`代表搜索模式中给定位置的 0 个、1 个或多个字符</span>**。
+
+**注意 NULL** 虽然似乎`%`通配符可以匹配任何东西，但有一个例外，即`NULL`。即使`WHERE prod_name LIKE '%'`也不能匹配用值`NULL`作为产品名的行。
+
+### 8.1.2 下划线（\_）通配符
+
+下划线的用途与`%`一样，但下划线只匹配单个字符而不是多个字符。
+输入：
+
+```SQL
+SELECT prod_id,prod_name
+FROM products
+WHERE prod_name LIKE '_ ton anvil';
+```
+
+分析：此`WHERE`子句中的搜素模式给出了后面跟有文本的两个通配符。对于`.5 ton anvil`产品没有匹配，因为搜索模式要求匹配一个通配符而不是两个。
+
+# 第 9 章 用正则表达式进行搜索
+
+## 9.1 使用 MySQL 正则表达式
+
+### 9.1.1 基本字符匹配
+
+下面语句检索列`prod_name`包含文本 1000 的所有行：
+
+输入：
+
+```sql
+SELECT prod_name
+FROM products
+WHERE prod_name REGEXP '1000'
+ORDER BY prod_name;
+```
+
+---
+
+输入：
+
+```SQL
+SELECT prod_name
+FROM products
+WHERE prod_name REGEXP '.000'
+ORDER BY prod_name;
+```
+
+分析：这里使用了正则表达式`.000`。`.`是正则表达式语言中的一个特殊的字符，它表示匹配任意一个字符。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231121556.png)
+
+> **匹配不区分大小写** MySQL 中的正则表达式匹配（自版本 3.23.4 后）不区分大小写（即，大写和小写都匹配）。为区分大小写，可使用`BINARY`关键字，如`WHERE prod_name REGEXP BINARY 'JetPack .000'`。
+
+### 9.1.2 使用`OR`匹配
+
+为搜索两个串之一（或者为这个串，或者为另一个串），使用`|`。
+输入:
+
+```sql
+SELECT prod_name
+FROM products
+WHERE prod_name REGEXP '1000|2000'
+ORDER BY prod_name;
+```
+
+分析：`|`为正则表达式的`OR`操作符，它表示匹配其中之一。
+
+### 9.1.3 匹配几个字符之一
+
+匹配任何单一字符，可以通过指定一组`[`和`]`括起来的字符来完成。
+输入：
+
+```SQL
+SELECT prod_name
+FROM products
+WHERE prod_name REGEXP `[123] Ton`
+ORDER BY prod_name;
+```
+
+分析：这里，使用了正则表达式`[123] Ton`。`[123]`定义一组字符，它的意思是匹配 1 或 2 或 3，因此，数据`1 ton`、`2 Ton`和`3 Ton`都会被匹配。【MySQL 不区分大小写】。
+
+正如所见，`[]`是另一种形式的`OR`语句。事实上，正则表达式`[123] Ton`。事实上，正则表达式`[123] Ton`为`[1|2|3] Ton`的缩写。
+
+`[^123] Ton`匹配除了字符`1`、`2`、`3`之外的任何字符。
+
+### 9.1.4 匹配范围
+
+集合可以用来定义要匹配的一个或多个字符。
+
+匹配数字 0 到 9：`[0123456789]` 或者 `[0-9]`
+匹配任意字母字符：`[a-z]`
+
+### 9.1.5 匹配特殊字符
+
+为了匹配特殊字符，必须用`\\`为前导。例如：`\\-`表示查找`-`，`\\.`表示查找`.`。
+输入：
+
+```sql
+SELECT vend_name
+FROM vendors
+WHERE vend_name REGEXP '\\.'
+ORDER BY vend_name;
+```
+
+`\\`也用来引用元字符（具有特殊含义的字符）。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231450883.png)
+
+> **匹配 \\** 为了匹配反斜杠（\\）字符本身，需要使用`\\\`
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231526883.png)
+
+### 9.1.6 匹配字符类
+
+存在找出你自己经常使用的数字、所有字母字符或所有数字字母字符等的匹配。为更方便工作，可以使用预定义的字符集，成为字符类。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231541472.png)
+
+### 9.1.7 匹配多个实例
+
+到目前为止，使用的所有正则表达式都试图匹配单次出现。如果存在一个匹配，该行被检索出来，如果不存在，检索不出任何行。但有时需要对匹配的数目进行更强的控制，需要限制字符出现的次数。可以通过重复元字符来实现。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231550477.png)
+
+输入：
+
+```SQL
+SELECT prod_name
+FROM products
+WHERE prod_name REGEXP '\\([0-9] sticks?\\)'
+ORDER BY prod_name;
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231552346.png)
+分析：正则表达式`\\([0-9] sticks?\\)`解说如下，`\\(`匹配`)`，`[0-9]`匹配任意数字（这个例子中为 1 和 5），`sticks?`匹配`stick`和`sticks`（`s`后的`?`使得`s`可选，因为`?`匹配它前面的任何字符的 0 次或 1 次出现），`\\)`匹配`)`。没有`?`，匹配`stick`和`sticks`会非常困难。
+
+匹配连在一起的 4 位数字：
+输入：
+
+```sql
+SELECT prod_name
+FROM products
+WHERE prod_name REGEXP '[[:digit:]]{4}'
+ORDER BY prod_name;
+```
+
+分析：`[[:digit:]]`匹配任意数字，因而它为数字的一个集合。`{4}`确切的要求它前面的字符（任意数字）出现 4 次。
+
+### 9.1.8 定位符
+
+目前为止所给出的例子都是匹配一个字符串中的任意位置的文本。为了匹配特定位置的文本，需要使用定位符。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231606264.png)
+
+输入：
+
+```SQL
+SELECT prod_name
+FROM products
+WHERE prod_name REGEXP '^[0-9\\.]'
+ORDER BY prod_name；
+```
+
+分析：`^`匹配串的开始。因此，`^[0-9\\.]`只在`.`或者任意数字为串中第一个字符时才匹配它们。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231614247.png)
+
+# 第 10 章 创建计算字段
+
+## 10.1 计算字段
+
+<i style="color:red;">字段（filed）</i> 基本上与列（column）的意思相同，经常互换使用，不过数据库列一般称为列，而术语字段通常用在计算字段的连接上。
+
+只有数据库知道`SELECT`语句中哪些列是实际的表列，哪些列是计算字段。
+
+## 10.2 拼接字段
+
+【需求】需要将数据库中的供货商信息按照`name(location)`的形式返回。
+输入：
+
+```sql
+SELECT Concat(vend_name,'(',vend_country,')')
+FROM vendors
+ORDER BY vend_name;
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308231627912.png)
+分析：`Concat()`拼接串，即把多个串连接起来形成一个较长的串。
+
+> **Trim 函数** 该函数的作用是去除掉串两边的空格，除了该函数外，还有`RTrim()`去除串右边的空格、`LTrim()`去除掉串左边的空格。
