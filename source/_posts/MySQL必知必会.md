@@ -655,3 +655,253 @@ ORDER BY vend_name;
 分析：`Concat()`拼接串，即把多个串连接起来形成一个较长的串。
 
 > **Trim 函数** 该函数的作用是去除掉串两边的空格，除了该函数外，还有`RTrim()`去除串右边的空格、`LTrim()`去除掉串左边的空格。
+
+**使用别名**
+从上面的案例中可以发现，`SELECT`语句拼接地址字段的工作做得很好，但是新计算得到的列的名字十分冗长，如果想要替换这个冗长的列名，可以通过别名来实现。
+
+<i style="color:red;">别名（alias）</i> 一个字段或值的替换。
+
+输入：
+
+```sql
+SELECT Concat(RTrime(vend_name),'(',RTrime(vend_country),')') AS
+vend_title
+FROM vendors
+ORDER BY vend_name;
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308240941666.png)
+
+## 10.3 执行算数计算
+
+输入：
+
+```sql
+SELECT prod_id,
+       quantity,
+       item_price,
+       quantity*item_price AS expanded_price
+FROM orderitems
+WHERE order_num = 2005;
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308240947204.png)
+分析：上述`sql`语句功能是汇总物品的价格（单价乘以订购数量）。
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308240948788.png)
+
+# 第 11 章 使用数据处理函数
+
+## 11.1 函数
+
+与其他大多数计算机语言一样，`SQL`支持利用函数来处理数据。函数一般是在数据上执行的，它给数据的转换和处理提供方便。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308240951598.png)
+
+## 11.2 使用函数
+
+大多数`SQL`实现以下类型的函数：文本处理函数、日期和时间处理函数、数值处理函数
+
+### 11.2.1 文本处理函数
+
+常见的文本处理函数：
+| 函数 | 说明 |
+| ----------- | ----------- |
+| Left( ) | 返回串左边的字符 |
+| Length( ) | 返回串的长度 |
+| Locate( ) | 找出串的一个子串 |
+| Lower( ) | 将串转换为小写 |
+| LTrim( ) | 去掉串左边的空格 |
+| RTrim( ) | 去掉串右边的空格 |
+| Soundex( ) | 返回串的 SOUNDEX 值 |
+| SubString( ) | 返回子串的字符 |
+| Upper( ) | 将串转换为大写 |
+
+说明：`SOUNDEX`是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。`SOUNDEX`考虑了类似的发音字符和音节，使得能对串进行发音比较而不是字母比较。
+`SOUNDEX()`函数的主要目的是根据声音比较字符串之间的相似性。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241006421.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241006695.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241011238.png)
+
+---
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241536140.png)
+
+### 11.2.2 日期和时间处理函数
+
+日期和时间采用相应的数据类型和特殊的格式存储，以便能快速和有效地排序或过滤，并节省物理存储空间。
+一般应用程序不能使用用来存储日期和时间的格式，因此日期和时间函数就用来读取、统计和处理这些值。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241018885.png)
+
+`MySQL`使用的日期格式必须为`yyyy-mm-dd`，这种格式排除了多义性。
+
+输入：
+
+```sql
+SELECT cust_id,order_num
+FROM orders
+WHERE order_date = '2005-09-01';
+```
+
+分析：此`SELECT`语句检索订单记录，检索出的订单记录的`order_date`为`2005-09-01`。
+
+但是如果表中的订单记录的`oeder_date`是日期与时间的组合（即`2005-09-01 11:31:56`），那么通过上述`SQL`语句就无法匹配该天的订单记录，因此就要使用`Date()`函数去提取日期部分。
+更加可靠的输入应为：
+
+```sql
+SELECT cust_id,order_num
+FROM orders
+WHERE Date(order_date) = '2005-09-01';
+```
+
+匹配当前月份内的所有订单，可以使用`BETWEEN`。
+输入：
+
+```sql
+① 需要了解当前月份多少天
+SELECT cust_id,order_num
+FROM orders
+WHERE Date(order_date) BETWEEN '2005-09-01' AND '2005-09-30';
+
+② 不需要了解当前月份多少天
+SELECT cust_id,order_num
+FROM orders
+WHERE Year(order_date) = 2005  AND Month(order_date) = 9;
+```
+
+### 11.2.3 数值处理函数
+
+数值处理函数仅处理数值数据。这些函数一般主要用于代数、三角或几何运算。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241038467.png)
+
+# 第 12 章汇总数据
+
+## 12.1 聚集函数
+
+我们经常需要汇总数据而不是把它们实际检索出来，为此`MySQL`提供了专门的函数。
+这种类型的检索例子一般包括：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241040168.png)
+
+<i style="color:red;">聚集函数（aggregate function）</i> 运行在行组上，计算和返回单个值的函数。
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241042023.png)
+
+### 12.1.1 AVG( ) 函数
+
+`AVG( )`通过对表中行数计数并计算特定列值之和，求得该列的平均值。
+
+输入：
+
+```sql
+SELECT AVG(prod_price) AS avg_price
+FROM products;
+```
+
+> **只用于单个列** `AVG( )`只能用来确定特定数值列的平均值，而且列名必须作为函数参数给出。为了获得多个列的平均值，必须使用多个`AVG( )`函数。
+
+> **NULL 值** `AVG( )`函数忽略列值为`NULL` 的行。
+
+### 12.1.2 COUNT（ ）函数
+
+`COUNT( )`函数用于计数。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241105231.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241107050.png)
+
+> **`NULL`值** 如果指定列名，则指定列的值为空的行被 `COUNT（）` 函数忽略，但如果`COUNT（）` 函数 中用的是星号（\*）， 则不忽略。
+
+### 12.1.3 MAX( )函数
+
+`MAX( )`返回指定列中的最大值，`MAX( )`要求指定列名。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241111012.png)
+
+> **对非数值数据使用 MAX（）** 虽然`MAX( )`一般用来找出最大的数值或日期值。但`MySQL`允许将它用于返回任意列值最大的值，包括返回文本列中的最大值。在用于文本数据时，如果数据按相应的列排序，则`MAX()`返回最后一行。
+
+对于`NULL`值，`MAX( )`函数忽略列值为`NULL`的行。
+
+### 12.1.4 MIN( ) 函数
+
+与`MAX( )`函数的用法一致。
+
+### 12.1.5 SUM( )函数
+
+`SUM( )`用来返回指定列值的和（总计）。
+
+输入：
+
+```sql
+SELECT SUM(quantity) AS items_ordered
+FROM orderitems
+WHERE order_num = 2005;
+```
+
+分析：函数`SUM(quantity)` 返回订单中所有物品数量之和。
+
+## 12.2 聚集不同值
+
+以上 5 个聚集函数都可以如下使用：
+
+- 对所有的行执行计算，指定`ALL`参数或不给参数（因为`ALL`是默认行为）
+- 只包含不同的值，指定`DISTINCT`参数
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241123668.png)
+
+** ⚠️ 注意：** 如果指定列名，则`DISTINCT` 只能用于`COUNT( )`。`DISTINCT`不能用于`COUNT(*)`，因此不允许使用`COUNT(DISTINCT)`，否则会产生错误。
+
+## 12.3 组合聚集函数
+
+到目前为止，所有聚集函数的例子都只涉及单个函数。但实际上`SELECT`语句可根据需要包含多个聚集函数。
+
+输入：
+
+```sql
+SELECT COUNT(*) AS num_items,
+       MIN(prod_price) AS price_min,
+       MAX(prod_price) AS price_max,
+       AVG(prod_price) AS price_avg
+FROM products;
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241130927.png)
+
+# 第 13 章 分组数据
+
+## 13.1 数据分组
+
+从上一章中可以知道`SQL`聚集函数可以用来汇总数据。到目前为止，所有的计算都是在表的所有数据或者匹配特定的`WHERE`子句的数据上进行的。
+例如，返回供应商 1003 提供的产品数据，`SQL`语句如下所示：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241509894.png)
+
+但如果要返回每个供应商提供的产品数目怎么办？或者返回只提供单项产品的供应商所提供的产品。此时就需要使用到分组。
+
+<i style="color:red;">分组</i> 分组允许把数据分为多个逻辑组，以便能对每个组进行聚集计算。
+
+## 13.2 创建分组
+
+分组是在`SELECT`语句的`GROUP BY`子句中建立的。
+输入：
+
+```sql
+SELECT vend_id,COUNT(*) AS num_prods
+FROM products
+GROUP BY vend_id;
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241557344.png)
+分析：上面的`SELECT`语句指定了两个列，`vend_id`包含产品供应商的 ID，`num_prods` 为计算字段（用`COUNT(*)`函数建立）。`GROUP BY`子句指示`MySQL`按照`vend_id`排序并进行分组数据。这导致对每个`vend_id`而不是整个表计算`nums_prods`一次。从输出中可以看到，供应商 1001 有 3 个产品，供应商 1002 有 2 个产品，供应商 1003 有 7 个产品，供应商 1005 有 2 个产品。
+
+因为使用`GROUP BY`，就不必指定要计算和估值的每个组了。系统会自动完成。`GROUP BY`子句指示`MySQL`分组数据，然后对每个组而不是整个结果进行聚集。
+
+使用`GROUP BY`子句的一些重要规定：
+
+1. <span style="color:red;">`GROUP BY`子句可以包含任意数目的列</span>。这使得能对分组进行嵌套，为数据分组提供了更加细致的控制。
+
+2. <span style="color:red;">如果在`GROUP BY`子句中嵌套了分组，数据将在最后规定的分组上进行汇总。</span> 换句话说，在建立分组时，指定的所有列都一起计算（所以不能从个别列中取回数据）。
+
+3. <span style="color:red;">`GROUP BY`子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）</span>。如果在`SELECT`中使用表达式，则必须在`GROUP BY`子句中指定相同的表达式。不能使用别名。
+
+4. <span style="color:red;">除聚集计算语句外，`SELECT`语句中的每个列都必须在`GROUP BY`子句中给出</span>。
+
+5. <span style="color:red;">如果分组列中具有`NULL`值，则 NULL 将作为一个分组返回。如果列中有多行`NULL`值，它们将分为一组</span>。
+
+6.<span style="color:red;">`GROUP BY`子句必须出现在`WHERE`子句之后，`ORDER BY`子句之前</span>。
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241618103.png)
