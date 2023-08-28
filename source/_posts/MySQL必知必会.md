@@ -844,7 +844,7 @@ WHERE order_num = 2005;
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241123668.png)
 
-** ⚠️ 注意：** 如果指定列名，则`DISTINCT` 只能用于`COUNT( )`。`DISTINCT`不能用于`COUNT(*)`，因此不允许使用`COUNT(DISTINCT)`，否则会产生错误。
+**⚠️ 注意：** 如果指定列名，则`DISTINCT` 只能用于`COUNT( )`。`DISTINCT`不能用于`COUNT(*)`，因此不允许使用`COUNT(DISTINCT)`，否则会产生错误。
 
 ## 12.3 组合聚集函数
 
@@ -872,7 +872,7 @@ FROM products;
 
 但如果要返回每个供应商提供的产品数目怎么办？或者返回只提供单项产品的供应商所提供的产品。此时就需要使用到分组。
 
-<i style="color:red;">分组</i> 分组允许把数据分为多个逻辑组，以便能对每个组进行聚集计算。
+<i style="color:red;">分组：</i> 分组允许把数据分为多个逻辑组，以便能对每个组进行聚集计算。
 
 ## 13.2 创建分组
 
@@ -893,9 +893,9 @@ GROUP BY vend_id;
 使用`GROUP BY`子句的一些重要规定：
 
 1. <span style="color:red;">`GROUP BY`子句可以包含任意数目的列</span>。这使得能对分组进行嵌套，为数据分组提供了更加细致的控制。
-
+   ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308250950812.png)
 2. <span style="color:red;">如果在`GROUP BY`子句中嵌套了分组，数据将在最后规定的分组上进行汇总。</span> 换句话说，在建立分组时，指定的所有列都一起计算（所以不能从个别列中取回数据）。
-
+   ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308250959999.png)
 3. <span style="color:red;">`GROUP BY`子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）</span>。如果在`SELECT`中使用表达式，则必须在`GROUP BY`子句中指定相同的表达式。不能使用别名。
 
 4. <span style="color:red;">除聚集计算语句外，`SELECT`语句中的每个列都必须在`GROUP BY`子句中给出</span>。
@@ -905,3 +905,181 @@ GROUP BY vend_id;
 6.<span style="color:red;">`GROUP BY`子句必须出现在`WHERE`子句之后，`ORDER BY`子句之前</span>。
 
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308241618103.png)
+
+## 13.3 过滤分组
+
+除了能用`GROUP BY`分组数据之外，`MySQL`还允许过滤分组，规定包括哪个分组，排除哪个分组。
+<i>例如，可能要列出至少有 2 个订单的顾客。</i>
+我们在第 6 章中了解了`WHERE`子句的作用。但是在这个例子中`WHERE`不能完成任务，<span style="color:red;">因为`WHERE`过滤的是行，而不是分组</span>。事实上，`WHERE`没有分组的概念。
+
+`MySQL`提供了`HAVING`子句，用于过滤分组。到目前为止，所学习的`WHERE`子句的功能都能使用`HAVING` 子句来进行替代。
+
+**<span style="color:red;">WHERE 过滤行，HAVING 过滤分组。</span>**
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251014805.png)
+输入：
+
+```sql
+SELECT cust_id,COUNT(*) AS orders
+FROM orders
+GROUP BY cust_id
+HAVING COUNT(*) >= 2;
+```
+
+分析：这条`SELECT`语句的前 3 行类似于上面的语句。最后一行增加了`HAVING`子句，它过滤`COUNT(*) >= 2`（两个及以上的订单）的那些分组。
+
+> **`HAVING` 和 `WHERE`的差别** `WHERE`在数据分组前进行过滤，`HAVING`在数据分组后进行过滤。
+
+输入：
+
+```sql
+SELECT vend_id,COUNT(*) AS num_prods
+FROM products
+WHERE prod_price >=10
+GROUP BY vend_id
+HAVING COUNT(*) >= 2;
+```
+
+分析：上述`SQL`语句列出 2 个（含）以上、价格为 10（含）以上的产品的供应商。
+
+## 13.4 分组和排序
+
+虽然`GROUP BY`和`ORDER BY`经常完成相同的工作，但是它们是非常不同的。
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251036753.png)
+我们经常发现用`GROUP BY`分组的数据确实是以分组顺序输出，但是结果并不总是这样的，它并不是`SQL`规范所要求的。
+
+> **不要忘记 `ORDER BY`** 一般在使用`GROUP BY`子句时，应该也给出`ORDER BY`子句。这是保证数据正确排序的唯一方法。千万不要依赖`GROUP BY`排序数据。
+
+为说明 `GROUP BY` 和 `ORDER BY` 的使用方法， 请看一个例子。 下面的 `SELECT`语句类似于前面那些例子。它检索总计订单价格大于等于 50 的订 单的订单号和总计订单价格：
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251045284.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251046686.png)
+
+## 13.5 `SELECT`子句顺序
+
+`SELECT`子句及其顺序：
+| 子句 | 说明 | 是否必须使用 |
+| ---- | ---- |---- |
+| `SELECT` | 要返回的列或者表达式 | 是 |
+| `FROM` | 从中检索数据的表 | 仅在从表选择数据时使用 |
+| `WHERE` | 行级过滤 | 否 |
+| `GROUP BY` | 分组说明 | 仅在按组计算聚集时使用 |
+| `HAVING` | 组级过滤 | 否 |
+| `ORDER BY` | 输出排序顺序 | 否 |
+| `LIMIT` | 要检索的行数 | 否 |
+
+# 第 14 章 使用子查询
+
+## 14.1 子查询
+
+<i style="color:red;">查询（query）</i> 任何`SQL`语句都是查询。但此术语一般指`SELECT`语句。
+
+`SQL` 还允许创建子查询（subquery），即嵌套在其他查询中的查询。
+
+## 14.2 利用子查询进行过滤
+
+在此之前所学习的`SQL`语句都是在同一个数据库表中进行操作，并未跨表操作。
+现有三个数据库表格：
+① `orders`表：包含订单号、客户 ID、订单日期
+② `orderitems`表：各订单物品
+③ `customers`表：实际的客户信息
+
+需求：列出订购物品`TNT2`的所有客户。
+
+实现步骤：
+（1） 检索包含物品`TNT2`的所有订单的编号。
+（2） 检索具有前一步骤列出的订单编号的所有客户的 ID。
+（3） 检索前一个步骤返回的所有客户 ID 的客户信息。
+
+---
+
+分开检索：
+
+```sql
+(1)  检索`prod_id`为`TNT2`的所有订单物品
+SELECT order_num
+FROM orderitems
+WHERE prod_id = 'TNT2';
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251133678.png)
+
+```sql
+(2) 查询具有订单 2005 和 2007 的客户 ID
+SELECT cust_id
+FROM orders
+WHERE order_num IN (2005,1007);
+```
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251134343.png)
+
+```sql
+（3）检索这些客户 ID 的客户信息
+SELECT cust_name,cust_contact
+FROM customers
+WHERE cust_id IN (10001,10004);
+```
+
+合并检索：
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251420912.png)
+子查询中的`WHERE`子句与前面使用的`WHERE`子句稍有不同，因为它使用了完全限定列名。
+下面的语句告诉`SQL`比较`orders`表中的`cust_id` 与当前正从`customer`表中检索的`cust_id`：`WHERE orders.cust_id = customers.cust_id`
+
+<i style="color:red;">相关子查询（correlated subquery）</i> 涉及外部查询的子查询。任何时候只要列名可能有多义性，就必须使用这种语法（表名和列名由一个句号分隔）。
+
+# 第 15 章 联结表
+
+## 15.1 联结
+
+`SQL`最强大的功能之一就是能在数据检索查询的执行中联结（join）表。联结是利用`SQL`的`SELECT`能执行的最重要的操作。
+
+在能够有效地使用联结前，必须了解关系表以及关系数据库设计的一些基础知识。
+
+### 15.1.1 关系表
+
+关系表的设计就是要保证把信息分解成多个表，一类数据一个表。各表通过某些常用的值（即关系设计中的 关系（relational））互相关联。
+
+<i style="color:red;"> 外键（foreign key）:</i> 外键为某个表中的一列，它包含另一个表的主键值，定义了两个表之间的关系。
+
+关系数据可以有效地存储和方便地处理。因此，关系数据库的可伸缩性远比非关系数据库要好。
+
+<i style="color:red;">可伸缩性（scale）:</i>能够适应不断增加的工作量而不失败。设计良好的数据库或应用程序称之为 可伸缩性好（scale well）。
+
+### 15.1.2 为什么使用联结
+
+正如所述，分解数据为多个表能更有效地存储，更方便地处理，并且具有更大地可伸缩性。但这些好处是有代价的。如果数据存储在多个表中，怎样使用单条`SELECT`语句检索出数据？
+
+答案是使用联结。简单来说，联结是一种机制，用来在一条`SELECT`语句中关联表。使用特殊的语法，可以联结多个表返回一组输出，联结在运行时关联表中正确的行。
+
+## 15.2 创建联结
+
+联结的创建非常简单，规定要联结的所有表以及它们如何关联即可。
+输入：
+
+```sql
+SELECT vend_name,prod_name,prod_price
+FROM vendors,products
+WHERE vendors.vend_id = products.vend_id
+ORDER BY vend_name,prod_name
+```
+
+### 15.2.1 WHERE 子句的重要性
+
+在数据库表的定义中，不存在能指示 MySQL 如何对表进行联结的东西。在联结两个表时，你实际上做的是讲第一个表中的每一行与第二个表中的没一行进行配对。`WHERE`子句作为过滤条件，它只包含那些匹配给定条件（这里是联结条件）的行。没有`WHERE`子句，第一个表的每个行将与第二个表中的每个行配对，而不管它们逻辑上是否可以配对在一起。
+
+<i style="color:red;">笛卡尔积（cartesian product）：</i>由没有联结条件的表关系返回的结果为笛卡尔积。检索出的行的数目将是第一个表中的行数乘以第二个表中的行数。
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251645031.png)
+
+### 15.2.2 内部联结
+
+到目前为止，所用的联结成为等值联结（equijoin），它基于两个表之间的相等测试。这种联结也称为内部联结。
+其实，对于这种联结可以使用稍微不同的语法来明确指定联结的类型。
+输入：
+
+```sql
+SELECT vend_name,prod_name,prod_price
+FROM vnedors INNER JOIN products
+ON vendors.vend_id = products.vend_id;
+```
+
+分析：此语句中的`SELECT`子句与前面相同，不同的是`FROM`子句
