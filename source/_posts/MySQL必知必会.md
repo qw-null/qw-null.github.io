@@ -5,6 +5,7 @@ tags:
   - MySQL
 ---
 
+书籍下载地址：[《MySQL 必知必会》](https://qinweirz-my.sharepoint.com/:b:/g/personal/qinwei_qinweirz_onmicrosoft_com/ERvXFKVNW0dErHJc5EWtOhIBrjFcFVd-Va13QWYN2_WyJQ?e=PZfkdX)
 书籍《MySQL 必知必会》阅读笔记
 
 # 第 1 章 了解 SQL
@@ -1072,7 +1073,7 @@ ORDER BY vend_name,prod_name
 
 ### 15.2.2 内部联结
 
-到目前为止，所用的联结成为等值联结（equijoin），它基于两个表之间的相等测试。这种联结也称为内部联结。
+到目前为止，所用的联结称为等值联结（equijoin），它基于两个表之间的相等测试。这种联结也称为内部联结。
 其实，对于这种联结可以使用稍微不同的语法来明确指定联结的类型。
 输入：
 
@@ -1082,4 +1083,162 @@ FROM vnedors INNER JOIN products
 ON vendors.vend_id = products.vend_id;
 ```
 
-分析：此语句中的`SELECT`子句与前面相同，不同的是`FROM`子句
+分析：此语句中的`SELECT`子句与前面相同，不同的是`FROM`子句。在这里，两个表之间的关系是`FROM`子句的组成部分，以`INNER JOIN`指定。在使用这种语法时，联结条件用特定的`ON`子句而不是`WHERE`子句给出。传递给`ON`的实际条件与传递给`WHERE` 的相同。
+
+### 15.2.3 联结多个表
+
+`SQL`对一条`SELECT`语句中可以联结多少个表的数目没有限制。
+输入：
+
+```sql
+SELECT prod_name,vend_name,prod_price,quantity
+FROM orderitems,products,vendors
+WHERE products.vend_id = vendors.vend_id
+   AND orderitems.prod_id = products.prod_id
+   AND order_num = 20005;
+```
+
+分析：这个例子显示编号为 20005 的订单中的物品。订单物品存储在`orderitems`表中。每个产品按其产品`ID`存储，它引用`products`表中的产品。这些产品通过供应商`ID`联结到`vendors`表中相应的供应商。
+
+> **性能考虑** `MySQL`在运行时关联指定的每个表以处理联结。这种处理可能是非常耗费资源的，因此，应该仔细，不要联结不必要的表。联结的表越多，性能下降越厉害。
+
+正如 14 章所述，子查询并不总是执行复杂`SELECT`操作的最有效方法，对于下面的查询输入，
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308251420912.png)
+使用联结可以同样进行实现：
+输入：
+
+```sql
+SELECT cust_name,cust_contact
+FROM customers,orders,orderitems
+WHERE customers.cust_id = orders.cust_id
+  AND orderitems.order_num = orders.order_num
+  AND prod_id = 'TNT2';
+```
+
+分析：在这个查询中返回数据需要使用 3 个表。在这里我们没有在嵌套子查询中使用它们，而是使用了两个联结。
+
+# 第 16 章 创建高级联结
+
+本章将介绍如何对被联结的表使用表别名和聚集函数。
+
+## 16.1 使用表别名
+
+输入：
+
+```sql
+SELECT cust_name,cust_contact
+FROM customer AS c, orders AS o,orderitems AS oi
+WHERE c.cust_id = o.cust_id
+   AND oi.order_num = o.order_num
+   AND prod_id = 'TNT2';
+```
+
+分析：可以看到`FROM`子句中 3 个表都具有别名，表的别名用于`WHERE`子句。
+
+**应该注意：** 表别名只在查询执行中使用。与列别名不一样，表别名不返回到客户机。
+
+## 16.2 使用不同类型的联结
+
+到目前为止，我们使用的只是成为“内部联结（等值联结）”的简单联结。还有另外其他 3 中联结：自联结、自然联结和外部联结。
+
+### 16.2.1 自联结
+
+现在存在这样一个问题：假如你发现某物品（其`ID`为`DTNTR`）存在问题，因此想要知道生产该物品的供应商生产的其他物品是否也存在这些问题。
+此查询需要先找到生产 `ID`为`DTNTR` 的物品的供应商，然后找到这个供应商生产的其他物品。
+
+输入：
+
+```sql
+ 方法一：
+ SELECT prod_id,prod_name
+ FROM products
+ WHERE vend_id = (SELECT vend_id
+                  FROM products
+                  WHERE prod_id = 'DTNTR');
+
+方法二：
+SELECT p1.prod_id,p1.prod_name
+FROM products AS p1,products AS p2
+WHERE p1.vend_id = p2.vend_id
+   AND p2.prod_id = 'DTNTR';
+```
+
+分析：方法二中需要的两个表实际上是相同的表，因此`products`表在`FROM`子句中出现了两次，为了解决`products`表的引用具有二义性的问题，使用了表别名。
+
+> **用自联结而不用子查询：** 自联结通常作为外部语句用来替代从相同表中检索数据时使用的子查询语句。虽然最终的结果是相同的，但有时候处理联结远比处理子查询快得多。
+
+### 16.2.2 自然联结
+
+无论何时对表进行联结，应该至少有一个列出现在不止一个表中（被联结的列）。标准的联结返回所有数据，甚至相同的列多次出现。自然联结排除多次出现，使得每个列只返回一次。
+但是`SQL`不提供这项功能,自然联结的功能是需要你自己去完成的,自然联结要求你只能选择哪些唯一的列,一般通过对一个表使用通配符(`SELECT *`),而对其他表的列使用明确的子集来完成。
+
+输入：
+
+```sql
+SELECT c.*,o.order_num,o.order_date,oi.prod_id,oi.quantity,oi.item_price
+FROM customer AS c,order AS o,orderitems AS oi
+WHERE c.cust_id = o.cust_id
+  AND oi.order_num = o.order_num
+  AND prod_id = 'FB';
+```
+
+分析：在这个例子中，通配符只对第一个表使用。所有其他列明确列出，所以没有重复的列被检索出来。
+事实上，迄今为止我们建立的每个内部联结都是自然联结。
+
+### 16.2.3 外部联结
+
+外部联结是指联结包含在那些表中没有关联行的行。
+输入：
+
+```sql
+SELECT customers.cust_id,orders.order_num
+FROM customers LEFT OUTER JOIN orders
+ON customers.cust_id = orders.cust_id;
+```
+
+分析：类似于内部联结，这条`SELECT`语句 使用了关键字`OUTER JOIN`来指定联结的类型（而不是在`WHERE` 子句中指定）。但是与内部联结两个表中的行不同的是，外部联结还包括没有关联的行。
+
+在使用`OUTER JOIN` 语法时，必须使用`RIGHT`或者`LEFT`关键字指定包括其包含所有行的表（`RIGHT` 指出的是`OUTER JOIN`右边的表，而`LEFT`指出的是`OUTER JOIN` 左边的表）。上面的例子使用`LEFT OUTER JOIN` 从`FROM` 子句的左边表（`customers`表）中选择所有行。
+
+## 16.3 使用带聚集函数的联结
+
+聚集函数是用来汇总数据，虽然至今为止聚集函数的所有例子只是从单个表汇总数据，但这些函数也可以与联结一起使用。
+输入：
+
+```sql
+SELECT customers.cust_name,customers.cust_id,COUNT(orders.order_num) AS num_ord
+FROM customers INNER JOIN orders
+ON customers.cust_id = orders.cust_id
+GROUP BY customers.cust_id;
+```
+
+分析：此条`SELECT` 语句使用`INNER JOIN` 将`customers`和`orders`表相互关联。`GROUP BY` 子句按客户分组数据，因此，函数调用`COUNT(orders.order_num)`对每个客户的订单计数，将它作为`num_ord`返回。
+
+## 16.4 使用联结和联结条件
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202308281456699.png)
+
+# 第 17 章 组合查询
+
+_本章讲述如何利用 UNION 操作符将多条 SELECT 语句组合成一个结果集_
+
+## 17.1 组合查询
+
+多数`SQL`语句都只包含从一个或多个表中返回数据的单条`SELECT`语句。`MySQL`也允许执行多个查询（多条`SELECT`语句），并将结果作为单个查询结果集返回。这些组合查询通常称为 并（union） 或 复合查询（compound query）。
+
+有两种基本情况，其中需要使用组合查询：
+
+- 在单个查询中从不同的表返回类似结构的数据
+- 对单个表执行多个查询，按单个查询返回数据
+
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202309102037167.png)
+
+## 17.2 创建组合查询
+
+可以使用`UNION`操作符来组合数条`SQL`查询。利用`UNION`，可给出多条`SELECT`语句，将它们的结果组合成单个结果集。
+
+### 17.2.1 使用`UNION`
+
+`UNION`的使用很简单。所需要做的只是给出每条`SELECT`语句，在各条语句之间放上关键字`UNION`。
+
+举一个例子，假如
