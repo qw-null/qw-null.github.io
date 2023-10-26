@@ -74,3 +74,33 @@ public class SwaggerConfig {
 访问地址： ip:端口号/swagger-ui.html
 
 问题解决！！！
+
+### 4.使用示例
+
+```java
+// UserController文件
+@RestController
+@Api(value = "用户接口",tags={"用户接口"})
+public class UserController {
+    @GetMapping("/user/{id}")
+    @ApiOperation("根据ID查询用户")
+    public String getUserById(@PathVariable int id){
+        return "根据ID获取用户";
+    }
+    @PostMapping("/user")
+    @ApiOperation("添加用户")
+    public String save(User user){
+        return "添加用户";
+    }
+    @PutMapping("/user")
+    @ApiOperation("修改用户")
+    public String update(User user){
+        return "更新用户";
+    }
+    @DeleteMapping("/user/{id}")
+    @ApiOperation("根据ID删除用户")
+    public String deleteById(@PathVariable int id){
+        return "根据ID删除用户";
+    }
+}
+```
