@@ -101,7 +101,7 @@ gcc 各版本下载地址： https://ftp.gnu.org/gnu/gcc/
 
 进入源码目录进行编译：
 
-```
+```bash
 cd gcc-13.2.0
 ./contrib/download_prerequisites
 mkdir build
@@ -121,7 +121,7 @@ cd build
 可以看到生成的最新版本文件在：`/usr/local/mysql/extra/libstdc++.so.6.0.24`
 下面拷贝文件到 lib 目录，并重新建立软链接：
 
-```
+```bash
 cp /usr/local/mysql/extra/libstdc++.so.6.0.24 /usr/lib64/
 cd /usr/lib64
 rm libstdc++.so.6
@@ -133,7 +133,7 @@ ln -sf /usr/lib64/libstdc++.so.6.0.24 /usr/lib64/libstdc++.so.6
 **第六步：安装成功后设置文件和目录权限：**
 此时 root 用户 还是在 mysql 目录下执行
 
-```
+```bash
 cp ./support-files/mysql.server /etc/init.d/mysqld
 chown 777 my.cnf
 chmod +x /etc/init.d/mysqld
