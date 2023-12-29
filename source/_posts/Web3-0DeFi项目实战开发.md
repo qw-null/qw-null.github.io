@@ -1,7 +1,11 @@
 ---
 title: Web3.0 DeFi项目实战开发
 date: 2023-12-19 14:41:02
+category:
+- 区块链
 tags:
+- 区块链
+- web3
 ---
 
 [视频地址](https://www.bilibili.com/video/BV14A411178x/?share_source=copy_web&vd_source=f3ff8a2761a3e07339584c4852cdd504)
@@ -155,7 +159,7 @@ var web3 = new Web3(
 
 infura 提供公开的 Ethereum 主网和测试网络节点，到 infura.io 网站注册后即可获取各个网络的地址。请按照如下步骤获取地址。
 
-第一步：打开 infura 网站地址：https://infura.io/dashboard，使用邮箱注册后登陆
+第一步：打开 [infura 网站地址](https://infura.io/dashboard)，使用邮箱注册后登陆。
 
 第二步：点击上图标记的“create new project”按钮创建一个新项目。然后弹出如下弹框，在输入框输入项目名，如”MyEtherWallet“，然后点击“create project”按钮创建。
 ![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202312251507913.png)
@@ -238,3 +242,357 @@ sign(data)- Function：签名二进制交易的方法。
 });
 ```
 
+### 5.单位转换
+
+```javascript
+// 1.Eth 转为 wei
+const num1 = web3.utils.toWei('0.3', 'ether');
+console.log('num1=',num1);
+// 300000000000000000
+
+// 2. wei 转为Eth
+const balance = Web3.utils.fromWei("300000", "ether");
+// balance= 0.0000000000003
+```
+---
+### 6.Eth转账[⚠️存在问题]
+```javascript
+web3.eth.sendSignedTransaction(signedTransactionData [, callback])
+```
+
+**参数**
+
+- `signedTransactionData`-`String`：以HEX格式签名的交易数据。
+
+  交易数据对象可以包含如下字段：
+
+  - `from`- `String|Number`：发送帐户的地址。如果未指定，则使用web3.eth.defaultAccount属性。或web3.eth.accounts.wallet中本地钱包的地址。
+  - `to`- `String`:(可选）消息的目标地址，若未定义则为合同发送消息。
+  - `value`- `Number|String|BN|BigNumber`:(可选）为wei中的交易转移的数量，如果是合约发送消息，则是捐赠给合约地址。
+  - `gas` - `Number`:(可选，默认：待定）用于交易的gas（未使用的gas会退还）。
+  - `gasPrice`- `Number|String|BN|BigNumber`:(可选）此交易的gas价格，以wei为单位，默认为[web3.eth.gasPrice](https://web3js.readthedocs.io/en/1.0/web3-eth.html#eth-gasprice)。
+  - `data`- `String`:(可选）包含合同上函数调用数据的[ABI字节字符串](http://solidity.readthedocs.io/en/latest/abi-spec.html)。
+  - `nonce`- `Number`:(可选）随机数的整数。
+
+- `callback`-`Function`：（可选）可选回调，将错误对象作为第一个参数返回，结果作为第二个参数返回。
+
+**返回**
+
+`PromiEvent`：promise组合的事件，将在交易完成时调用。包含以下事件
+
+- `"transactionHash"`返回`String`：在发送事务并且事务哈希可用之后立即触发。
+- `"receipt"`返回`Object`：在交易确认时触发。
+- `"confirmation"`返回`Number`，`Object`：每次确认都会被调用，直到第12次确认。接收确认编号作为第一个参数，将数据作为第二个参数。
+- `"error"`返回`Error`：如果在发送过程中发生错误，则会触发。
+
+1. 构建转账参数
+
+   区块链转账和支付宝转账类似，需要 `发送方` 、`接收方`、`金额`、`密码`
+
+   另外需要添加部分区块链参数：`矿工费gas`、`地址转账交易次数`
+
+   ```javascript
+        // 获取账户交易次数
+         let nonce = await web3.eth.getTransactionCount(fromaddress);
+         // 获取预计转账gas费
+         let gasPrice = await web3.eth.getGasPrice();
+         // 转账金额以wei为单位
+         let balance = await web3.utils.toWei(number);
+         var rawTx = {
+           from: fromaddress,
+           nonce: nonce,
+           gasPrice: gasPrice,
+           to: toaddress,
+           value: balance,
+           data: "0x00", //转Token代币会用到的一个字段
+         };
+   ```
+
+2. 通过转账参数计算最终gas费用，并将通过私钥将转账参数进行编码加密
+   **⚠️注意：ethereumjs-tx目前已经处于停用状态**
+   > ethereumjs-tx 第三方库请选择1.3.7版本
+
+
+   ```javascript
+   import Tx from "ethereumjs-tx";  
+   // 将私钥去除“ox”后进行hex转化
+         var privateKey = new Buffer(privatekey.slice(2), "hex");
+         //需要将交易的数据进行预估gas计算，然后将gas值设置到数据参数中
+         let gas = await web3.eth.estimateGas(rawTx);
+         rawTx.gas = gas;
+        // 通过 ethereumjs-tx 实现私钥加密Ï
+         var tx = new Tx(rawTx);
+         tx.sign(privateKey);
+         var serializedTx = tx.serialize();
+   ```
+
+3. 通过 `sendSignedTransaction` api发送转账交易，并且获取交易id
+
+    ```javascript
+      
+      web3.eth
+        .sendSignedTransaction("0x" + serializedTx.toString("hex"))
+        .on("transactionHash", (txid) => {
+          console.log("交易成功,请在区块链浏览器查看");
+          console.log("交易id", txid);
+          console.log(`https://goerli.etherscan.io/tx/${txid}`);
+        })
+        // .on('receipt', (ret)=>{console.log('receipt')})
+        // .on('confirmation', (ret)=>{console.log('confirmation')})
+        .on("error", (err) => {
+          console.log("error:" + err);
+        });
+    ```
+
+4. 区块链浏览器或者目标钱包产看转账结果
+
+   goerli区块链浏览器 https://goerli.etherscan.io/tx/交易id
+---
+
+# 账户系统
+
+## `密码`
+
+密码不是私钥，它是在创建账户时候的密码（可以修改）
+密码在以下情况下会使用到：
+1. 作为转账的支付密码
+2. 用keystore导入钱包的时候需要输入的密码，用来解锁keystore的
+
+## `私钥 Private Key`
+
+私钥由64位长度的十六进制的字符组成，比如：`0xA4356E49C88C8B7AB370AF7D5C0C54F0261AAA006F6BDE09CD4745CF54E0115A`，一个账户只有一个私钥且不能修改。
+通常一个钱包中私钥和公钥是成对出现的，有了私钥，我们就可以通过一定的算法生成公钥，再通过公钥经过一定的算法生成地址，这一过程都是不可逆的。私钥一定要妥善保管，若被泄漏别人可以通过私钥解锁账号转出你的该账号的数字货币。
+
+## `公钥 Public Key`
+
+公钥(Public Key)是和私钥成对出现的，和私钥一起组成一个密钥对，保存在钱包中。*公钥由私钥生成，但是无法通过公钥倒推得到私钥。公钥能够通过一系列算法运算得到钱包的地址，因此可以作为拥有这个钱包地址的凭证。*
+
+## `Keystore`
+
+Keystore常见于以太坊钱包，它是将私钥以加密的方式保存为一份 JSON 文件，这份 JSON 文件就是 keystore，所以它就是加密后的私钥。Keystore必须配合钱包密码才能导入并使用该账号。当黑客盗取 Keystore 后，在没有密码情况下, 有可能通过暴力破解 Keystore 密码解开 Keystore，所以建议使用者在设置密码时稍微复杂些，比如带上特殊字符，至少 8 位以上，并安全存储。
+
+## `助记词 Mnemonic`
+
+私钥是64位长度的十六进制的字符，不利于记录且容易记错，所以用算法将一串随机数转化为了一串12 ~ 24个容易记住的单词，方便保存记录。注意：
+
+1. 助记词是私钥的另一种表现形式
+2. 助记词=私钥，这是不正确的说法，通过助记词可以获取相关联的多个私钥，但是通过其中一个私钥是不能获取助记词的，因此**助记词≠私钥**。
+
+## `BIP`
+
+要弄清楚助记词与私钥的关系，得清楚BIP协议，是`Bitcoin Improvement Proposals`的缩写，意思是Bitcoin 的改进建议，用于提出 Bitcoin 的新功能或改进措施。BIP协议衍生了很多的版本，主要有BIP32、BIP39、BIP44。
+
+**BIP32**
+
+BIP32是 HD钱包的核心提案，通过种子来生成主私钥，然后派生海量的子私钥和地址，种子是一串很长的随机数。
+
+**BIP39**
+
+由于种子是一串很长的随机数，不利于记录，所以我们用算法将种子转化为一串12 ~ 24个的单词，方便保存记录，这就是BIP39，它扩展了 HD钱包种子的生成算法。
+
+**BIP44**
+
+BIP44 是在 BIP32 和 BIP43 的基础上增加多币种，提出的层次结构非常全面，它允许处理多个币种，多个帐户，每个帐户有数百万个地址。
+
+在BIP32路径中定义以下5个级别：
+
+```
+m/purpose'/coin_type'/account'/change/address_index
+```
+
+- purpose：在BIP43之后建议将常数设置为44'。表示根据BIP44规范使用该节点的子树。
+- Coin_type：币种，代表一个主节点（种子）可用于无限数量的独立加密币，如比特币，Litecoin或Namecoin。此级别为每个加密币创建一个单独的子树，避免重用已经在其它链上存在的地址。开发人员可以为他们的项目注册未使用的号码。
+- Account：账户，此级别为了设置独立的用户身份可以将所有币种放在一个的帐户中，从0开始按顺序递增。
+- Change：常量0用于外部链，常量1用于内部链，外部链用于钱包在外部用于接收和付款。内部链用于在钱包外部不可见的地址，如返回交易变更。
+- Address_index：地址索引，按顺序递增的方式从索引0开始编号。
+
+BIP44的规则使得 HD钱包非常强大，用户只需要保存一个种子，就能控制所有币种，所有账户的钱包，因此由BIP39 生成的助记词非常重要，所以一定安全妥善保管，那么会不会被破解呢？如果一个 HD 钱包助记词是 12 个单词，一共有 2048 个单词可能性，那么随机的生成的助记词所有可能性大概是`5e+39`，因此几乎不可能被破解。
+
+## `HD钱包`
+
+通过BIP协议生成账号的钱包叫做HD钱包。这个HD钱包，并不是Hardware Wallet硬件钱包，这里的 HD 是`Hierarchical Deterministic`的缩写，意思是分层确定性，所以HD钱包的全称为比特币分成确定性钱包 。
+
+## 密码、私钥、keystore与助记词的关系
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202312261553646.png)
+
+## 钱包的核心：私钥
+
+基于以上的分析，我们对以太坊钱包的账号系统有了一个很好的认识，那么我们在使用钱包的过程中，该如何保管自己的钱包呢？主要包含以下几种方式：
+
+- 私钥（Private Key）
+- Keystore+密码（Keystore+Password）
+- 助记词（Mnemonic code）
+
+通过以上三种中的一种方式都可以解锁账号，然后掌控它，所以对于每种方式中的数据都必须妥善包括，如有泄漏，请尽快转移数字资产。
+
+我们可以得到以下总结：
+
+- 通过私钥+密码可以生成keystore，即加密私钥；
+- 通过keystore+密码可以获取私钥，即解密keystore。
+- 通过助记词根据不同的路径获取不同的私钥，即使用HD钱包将助记词转化成种子来生成主私钥，然后派生海量的子私钥和地址。
+
+## 通过助记词 - 创建账户
+需要使用`bip39`协议将助记词转换成种子，再通过`ethereumjs-wallet`库生成hd钱包，根据路径的不同从hd钱包中获取不同的keypair，keypair中就包含有公钥、私钥，再通过`ethereumjs-util`库将公钥生成地址，从而根据助记词获取所有关联的账号，能获取到公钥、私钥、地址等数据信息。
+
+**1.依赖库**
+需要用到三个库：bip39、ethereumjs-wallet/hdkey、ethereumjs-util。先安装依赖库，`cd`到项目跟路径运行命令`npm i bip39 ethereumjs-wallet ethereumjs-util`。
+
+- [bip39](https://github.com/bitcoinjs/bip39)：随机产生新的 mnemonic code，并可以将其转成 binary 的 seed。
+- [ethereumjs-wallet](https://github.com/ethereumjs/ethereumjs-wallet)：生成和管理公私钥，下面使用其中 hdkey 子套件来创建 HD 钱包。
+- [ethereumjs-util](https://github.com/ethereumjs/ethereumjs-util)：Ethereum 的一个工具库。
+- https://iancoleman.io/bip39/
+
+
+**2.通过助记词创建账号**
+* 创建助记词
+
+  ```javascript
+  // 引入bip39模块
+  import * as bip39 from "bip39";
+  // 创建助记词 
+  let mnemonic = bip39.generateMnemonic();
+  console.log(mnemonic);
+  // 结果 12位助记词
+  // vote select solar shy embrace immense lizard stamp scrub vague negative forward
+  ```
+* 根据助记词生成密钥对 keypair
+  
+  ```javascript
+  // 导入分层钱包模块
+  import { hdkey } from "ethereumjs-wallet";
+  //1.将助记词转成seed
+  let seed = await bip39.mnemonicToSeed("12位助记词");
+  //3.通过hdkey将seed生成HD Wallet
+  let hdWallet = hdkey.fromMasterSeed(seed);
+  //4.生成钱包中在m/44'/60'/0'/0/i路径的keypair
+  let keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
+  console.log(keypair);
+     
+  ```
+keypair 密钥对
+![image-20221208222354836](https://gitee.com/fcjun/image/raw/master/img/image-20221208222354836.png)
+
+**3. 由keypair 获取钱包地址和私钥**
+
+```javascript
+// 获取钱包对象
+let wallet = keypair.getWallet();
+// 获取钱包地址
+let lowerCaseAddress = wallet.getAddressString();
+// 获取钱包校验地址
+let CheckSumAddress = wallet.getChecksumAddressString();
+// 获取私钥
+let prikey = wallet.getPrivateKey().toString("hex");
+ console.log("lowerCaseAddress", lowerCaseAddress);
+ console.log("CheckSumAddress", CheckSumAddress);
+ console.log("prikey", prikey);
+/*
+lowerCaseAddress 0xd9fc0fd4412616c7075e68b151ab3a7bcb9a3f54
+CheckSumAddress 0xd9fC0FD4412616c7075E68b151ab3A7bcB9A3f54
+prikey 3fc11495517f1f015bbcb6c311da66e3b26b23e4c91c1285ccc4b69d9d274002
+*/
+```
+
+##  导出账户
+
+> 一个已经存在的账户导出 私钥 和 keystore
+
+1. 通过分层钱包对象 + 密码 创建keystore
+
+```javascript
+  let keystore = await wallet.toV3(data.pass1); // 参数必须为 字符串
+```
+
+2. 通过私钥和密码创建 keystore 
+
+``` javascript
+const keystore = await web3.eth.accounts.encrypt("账户私钥","密码");
+```
+
+```javascript
+// 模拟keystore数据
+const keystoreJsonV3 = {
+        version: 3,
+        id: "dbb70fb2-52ad-4e1f-9c19-0b50329f89c3",
+        address: "445b469888528dacd9b87246c5ce70407adaa411",
+        crypto: {
+          ciphertext:
+            "1e53e7e775644422600188b8134907992db40d278064ea3a966da4dcdf80db64",
+          cipherparams: { iv: "f9d2b047019674eee449b316f4a21491" },
+          cipher: "aes-128-ctr",
+          kdf: "scrypt",
+          kdfparams: {
+            dklen: 32,
+            salt: "153e074d78d0ba36fae3e46e582c42e53f61653cb5d4f1a3a3f68094e6ca0160",
+            n: 8192,
+            r: 8,
+            p: 1,
+          },
+          mac: "e91456c59b2505c16b80c2495ab7b4633273c2ae366cb6953f27de8cfebad629",
+        },
+      };
+ const res = web3.eth.accounts.decrypt(keystoreJsonV3, "1235");
+ console.log(res);
+```
+
+3. 通过keystore解密私钥
+
+```javascript
+import ethwallet from "ethereumjs-wallet";  
+   let pass = prompt("请输入密码");
+       let wallet;
+       try {
+         wallet = await ethwallet.fromV3(keystore, pass);
+       } catch (error) {
+         alert("密码错误");
+         return false;
+       }
+   let key = wallet.getPrivateKey().toString("hex");
+```
+
+## 导入账户
+
+> 通过 私钥、助记词、keystore 导入一个已经存在的钱包账户 地址 和 私钥
+
+1. 通过keystore获取 私钥和地址 
+
+```javascript
+import ethwallet from "ethereumjs-wallet";  
+   let pass = prompt("请输入密码");
+       let wallet;
+       try {
+         wallet = await ethwallet.fromV3(keystore, pass);
+       } catch (error) {
+         alert("密码错误");
+         return false;
+       }
+let key = wallet.getPrivateKey().toString("hex");
+let address = wallet.getAddressString()
+```
+
+2. 通过助记词 获取地址和私钥
+
+```javascript
+let mnemonic=prompt("请输入助记词")
+let seed = bip39.mnemonicToSeed(mnemonic)
+let hdwallet = hdkey.fromMasterSeed(seed)
+let keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
+// 获取钱包对象
+let wallet = keypair.getWallet();
+// 获取钱包地址
+let lowerCaseAddress = wallet.getAddressString();
+// 获取钱包校验地址
+let CheckSumAddress = wallet.getChecksumAddressString();
+// 获取私钥
+let prikey = wallet.getPrivateKey().toString("hex");
+```
+
+3. 通过私钥获取 地址
+
+```javascript
+import ethwallet from "ethereumjs-wallet";     
+let privatekey=new Buffer( prompt("请输入私钥"), 'hex' )
+let wallet = ethwallet.fromPrivateKey(privatekey)
+// 获取钱包地址
+let lowerCaseAddress = wallet.getAddressString();
+```
