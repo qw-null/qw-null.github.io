@@ -470,7 +470,7 @@ BIP44的规则使得 HD钱包非常强大，用户只需要保存一个种子，
      
   ```
 keypair 密钥对
-![image-20221208222354836](https://gitee.com/fcjun/image/raw/master/img/image-20221208222354836.png)
+![](https://cdn.jsdelivr.net/gh/qw-null/BlogImages/202312291458907.png)
 
 **3. 由keypair 获取钱包地址和私钥**
 
@@ -498,17 +498,13 @@ prikey 3fc11495517f1f015bbcb6c311da66e3b26b23e4c91c1285ccc4b69d9d274002
 > 一个已经存在的账户导出 私钥 和 keystore
 
 1. 通过分层钱包对象 + 密码 创建keystore
-
 ```javascript
   let keystore = await wallet.toV3(data.pass1); // 参数必须为 字符串
 ```
-
 2. 通过私钥和密码创建 keystore 
-
 ``` javascript
 const keystore = await web3.eth.accounts.encrypt("账户私钥","密码");
 ```
-
 ```javascript
 // 模拟keystore数据
 const keystoreJsonV3 = {
@@ -534,9 +530,7 @@ const keystoreJsonV3 = {
  const res = web3.eth.accounts.decrypt(keystoreJsonV3, "1235");
  console.log(res);
 ```
-
 3. 通过keystore解密私钥
-
 ```javascript
 import ethwallet from "ethereumjs-wallet";  
    let pass = prompt("请输入密码");
@@ -555,44 +549,39 @@ import ethwallet from "ethereumjs-wallet";
 > 通过 私钥、助记词、keystore 导入一个已经存在的钱包账户 地址 和 私钥
 
 1. 通过keystore获取 私钥和地址 
-
-```javascript
-import ethwallet from "ethereumjs-wallet";  
-   let pass = prompt("请输入密码");
-       let wallet;
-       try {
-         wallet = await ethwallet.fromV3(keystore, pass);
-       } catch (error) {
-         alert("密码错误");
-         return false;
-       }
-let key = wallet.getPrivateKey().toString("hex");
-let address = wallet.getAddressString()
-```
-
+  ```javascript
+  import ethwallet from "ethereumjs-wallet";  
+    let pass = prompt("请输入密码");
+        let wallet;
+        try {
+          wallet = await ethwallet.fromV3(keystore, pass);
+        } catch (error) {
+          alert("密码错误");
+          return false;
+        }
+  let key = wallet.getPrivateKey().toString("hex");
+  let address = wallet.getAddressString()
+  ```
 2. 通过助记词 获取地址和私钥
-
-```javascript
-let mnemonic=prompt("请输入助记词")
-let seed = bip39.mnemonicToSeed(mnemonic)
-let hdwallet = hdkey.fromMasterSeed(seed)
-let keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
-// 获取钱包对象
-let wallet = keypair.getWallet();
-// 获取钱包地址
-let lowerCaseAddress = wallet.getAddressString();
-// 获取钱包校验地址
-let CheckSumAddress = wallet.getChecksumAddressString();
-// 获取私钥
-let prikey = wallet.getPrivateKey().toString("hex");
-```
-
+  ```javascript
+  let mnemonic=prompt("请输入助记词")
+  let seed = bip39.mnemonicToSeed(mnemonic)
+  let hdwallet = hdkey.fromMasterSeed(seed)
+  let keypair = hdWallet.derivePath("m/44'/60'/0'/0/0");
+  // 获取钱包对象
+  let wallet = keypair.getWallet();
+  // 获取钱包地址
+  let lowerCaseAddress = wallet.getAddressString();
+  // 获取钱包校验地址
+  let CheckSumAddress = wallet.getChecksumAddressString();
+  // 获取私钥
+  let prikey = wallet.getPrivateKey().toString("hex");
+  ```
 3. 通过私钥获取 地址
-
-```javascript
-import ethwallet from "ethereumjs-wallet";     
-let privatekey=new Buffer( prompt("请输入私钥"), 'hex' )
-let wallet = ethwallet.fromPrivateKey(privatekey)
-// 获取钱包地址
-let lowerCaseAddress = wallet.getAddressString();
-```
+  ```javascript
+  import ethwallet from "ethereumjs-wallet";     
+  let privatekey=new Buffer( prompt("请输入私钥"), 'hex' )
+  let wallet = ethwallet.fromPrivateKey(privatekey)
+  // 获取钱包地址
+  let lowerCaseAddress = wallet.getAddressString();
+  ```
