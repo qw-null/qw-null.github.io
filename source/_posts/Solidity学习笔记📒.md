@@ -1,8 +1,8 @@
 ---
-title: "Solidty学习笔记\U0001F4D2"
+title: "Solidity学习笔记\U0001F4D2"
 date: 2023-12-29 15:01:06
 tags:
-- Solidty笔记
+- Solidity笔记
 ---
 ## 1.Solidity是什么？
 
