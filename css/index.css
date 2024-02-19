@@ -735,6 +735,7 @@ footer.is-mobile {
 }
 .recent-post-item .content {
   margin-top: 0.5rem;
+  word-break: break-word;
 }
 .recent-post-item .content p {
   word-break: break-word;

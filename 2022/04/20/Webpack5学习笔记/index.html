@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Webpack5学习笔记"><meta name="keywords" content="Webpack教程"><meta name="author" content="qinwei"><meta name="copyright" content="qinwei"><title>Webpack5学习笔记 | QW's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Webpack5学习笔记"><meta name="keywords" content="Webpack教程"><meta name="author" content="qinwei"><meta name="copyright" content="qinwei"><title>Webpack5学习笔记 | QW's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
@@ -8,24 +8,194 @@
     noSupport: '浏览器不支持'
   },
   hexoVersion: '5.4.0'
-} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Webpack%E7%AE%80%E4%BB%8B"><span class="toc-text">1.Webpack简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Webpack%E4%BA%94%E4%B8%AA%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">2.Webpack五个核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Entry"><span class="toc-text">2.1 Entry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Output"><span class="toc-text">2.2 Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Loader"><span class="toc-text">2.3 Loader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-Plugins"><span class="toc-text">2.4 Plugins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-Mode"><span class="toc-text">2.5 Mode</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013182113.JPG"></div><div class="author-info__name text-center">qinwei</div><div class="author-info__description text-center"></div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/qw-null">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">83</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">27</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">24</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">QW's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">首页</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/archives">创作时间线</a><a class="site-page" target="_blank" rel="noopener" href="https://github.com/qw-null">Github</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">Webpack5学习笔记</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-04-20</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Webpack/">Webpack</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">251</span><span class="post-meta__separator">|</span><span>阅读时长: 1 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1e7411j7T5?share_source=copy_web">尚硅谷新版Webpack5实战教程(从入门到精通)</a></p>
-<h1 id="1-Webpack简介"><a href="#1-Webpack简介" class="headerlink" title="1.Webpack简介"></a>1.Webpack简介</h1><p>Webpack是一种前端资源构建工具，一个静态资源打包器（module bundler）<br>在webpack看来，前端所有资源文件（js/jso/css/img/less/…）都会作为模块处理。<br>它将根据模块的依赖关系进行静态分析，打包生成对应的静态资源（bundle）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220420115745.png"></p>
-<h1 id="2-Webpack五个核心概念"><a href="#2-Webpack五个核心概念" class="headerlink" title="2.Webpack五个核心概念"></a>2.Webpack五个核心概念</h1><h2 id="2-1-Entry"><a href="#2-1-Entry" class="headerlink" title="2.1 Entry"></a>2.1 Entry</h2><p>入口（Entry）指示Webpack以哪个文件为入起点开始打包，分构建内部依赖图。</p>
-<h2 id="2-2-Output"><a href="#2-2-Output" class="headerlink" title="2.2 Output"></a>2.2 Output</h2><p>输出（Output）指示Webpack打包后的资源bundles输出到哪里去，以及如何命名。</p>
-<h2 id="2-3-Loader"><a href="#2-3-Loader" class="headerlink" title="2.3 Loader"></a>2.3 Loader</h2><p>Loader让Webpack能够去处理那些非Javascript文件（webpack自身只能理解Javascript）</p>
-<h2 id="2-4-Plugins"><a href="#2-4-Plugins" class="headerlink" title="2.4 Plugins"></a>2.4 Plugins</h2><p>插件（Plugins）可以用于执行范围更广的任务。插件的范围包括 从打包优化和压缩，一直到重新定义环境中的变量等。</p>
-<h2 id="2-5-Mode"><a href="#2-5-Mode" class="headerlink" title="2.5 Mode"></a>2.5 Mode</h2><p>模式（Mode）指示webpack使用相应模式的配置。<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220420142019.png"></p>
+} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E7%AF%87%EF%BC%9A%E5%9F%BA%E7%A1%80"><span class="toc-text">上篇：基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0. 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%EF%BC%9F"><span class="toc-text">为什么需要打包工具？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7"><span class="toc-text">常见的打包工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Webpack-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-text">1.Webpack 的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="toc-text">功能介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8%EF%BC%88%E5%88%9D%E6%AD%A5%E4%BD%93%E9%AA%8C%EF%BC%89"><span class="toc-text">开始使用（初步体验）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Webpack-%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-text">2.Webpack 的基本配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%A4%A7%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">5 大核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">配置文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.开发模式介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%A4%84%E7%90%86%E6%A0%B7%E5%BC%8F%E8%B5%84%E6%BA%90"><span class="toc-text">4.处理样式资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86CSS%E8%B5%84%E6%BA%90"><span class="toc-text">处理CSS资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86Less%E8%B5%84%E6%BA%90"><span class="toc-text">处理Less资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86-Sass-%E5%92%8C-Scss-%E8%B5%84%E6%BA%90"><span class="toc-text">处理 Sass 和 Scss 资源</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%A4%84%E7%90%86%E5%9B%BE%E7%89%87%E8%B5%84%E6%BA%90"><span class="toc-text">5.处理图片资源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E4%BF%AE%E6%94%B9%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="toc-text">6.修改输出文件的目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E8%87%AA%E5%8A%A8%E6%B8%85%E7%A9%BA%E4%B8%8A%E6%AC%A1%E6%89%93%E5%8C%85%E7%9A%84%E8%B5%84%E6%BA%90"><span class="toc-text">7.自动清空上次打包的资源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E5%A4%84%E7%90%86%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E8%B5%84%E6%BA%90"><span class="toc-text">8.处理字体图标资源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E5%A4%84%E7%90%86%E5%85%B6%E4%BB%96%E8%B5%84%E6%BA%90"><span class="toc-text">9.处理其他资源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E5%A4%84%E7%90%86JS%E8%B5%84%E6%BA%90"><span class="toc-text">10.处理JS资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Eslint"><span class="toc-text">Eslint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Babel"><span class="toc-text">Babel</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-%E5%A4%84%E7%90%86HTML%E8%B5%84%E6%BA%90"><span class="toc-text">11.处理HTML资源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-%E5%BC%80%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8-amp-%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="toc-text">12.开发服务器 &amp; 自动化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-%E7%94%9F%E4%BA%A7%E6%A8%A1%E5%BC%8F%E4%BB%8B%E7%BB%8D"><span class="toc-text">13.生产模式介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E6%A8%A1%E5%BC%8F%E5%87%86%E5%A4%87"><span class="toc-text">生产模式准备</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%AD%E7%AF%87%EF%BC%9AWebpack%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE"><span class="toc-text">中篇：Webpack高级配置</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013182113.JPG"></div><div class="author-info__name text-center">qinwei</div><div class="author-info__description text-center"></div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/qw-null">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">154</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">43</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">27</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">QW's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">首页</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/archives">创作时间线</a><a class="site-page" target="_blank" rel="noopener" href="https://github.com/qw-null">Github</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">Webpack5学习笔记</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-04-20</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Webpack/">Webpack</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2k</span><span class="post-meta__separator">|</span><span>阅读时长: 6 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV14T4y1z7sw?p=3&share_source=copy_web">尚硅谷2022版Webpack5入门到原理（面试开发一条龙）</a></p>
+<h1 id="上篇：基础"><a href="#上篇：基础" class="headerlink" title="上篇：基础"></a>上篇：基础</h1><h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h1><h3 id="为什么需要打包工具？"><a href="#为什么需要打包工具？" class="headerlink" title="为什么需要打包工具？"></a>为什么需要打包工具？</h3><p>开发时，我们会使用框架（React、Vue），ES6模块化语法，Less/Sass 等css预处理器等语法进行开发。<br>这些代码在浏览器中时无法直接运行的，需要编译成浏览器能识别的JS、CSS等语法，才能运行。这就是打包工具需要完成的工作。<br>除此之外，打包工具还能<b> 压缩代码、做兼容性处理、提升代码性能 </b>等。</p>
+<h3 id="常见的打包工具"><a href="#常见的打包工具" class="headerlink" title="常见的打包工具"></a>常见的打包工具</h3><p>Grunt、Webpack、Vite、Gulp、Rollup等</p>
+<h1 id="1-Webpack-的基本使用"><a href="#1-Webpack-的基本使用" class="headerlink" title="1.Webpack 的基本使用"></a>1.Webpack 的基本使用</h1><p>Webpack 是<strong>一个静态资源打包工具</strong>。<br>它会以一个或者多个文件作为打包入口，将整个项目所有文件编译组合成一个或者多个文件输出出去。<br>输出的文件就是编译好的文件，可以在浏览器直接运行。我们将Webpack输出的文件叫做<code>bundle</code>。</p>
+<h3 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h3><p>Webpack本身功能是有限的：</p>
+<ul>
+<li>开发模式：仅能编译JS中的<code>ES Module</code>语法。</li>
+<li>生产模式：仅能编译JS中的<code>ES Module</code>语法和压缩JS代码。</li>
+</ul>
+<p>因此<span style="color:red;">本身只能处理JS代码，对于其他代码的处理需要通过其他配置来实现</span>。</p>
+<h3 id="开始使用（初步体验）"><a href="#开始使用（初步体验）" class="headerlink" title="开始使用（初步体验）"></a>开始使用（初步体验）</h3><ol>
+<li>资源目录<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220702211636.png"></li>
+<li>创建文件<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220702211721.png"></li>
+<li>下载依赖</li>
+</ol>
+<ul>
+<li><p>初始化 <code>npm init -y</code><br>此时会生成一个<code>package.json</code>文件<br>需要注意的是 <code>package.json</code> 中 <code>name</code> 字段不能叫做 <code>webpack</code>, 否则下一步会报错</p>
+</li>
+<li><p>下载依赖 <code>npm i webpack webpack-cli -D</code></p>
+</li>
+</ul>
+<ol start="4">
+<li>启用Webpack</li>
+</ol>
+<ul>
+<li>开发模式：<code>npx webpack ./src/main.js --mode=development</code></li>
+<li>生产模式：<code>npx webpack ./src/main.js --mode=production</code><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220702212252.png"></li>
+</ul>
+<ol start="5">
+<li>观察输出文件<br>默认<code>Webpack</code>会将文件打包输出到<code>dist</code>目录下。只需查看<code>dist</code>目录下的文件情况就好。</li>
+</ol>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><strong>Webpack 本身功能比较少，只能处理 js 资源，一旦遇到 css 等其他资源就会报错。</strong></p>
+<h1 id="2-Webpack-的基本配置"><a href="#2-Webpack-的基本配置" class="headerlink" title="2.Webpack 的基本配置"></a>2.Webpack 的基本配置</h1><h3 id="5-大核心概念"><a href="#5-大核心概念" class="headerlink" title="5 大核心概念"></a>5 大核心概念</h3><ol>
+<li>entry（入口）<br>指示Webpack从那个文件开始打包</li>
+<li>output（输出）<br>指示Webpack打包完的文件输出到哪里去，如何命名等</li>
+<li>loader（加载器）<br>Webpack本身只能处理js、json等资源，其他资源需要借助loader，Webpack才能解析</li>
+<li>plugins（插件）<br>拓展Webpack的功能</li>
+<li>mode（模式）<br>主要有两种：①开发模式：<code>development</code> ②生产模式：<code>production</code><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* -- 该文件在项目根目录下：webpack.config.js -- */</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>); <span class="comment">//nodejs核心模块，专门用来处理路径问题</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ✨ Webpack 是基于 Node.js 运行的，所以采用 Common.js 模块化规范</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 入口</span></span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>, <span class="comment">// 相对路径</span></span><br><span class="line">  <span class="comment">// 输出</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="comment">// 文件的输出路径</span></span><br><span class="line">    <span class="comment">// __dirname nodejs的变量，代表当前文件的文件夹目录</span></span><br><span class="line">    <span class="attr">path</span>: path.resolve(__dirname, <span class="string">&quot;dist&quot;</span>), <span class="comment">// 绝对路径</span></span><br><span class="line">    <span class="comment">// 文件的输出名称</span></span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;main.js&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 加载器</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      <span class="comment">// loader配置</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 插件</span></span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="comment">// plugin配置</span></span><br><span class="line"></span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">// 模式</span></span><br><span class="line">  <span class="attr">mode</span>: <span class="string">&quot;development&quot;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>Webpack 是基于 Node.js 运行的，所以采用 Common.js 模块化规范</strong><br>运行指令：<code>npx webpack</code></p>
+<h1 id="3-开发模式介绍"><a href="#3-开发模式介绍" class="headerlink" title="3.开发模式介绍"></a>3.开发模式介绍</h1><p>顾名思义，就是开发代码时使用的模式。<br>主要完成两件事：</p>
+<ol>
+<li>编译代码，是浏览器能够运行<br>开发时有样式资源、字体图标、图片资源、html资源等，webpack默认都不能处理这些资源，所以要加载配置来编译这些资源。</li>
+<li>代码质量检查，树立代码规范<br>提前检查代码的一些隐患，让代码运行时更加健壮。<br>提前检查代码规范和格式，统一团队内编码风格。</li>
+</ol>
+<h1 id="4-处理样式资源"><a href="#4-处理样式资源" class="headerlink" title="4.处理样式资源"></a>4.处理样式资源</h1><p>需要借助Loader来帮助Webpack解析样式资源。</p>
+<h3 id="处理CSS资源"><a href="#处理CSS资源" class="headerlink" title="处理CSS资源"></a>处理CSS资源</h3><ol>
+<li>下载包 <code>npm i css-loader style-loader -D</code></li>
+<li>功能介绍</li>
+</ol>
+<ul>
+<li>css-loader：负责将 Css 文件编译成 Webpack 能识别的模块</li>
+<li>style-loader：会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容<br>此时样式就会以 Style 标签的形式在页面上生效</li>
+</ul>
+<ol start="3">
+<li><p>配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703001507.png"></p>
+</li>
+<li><p>添加CSS资源<br>创建CSS文件，编写样式 ➡️ 在webpack入口文件引入（<code>entry:&quot;./src/main.js&quot;</code>）<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703001758.png"></p>
+</li>
+<li><p>运行指令<code>npx webpack</code><br>此时可以在网页源代码中看到样式文件的内容<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703001924.png"></p>
+</li>
+</ol>
+<h3 id="处理Less资源"><a href="#处理Less资源" class="headerlink" title="处理Less资源"></a>处理Less资源</h3><ol>
+<li>下载包 <code>npm i less-loader -D</code></li>
+<li>功能介绍</li>
+</ol>
+<ul>
+<li>less-loader：负责将 Less 文件编译成 Css 文件</li>
+</ul>
+<ol start="3">
+<li>配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703124049.png"></li>
+</ol>
+<p>其余步骤同上</p>
+<h3 id="处理-Sass-和-Scss-资源"><a href="#处理-Sass-和-Scss-资源" class="headerlink" title="处理 Sass 和 Scss 资源"></a>处理 Sass 和 Scss 资源</h3><ol>
+<li>下载包 <code>npm i sass-loader sass -D</code></li>
+<li>功能介绍</li>
+</ol>
+<ul>
+<li>sass-loader：负责将 sass 文件编译成 css 文件</li>
+<li>sass：sass-loader 依赖 sass 进行编译</li>
+</ul>
+<ol start="3">
+<li>配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703141038.png"></li>
+</ol>
+<h1 id="5-处理图片资源"><a href="#5-处理图片资源" class="headerlink" title="5.处理图片资源"></a>5.处理图片资源</h1><p>在过去Webpack4中，处理图片资源通过<code>file-loader</code>和<code>url-loader</code>进行处理。<br>现在，Webpack5中已经将两个Loader功能内置到Webpack里，只需简单的配置就可以处理图片资源。</p>
+<ol>
+<li>配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703151535.png"></li>
+<li>使用图片资源（在css中引入图片）<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703151629.png"></li>
+<li>对图片资源进行优化<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703151811.png"><br>优点：减少请求次数 ； 缺点：图片体积变大</li>
+</ol>
+<h1 id="6-修改输出文件的目录"><a href="#6-修改输出文件的目录" class="headerlink" title="6.修改输出文件的目录"></a>6.修改输出文件的目录</h1><ol>
+<li>配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703152856.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703152941.png"></li>
+</ol>
+<h1 id="7-自动清空上次打包的资源"><a href="#7-自动清空上次打包的资源" class="headerlink" title="7.自动清空上次打包的资源"></a>7.自动清空上次打包的资源</h1><ol>
+<li>配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703162904.png"></li>
+</ol>
+<h1 id="8-处理字体图标资源"><a href="#8-处理字体图标资源" class="headerlink" title="8.处理字体图标资源"></a>8.处理字体图标资源</h1><p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703172540.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703172734.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703172803.png"><br>3. 配置<br>🌟 在module -&gt; rules 进行配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703173049.png"></p>
+<p>type: “asset/resource” 和 type: “asset”的区别：</p>
+<ol>
+<li><code>type: &quot;asset/resource&quot;</code> 相当于<code>file-loader</code>, 将文件转化成 <code>Webpack</code> 能识别的资源，其他不做处理</li>
+<li><code>type: &quot;asset&quot;</code> 相当于<code>url-loader</code>, 将文件转化成 <code>Webpack</code> 能识别的资源，同时小于某个大小的资源会处理成 <code>data URI</code> 形式</li>
+</ol>
+<h1 id="9-处理其他资源"><a href="#9-处理其他资源" class="headerlink" title="9.处理其他资源"></a>9.处理其他资源</h1><ol>
+<li>配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703191702.png"></li>
+</ol>
+<h1 id="10-处理JS资源"><a href="#10-处理JS资源" class="headerlink" title="10.处理JS资源"></a>10.处理JS资源</h1><p>可能有人就会问，js资源Webpack不是已经处理了吗，为什么我们还要继续处理？<br>原因是Webpack对js的处理是有限的，只能编译js中ES模块化语法，不能编译其他语法，导致js不能在IE等浏览器运行，因此会去做一些兼容性的处理。其次，团队内部对代码格式是有严格要求的，需要使用专业的工具来进行检查。</p>
+<ul>
+<li>针对js兼容性处理，使用<code>Babel</code>来完成</li>
+<li>针对代码格式，使用<code>Eslint</code>来完成</li>
+</ul>
+<p>先完成Eslint，检测代码格式无误后，再由Babel来做代码兼容。</p>
+<h3 id="Eslint"><a href="#Eslint" class="headerlink" title="Eslint"></a>Eslint</h3><p>可组装的JavaScript和JSX检查工具。（用来检测js和jsx语法的工具，可以配置各项功能）</p>
+<ol>
+<li>配置文件<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703194958.png"></li>
+<li>具体配置<br>以<code>.eslintrc.js</code>配置文件为例：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703195105.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703195139.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703195305.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703195416.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703195451.png"><br>比较有名的规则继承：<br><a target="_blank" rel="noopener" href="https://eslint.bootcss.com/docs/rules/">Eslint 官方的规则：eslint:recommended</a><br><a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-cli/tree/dev/packages/@vue/cli-plugin-eslint">Vue Cli 官方的规则：plugin:vue/essential</a><br><a target="_blank" rel="noopener" href="https://github.com/facebook/create-react-app/tree/main/packages/eslint-config-react-app">React Cli 官方的规则：react-app</a></li>
+<li>在Webpack中使用（使用的是plugins）</li>
+</ol>
+<ul>
+<li>下载包  <code>npm i eslint-webpack-plugin eslint -D</code></li>
+<li>定义Eslint配置文件<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703200759.png"></li>
+<li>配置<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703201041.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703201117.png"></li>
+</ul>
+<h3 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h3><ol>
+<li>下载包 <code>npm i babel-loader @babel/core @babel/preset-env -D </code></li>
+<li>定义Babel配置文件</li>
+</ol>
+<ul>
+<li>babel.config.js<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703215954.png"></li>
+</ul>
+<ol start="3">
+<li>配置</li>
+</ol>
+<ul>
+<li>webpack.config.js（在module - rules）<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703220101.png"></li>
+</ul>
+<h1 id="11-处理HTML资源"><a href="#11-处理HTML资源" class="headerlink" title="11.处理HTML资源"></a>11.处理HTML资源</h1><ol>
+<li>下载包 <code> npm i html-webpack-plugin -D</code></li>
+<li>配置（使用的是plugins）</li>
+</ol>
+<ul>
+<li>webpack.config.js<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703221528.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703221611.png"></li>
+</ul>
+<ol start="3">
+<li>修改index.html<br>去掉引入的 js 文件，因为 HtmlWebpackPlugin 会自动引入<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703221757.png"></li>
+</ol>
+<h1 id="12-开发服务器-amp-自动化"><a href="#12-开发服务器-amp-自动化" class="headerlink" title="12.开发服务器 &amp; 自动化"></a>12.开发服务器 &amp; 自动化</h1><ol>
+<li>下载包 <code>npm i webpack-dev-server -D</code></li>
+<li>配置</li>
+</ol>
+<ul>
+<li>webpack.config.js（单独开一项 devServer ）<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703222431.png"></li>
+</ul>
+<ol start="3">
+<li>运行指令 <code>npx webpack serve</code><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703222642.png"><br>日常开发中使用的就是这种形式</li>
+</ol>
+<h1 id="13-生产模式介绍"><a href="#13-生产模式介绍" class="headerlink" title="13.生产模式介绍"></a>13.生产模式介绍</h1><p>生产模式是开发完成代码后，我们需要得到代码将来部署上线。<br>这个模式下我们主要对代码进行优化，让其运行性能更好。</p>
+<p>优化主要从两个角度出发:</p>
+<ul>
+<li>优化代码运行性能</li>
+<li>优化代码打包速度</li>
+</ul>
+<h3 id="生产模式准备"><a href="#生产模式准备" class="headerlink" title="生产模式准备"></a>生产模式准备</h3><ol>
+<li>文件目录<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223601.png"></li>
+<li>修改 webpack.dev.js<br>因为文件目录变了，所以所有绝对路径需要回退一层目录才能找到对应的文件<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223718.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223853.png"></li>
+<li>修改 webpack.prod.js<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223821.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703223930.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703224542.png"></li>
+<li>配置运行指令<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703224542.png"><br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220703224634.png"><br>以后启动指令：</li>
+</ol>
+<ul>
+<li>开发模式：<code>npm start</code> 或 <code>npm run dev</code></li>
+<li>生产模式：<code>npm run build</code></li>
+</ul>
+<h1 id="中篇：Webpack高级配置"><a href="#中篇：Webpack高级配置" class="headerlink" title="中篇：Webpack高级配置"></a>中篇：Webpack高级配置</h1><p>所谓的高级配置其实就是进行Webpack优化，让代码在编译/运行时性能更好<br>将会从以下角度进行优化：</p>
+<ul>
+<li>提升开发体验</li>
+<li>提升打包构建速度</li>
+<li>减少代码体积</li>
+<li>优化代码运行性能</li>
+</ul>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">qinwei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qw-null.github.io/2022/04/20/Webpack5学习笔记/">https://qw-null.github.io/2022/04/20/Webpack5学习笔记/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qw-null.github.io">QW's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Webpack%E6%95%99%E7%A8%8B/">Webpack教程</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/04/21/get%E3%80%81post%E5%92%8Cput%E7%9A%84%E5%8C%BA%E5%88%AB/"><i class="fa fa-chevron-left">  </i><span>get、post和put的区别</span></a></div><div class="next-post pull-right"><a href="/2022/04/19/4-%E6%88%91%E7%9C%BC%E4%B8%AD%E7%9A%84-%E6%89%8B%E5%86%99new/"><span>【我眼中的】 - 【4】手写new</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
   clientID: '44447f6848cb1055dfc7',
-  clientSecret: 'a0ce0faa730cdc822d2e20342d98f605099f3797',
+  clientSecret: '62722601a7b62e7a2f93add8216a30d9f047a2eb',
   repo: 'CommentData',
   owner: 'qw-null',
   admin: 'qw-null',
   id: md5(decodeURI(location.pathname)),
   language: 'zh-CN'
 })
-gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By qinwei</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2024 By qinwei</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')

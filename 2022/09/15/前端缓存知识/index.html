@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="那些必须了解的前端缓存知识"><meta name="keywords" content="面试"><meta name="author" content="qinwei"><meta name="copyright" content="qinwei"><title>那些必须了解的前端缓存知识 | QW's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '5.4.0'
+} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFweb%E7%BC%93%E5%AD%98"><span class="toc-text">1.什么是web缓存?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%93%E5%AD%98%E5%8F%AF%E4%BB%A5%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F%E7%BC%BA%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">2. 缓存可以解决什么问题？缺点是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98-%E5%9F%BA%E4%BA%8EExpires%E5%AD%97%E6%AE%B5%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%BC%BA%E7%BC%93%E5%AD%98"><span class="toc-text">3. 强制缓存-基于Expires字段实现的强缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98-%E5%9F%BA%E4%BA%8ECache-control%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%BC%BA%E7%BC%93%E5%AD%98"><span class="toc-text">3. 强制缓存-基于Cache-control实现的强缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3-%E5%9F%BA%E4%BA%8Elast-modified%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98"><span class="toc-text">4.协商缓存原理讲解-基于last-modified实现的协商缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3-%E5%9F%BA%E4%BA%8EETag%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98"><span class="toc-text">4.协商缓存原理讲解-基于ETag实现的协商缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%9C%A8vue%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%AE%BE%E7%BD%AE%EF%BC%8C%E8%A7%A3%E5%86%B3%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7%E7%9A%84%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98"><span class="toc-text">5.在vue项目中设置，解决项目升级的缓存问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-%E7%9B%B4%E6%8E%A5%E5%9C%A8index-html%E4%B8%AD%E5%8A%A0%E5%85%A5%E4%BA%86%E8%BF%99%E5%87%A0%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="toc-text">5.1 直接在index.html中加入了这几行代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-Nginx-%E9%85%8D%E5%90%88-vue-config-js-%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE"><span class="toc-text">5.2 Nginx 配合 vue.config.js 进行配置</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20211013182113.JPG"></div><div class="author-info__name text-center">qinwei</div><div class="author-info__description text-center"></div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/qw-null">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">154</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">43</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">27</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">QW's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">首页</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/archives">创作时间线</a><a class="site-page" target="_blank" rel="noopener" href="https://github.com/qw-null">Github</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">那些必须了解的前端缓存知识</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-09-15</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2.9k</span><span class="post-meta__separator">|</span><span>阅读时长: 9 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>大纲：</p>
+<ol>
+<li>什么是web缓存（前端缓存）</li>
+<li>缓存可以解决什么问题？缺点是什么？</li>
+<li>强制缓存原理讲解</li>
+</ol>
+<ul>
+<li><ul>
+<li>基于Expires字段实现的强缓存</li>
+</ul>
+</li>
+<li><ul>
+<li>基于Cache-control实现的强缓存</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>协商缓存原理讲解</li>
+</ol>
+<ul>
+<li><ul>
+<li>基于last-modified实现的协商缓存</li>
+</ul>
+</li>
+<li><ul>
+<li>基于ETag实现的协商缓存</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-什么是web缓存"><a href="#1-什么是web缓存" class="headerlink" title="1.什么是web缓存?"></a>1.什么是web缓存?</h3><p>web缓存主要指的是两部分：浏览器缓存和http缓存。<br>其中http缓存是web缓存的核心，是最难懂的那一部分,也是最重要的那一部分。<br>浏览器缓存主要指sessionStorage、localStorage、cookie等等（具体不再详细描述）<br>http缓存：</p>
+<blockquote>
+<p>Web 缓存是可以自动保存常见文档副本的 HTTP 设备。当 Web 请求抵达缓存时， 如果本地有“已缓存的”副本，就可以从本地存储设备而不是原始服务器中提取这个文档。<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915094336.png"><br>看图，问题就是出在，<strong>服务器需要处理http的请求，并且http去传输数据，需要带宽，带宽是要钱买的啊。而我们缓存，就是为了让服务器不去处理这个请求，客户端也可以拿到数据</strong>。</p>
+</blockquote>
+<blockquote>
+<p>注意，我们的缓存主要是针对html,css,img等静态资源，常规情况下，我们不会去缓存一些动态资源，因为缓存动态资源的话，数据的实时性就不会不太好，所以我们一般都只会去缓存一些不太容易被改变的静态资源。</p>
+</blockquote>
+<h3 id="2-缓存可以解决什么问题？缺点是什么？"><a href="#2-缓存可以解决什么问题？缺点是什么？" class="headerlink" title="2. 缓存可以解决什么问题？缺点是什么？"></a>2. 缓存可以解决什么问题？缺点是什么？</h3><p>缓存解决的问题：</p>
+<ul>
+<li>减少不必要的网络传输，节约宽带（就是省钱）</li>
+<li>更快的加载页面（就是加速）</li>
+<li>减少服务器负载，避免服务器过载的情况出现（就是减载）</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>占内存（有些缓存会被存到内存中）</li>
+</ul>
+<p><mark><strong>http缓存分为两种：强缓存 和 协商缓存</strong></mark></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915094840.png" alt="http缓存流程图"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915095036.png"></p>
+<h3 id="3-强制缓存-基于Expires字段实现的强缓存"><a href="#3-强制缓存-基于Expires字段实现的强缓存" class="headerlink" title="3. 强制缓存-基于Expires字段实现的强缓存"></a>3. 强制缓存-基于Expires字段实现的强缓存</h3><p>在以前，我们通常会使用响应头的Expires字段去实现强缓存。如下图↓<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915095113.png"><br><code>Expires</code>字段的作用是，设定一个强缓存时间。在此时间范围内，则从内存（或磁盘）中读取缓存返回。<br>但是，<strong>Expires已经被废弃了</strong>。对于强缓存来说，Expires已经不是实现强缓存的首选。</p>
+<p>因为Expires判断强缓存是否过期的机制是:获取本地时间戳，并对先前拿到的资源文件中的Expires字段的时间做比较。来判断是否需要对服务器发起请求。这里有一个巨大的漏洞：“如果我本地时间不准咋办？”是的,<mark>Expires过度依赖本地时间，如果本地与服务器时间不同步，就会出现资源无法被缓存或者资源永远被缓存的情况</mark>。所以，Expires字段几乎不被使用了。现在的项目中，我们并不推荐使用Expires，强缓存功能通常使用cache-control字段来代替Expires字段。</p>
+<h3 id="3-强制缓存-基于Cache-control实现的强缓存"><a href="#3-强制缓存-基于Cache-control实现的强缓存" class="headerlink" title="3. 强制缓存-基于Cache-control实现的强缓存"></a>3. 强制缓存-基于Cache-control实现的强缓存</h3><p><code>Cache-control</code>这个字段在<code>http1.1</code>中被增加，<code>Cache-control</code>完美解决了<code>Expires</code>本地时间和服务器时间不同步的问题。是当下的项目中实现强缓存的最常规方法。<br><code>Cache-control</code>的使用方法页很简单，只要在资源的响应头上写上需要缓存多久就好了，单位是秒。比如↓</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//往响应头中写入需要缓存的时间</span></span><br><span class="line">res.writeHead(<span class="number">200</span>,&#123;</span><br><span class="line">    <span class="string">&#x27;Cache-Control&#x27;</span>:<span class="string">&#x27;max-age=10&#x27;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>下图的意思就是，从该资源第一次返回的时候开始，往后的10秒钟内如果该资源被再次请求，则从缓存中读取。<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915095431.png"></p>
+<p><strong>Cache-Control:max-age=N，N就是需要缓存的秒数。从第一次请求资源的时候开始，往后N秒内，资源若再次请求，则直接从磁盘（或内存中读取），不与服务器做任何交互。</strong><br><code>Cache-control</code>中因为<code>max-age</code>后面的值是一个滑动时间，从服务器第一次返回该资源时开始倒计时。所以也就不需要比对客户端和服务端的时间，解决了<code>Expires</code>所存在的巨大漏洞。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915095611.png"></p>
+<blockquote>
+<p>注意，no-cache和no-store是一组互斥属性，这两个属性不能同时出现在Cache-Control中。<br>public和private也是一组互斥属性。他们两个不能同时出现在响应头的cache-control字段中。</p>
+</blockquote>
+<p>Expires难道就一点用都没有了吗？也不是，虽然Cache-control是Expires的完全替代品，但是如果要考虑向下兼容的话，在Cache-control不支持的时候，还是要使用Expires，这也是我们当前使用的这个属性的唯一理由。</p>
+<h3 id="4-协商缓存原理讲解-基于last-modified实现的协商缓存"><a href="#4-协商缓存原理讲解-基于last-modified实现的协商缓存" class="headerlink" title="4.协商缓存原理讲解-基于last-modified实现的协商缓存"></a>4.协商缓存原理讲解-基于last-modified实现的协商缓存</h3><p>基于last-modified的协商缓存实现方式是:</p>
+<ol>
+<li>首先需要在服务器端读出文件修改时间，</li>
+<li>将读出来的修改时间赋给响应头的last-modified字段。</li>
+<li>最后设置Cache-control:no-cache<br>(三步缺一不可)</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915100104.png"><br>注意圈出来的三行。<br>第一行，读出修改时间。<br>第二行，给该资源响应头的last-modified字段赋值修改时间<br>第三行，给该资源响应头的Cache-Control字段值设置为:no-cache.(上文有介绍，Cache-control:no-cache的意思是跳过强缓存校验，直接进行协商缓存。)<br>还没完。到这里还无法实现协商缓存<br>当客户端读取到last-modified的时候，会在下次的请求标头中携带一个字段:If-Modified-Since。<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915100223.png"><br>而这个请求头中的If-Modified-Since就是服务器第一次修改时候给他的时间，也就是上图中的<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915100354.png"><br>这一行</p>
+<p>那么之后每次对该资源的请求，都会带上If-Modified-Since这个字段，而务端就需要拿到这个时间并再次读取该资源的修改时间，让他们两个做一个比对来决定是读取缓存还是返回新的资源。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915100441.png"></p>
+<p>使用以上方式的协商缓存已经存在两个非常明显的漏洞。这两个漏洞都是基于文件是通过比较修改时间来判断是否更改而产生的。</p>
+<p>1.因为是更具文件修改时间来判断的，所以，在文件内容本身不修改的情况下，依然有可能更新文件修改时间（比如修改文件名再改回来），这样，就有可能文件内容明明没有修改，但是缓存依然失效了。</p>
+<p>2.当文件在极短时间内完成修改的时候（比如几百毫秒）。因为文件修改时间记录的最小单位是秒，所以，如果文件在几百毫秒内完成修改的话，文件修改时间不会改变，这样，即使文件内容修改了，依然不会 返回新的文件。</p>
+<p>为了解决上述的这两个问题。从http1.1开始新增了一个头信息，ETag(Entity 实体标签)</p>
+<h3 id="4-协商缓存原理讲解-基于ETag实现的协商缓存"><a href="#4-协商缓存原理讲解-基于ETag实现的协商缓存" class="headerlink" title="4.协商缓存原理讲解-基于ETag实现的协商缓存"></a>4.协商缓存原理讲解-基于ETag实现的协商缓存</h3><p>ETag就是将原先协商缓存的比较时间戳的形式修改成了比较文件指纹。</p>
+<blockquote>
+<p>文件指纹:根据文件内容计算出的唯一哈希值。文件内容一旦改变则指纹改变。</p>
+</blockquote>
+<p>我们来看一下流程↓</p>
+<ol>
+<li>第一次请求某资源的时候，服务端读取文件并计算出文件指纹，将文件指纹放在响应头的etag字段中跟资源一起返回给客户端。</li>
+<li>第二次请求某资源的时候，客户端自动从缓存中读取出上一次服务端返回的ETag也就是文件指纹。并赋给请求头的if-None-Match字段，让上一次的文件指纹跟随请求一起回到服务端。</li>
+<li>服务端拿到请求头中的is-None-Match字段值（也就是上一次的文件指纹），并再次读取目标资源并生成文件指纹，两个指纹做对比。如果两个文件指纹完全吻合，说明文件没有被改变，则直接返回304状态码和一个空的响应体并return。如果两个文件指纹不吻合，则说明文件被更改，那么将新的文件指纹重新存储到响应头的ETag中并返回给客户端</li>
+</ol>
+<p>代码示例：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915100652.png"></p>
+<p>流程示意图：<br><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915100718.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qw-null/BlogImages/20220915100806.png"></p>
+<blockquote>
+<p>值得注意的一点是，不同于cache-control是expires的完全替代方案(说人话:能用cache-control就不要用expiress)。ETag并不是last-modified的完全替代方案。而是last-modified的补充方案（说人话：项目中到底是用ETag还是last-modified完全取决于业务场景，这两个没有谁更好谁更坏）。</p>
+</blockquote>
+<h3 id="5-在vue项目中设置，解决项目升级的缓存问题"><a href="#5-在vue项目中设置，解决项目升级的缓存问题" class="headerlink" title="5.在vue项目中设置，解决项目升级的缓存问题"></a>5.在vue项目中设置，解决项目升级的缓存问题</h3><h5 id="5-1-直接在index-html中加入了这几行代码"><a href="#5-1-直接在index-html中加入了这几行代码" class="headerlink" title="5.1 直接在index.html中加入了这几行代码"></a>5.1 直接在index.html中加入了这几行代码</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Expires&quot;</span> <span class="attr">content</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Pragma&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no-cache&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Cache-control&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no-cache&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Cache&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no-cache&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>缺点：升级时缓存问题倒解决了，但直接导致了用户每次访问你的程序时都要重新请求服务器，所有的静态资源都无法用缓存了，浪费流量，网络压力变大。</p>
+<h5 id="5-2-Nginx-配合-vue-config-js-进行配置"><a href="#5-2-Nginx-配合-vue-config-js-进行配置" class="headerlink" title="5.2 Nginx 配合 vue.config.js 进行配置"></a>5.2 Nginx 配合 vue.config.js 进行配置</h5><p>由于打包后的js、css和图片，一般名称都带有hash值，名称中的hash变了，自然会拉取新文件，所以我们可以将这类文件设置为强制缓存，只要文件名不变，就一直缓存，比如缓存100天或者一年。<br>而html文件则不能设为强制缓存，一般html名称是没法带hash值的，所以html如果设置了强制缓存，则永远也没法更新，html不更新，其引用的js、css等名称也不会更新，则整个服务都没有更新，只能让用户清除缓存了。所以针对html文件，我们可以设置协商缓存或者直接不使用缓存。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Nginx配置</span></span><br><span class="line">location /udaam-ui &#123;</span><br><span class="line">       root  /usr/local/ui-workspace;</span><br><span class="line">       index index.html index.htm;</span><br><span class="line">       try_files $uri $uri/ <span class="regexp">/udaam-ui/i</span>ndex.html;</span><br><span class="line">       <span class="keyword">if</span> ($request_filename ~* .*\.(js|css|woff|png|jpg|jpeg)$)&#123;</span><br><span class="line">            expires    100d;  #js、css、图片缓存<span class="number">100</span>天</span><br><span class="line">            #add_header Cache-Control <span class="string">&quot;max-age = 8640000&quot;</span>; #或者设置max-age</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($request_filename ~* .*\.(?:htm|html)$)&#123;</span><br><span class="line">            add_header Cache-Control <span class="string">&quot;no-cache, no-store&quot;</span>;  #html不缓存</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>no-cache浏览器会缓存，但刷新页面或者重新打开时 会请求服务器，服务器可以响应304，如果文件有改动就会响应200</li>
+<li>no-store浏览器不缓存，刷新页面需要重新下载页面</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js 配置</span></span><br><span class="line"><span class="keyword">const</span> timeStamp = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()</span><br><span class="line"> <span class="attr">configureWebpack</span>: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">output</span>: &#123;</span><br><span class="line">            <span class="comment">// 输出重构  打包编译后的 文件名称  【模块名称.版本号.时间戳】</span></span><br><span class="line">          <span class="attr">filename</span>: <span class="string">`js/[name].[chunkhash].<span class="subst">$&#123;timeStamp&#125;</span>.js`</span>,</span><br><span class="line">          <span class="attr">chunkFilename</span>: <span class="string">`js/[id].[chunkhash].<span class="subst">$&#123;timeStamp&#125;</span>.js`</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  修改output的filename和chunkFilename</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>filename 指列在entry 中，打包后输出的文件的名称。</li>
+<li>chunkFilename 指未列在entry 中，却又需要被打包出来的文件的名称。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改打包后的css</span></span><br><span class="line"><span class="keyword">const</span> timeStamp = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()</span><br><span class="line">  <span class="attr">css</span>: &#123;</span><br><span class="line">    <span class="attr">extract</span>: &#123; <span class="comment">// 打包后css文件名称添加时间戳</span></span><br><span class="line">      <span class="attr">filename</span>: <span class="string">`css/[name].<span class="subst">$&#123;timeStamp&#125;</span>.css`</span>,</span><br><span class="line">      <span class="attr">chunkFilename</span>: <span class="string">`css/chunk.[id].<span class="subst">$&#123;timeStamp&#125;</span>.css`</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">qinwei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qw-null.github.io/2022/09/15/前端缓存知识/">https://qw-null.github.io/2022/09/15/前端缓存知识/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qw-null.github.io">QW's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/09/15/%E5%89%8D%E7%AB%AF%E6%89%8B%E5%86%99-%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96/"><i class="fa fa-chevron-left">  </i><span>前端手写-数组扁平化</span></a></div><div class="next-post pull-right"><a href="/2022/09/15/Vue%E4%B8%ADProvide%E5%92%8CInject%E7%9A%84%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/"><span>Provide和Inject的原理分析</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '44447f6848cb1055dfc7',
+  clientSecret: '62722601a7b62e7a2f93add8216a30d9f047a2eb',
+  repo: 'CommentData',
+  owner: 'qw-null',
+  admin: 'qw-null',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/qw-null/BlogImages/223.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2024 By qinwei</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
