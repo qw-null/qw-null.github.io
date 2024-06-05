@@ -16,7 +16,7 @@ tags:
 - 行为JavaScript
 
 # 一、HTML
-HTML(Hypertext Markup Language)超文本标记语言。
+HTML(Hypertext Markup Language)  超文本标记语言。
 
 ## 1.标签
 标签一般成对出现，但是存在一些自结束标签（单标签），如：
